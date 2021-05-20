@@ -10,13 +10,15 @@ public class Emprestimo {
     private int extensaoEmprestimo = 0;
     private Utilizador utilizador;
     private CopiaEBook copiaEBook;
+    private ReplicaServidor replicaServidor;
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook) {
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor) {
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
+        this.replicaServidor = replicaServidor;
     }
 
     public int getId_emp() {
@@ -51,12 +53,20 @@ public class Emprestimo {
         this.utilizador = utilizador;
     }
 
-    public CopiaEBook getCopia() {
+    public CopiaEBook getCopiaEBook() {
         return copiaEBook;
     }
 
-    public void setCopia(CopiaEBook copiaEBook) {
+    public void setCopiaEBook(CopiaEBook copiaEBook) {
         this.copiaEBook = copiaEBook;
+    }
+
+    public ReplicaServidor getReplicaServidor() {
+        return replicaServidor;
+    }
+
+    public void setReplicaServidor(ReplicaServidor replicaServidor) {
+        this.replicaServidor = replicaServidor;
     }
 
     public int getExtensaoEmprestimo() {
