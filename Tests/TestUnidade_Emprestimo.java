@@ -80,6 +80,7 @@ public class TestUnidade_Emprestimo {
         emp.extenderEmprestimo();
         assertEquals(2,emp.getExtensaoEmprestimo());
     }
+
     @Test
     void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException {
         id_emp = 2;
@@ -88,6 +89,43 @@ public class TestUnidade_Emprestimo {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
+    }
+
+    @Test
+    void test_BlackBox_Particionamento_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException {
+        /*
+        *   fixme
+        *       perceber inputs possiveis
+        *       perceper outputs expectaveis
+        *
+        *       |		|		|		|
+		*		        0		2
+		*
+		*       valores entre 0 e 2
+		*       valores apartir de 2
+		*       valores abaixo de 0
+		*
+        * */
+
+        //Testes aqui
+    }
+
+    @Test
+    void test_BlackBox_Valores_Limite_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException {
+        /*
+         *   fixme
+         *       perceber inputs possiveis
+         *       perceper outputs expectaveis
+         *
+         *       |		|		|		|
+         *		        0		2
+         *
+         *       escolher os valores 0 e 2 para o teste
+         *       escolher os valores limite [-1 , 0 , 1 , 2 , 5  ]
+         *
+         * */
+
+        //Testes aqui
     }
 
 

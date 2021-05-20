@@ -8,6 +8,8 @@ public class Emprestimo {
     private LocalDate dataHoraEmp;
     private LocalDate fimdataHoraEmp;
     private int extensaoEmprestimo = 0;
+    private int extensaoMaximaEmprestimo = 2;
+    private int extensaoMinimaEmprestimo = 0;
     private Utilizador utilizador;
     private CopiaEBook copiaEBook;
     private ReplicaServidor replicaServidor;
@@ -74,7 +76,7 @@ public class Emprestimo {
     }
 
     public void extenderEmprestimo() throws ExtensaoEmprestimoException {
-        if (extensaoEmprestimo < 0 || extensaoEmprestimo > 2){
+        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo > extensaoMaximaEmprestimo){
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
             throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
