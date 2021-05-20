@@ -13,7 +13,6 @@ public class TestUnidade_Emprestimo {
     private Integer id_emp = null;
     private LocalDate dataHoraEmp = null;
     private LocalDate FimdataHoraEmp = null;
-    private Integer extensaoEmprestimo = null;
     private Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
