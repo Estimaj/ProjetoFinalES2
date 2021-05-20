@@ -124,7 +124,7 @@ public class TestUnidade_Emprestimo {
          *       |		|		|		|
          *		        0		2
          *
-         *       escolher os valores 0 e 2 para o teste
+         *       escolher os valores 0 e 2 para o Test
          *       escolher os valores limite [-1 , 0 , 1 , 2 , 5  ]
          *
          * */

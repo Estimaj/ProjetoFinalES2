@@ -1,0 +1,39 @@
+
+Todo
+    Entrega dos artefactos em ficheiro ZIP no Moodle
+    Na véspera da prova escrita (Exames da Épocas Normal/Recurso)
+
+
+
+Uma biblioteca disponibiliza livros para empréstimo em formato ebook. Os requisitos da aplicação encontram-se descritos seguidamente
+
+1. Os ebooks encontram-se disponíveis no formato epub e pdf
+
+2. Os livros em formato de ebook contêm o tamanho do ficheiro e assinatura (hash) do ficheiro
+
+3. O processo de empréstimo de livro requer a seleção da réplica do servidor onde se encontra a cópia do ficheiro ebook geograficamente mais próxima do utente
+
+4. Ao solicitar o livro para empréstimo, o utente assina um termo de responsabilidade específico para cada editora.
+Esse termo define os termos do empréstimo e protege os direitos do autor, responsabilizando o utente pela partilha ilegal do ficheiro
+
+5. Os livros são visualizados num componente web da aplicação
+
+6. A visualização do livro é permitida até à data limite do empréstimo, se a conta do utilizador estiver ativa
+
+7. O empréstimo pode ser prolongado por igual período de empréstimo (associado ao livro) duas vezes
+
+8. No caso de deteção de fraude (ex: tentativa de download ilegal do ficheiro) , a conta do utilizador é cancelada
+
+
+Todo
+
+De forma a garantir a qualidade da aplicação, é necessário efetuar os seguintes testes:
+
+- Todo Testes de Unidade aos componentes da aplicação
+
+- Todo Testes de Integração utilizando duplos (stubs/drivers) sempre que for necessário
+
+- Todo Testes de Performance - desenho do workload para testes de robustez e disponibilidade
+
+Deverão ser considerados testes black-box para todos os componentes e white-box sempre que se justificar.
+As técnicas estudadas nas aulas (e.g., particionamento de equivalência e análise dos valores limite) deverão ser exploradas.
