@@ -66,7 +66,7 @@ public class Emprestimo {
     public void extenderEmprestimo() throws ExtensaoEmprestimoException {
         if (extensaoEmprestimo < 0 || extensaoEmprestimo > 2){
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
-            throw new ExtensaoEmprestimoException();
+            throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
         extensaoEmprestimo++;
     }
