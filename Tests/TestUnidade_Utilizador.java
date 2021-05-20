@@ -3,7 +3,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_Utilizador {
 
@@ -15,11 +15,6 @@ public class TestUnidade_Utilizador {
     private String telefone_user = null;
     private String estado_user = null;
 
-    /*
-    * TODO
-    *  teste para o em
-    * */
-
     @Test
     void test_Criacao_User(){
         id_user = 1;
@@ -29,17 +24,18 @@ public class TestUnidade_Utilizador {
         telefone_user = "12123123";
         estado_user = "0";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+        assertNotNull(user);
     }
 
     @Test
     void test_Criacao_User_com_null_params(){
         user = new Utilizador(null,null,null,null,null,null);
-        assertEquals(null,user.getId_utilizador());
-        assertEquals(null,user.getNome_utilizador());
-        assertEquals(null,user.getEmail_utilizador());
-        assertEquals(null,user.getMorada_utilizador());
-        assertEquals(null,user.getTelefone_utilizador());
-        assertEquals(null,user.getEstado_utilizador());
+        assertNull(user.getId_utilizador());
+        assertNull(user.getNome_utilizador());
+        assertNull(user.getEmail_utilizador());
+        assertNull(user.getMorada_utilizador());
+        assertNull(user.getTelefone_utilizador());
+        assertNull(user.getEstado_utilizador());
     }
 
     @Test

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_Emprestimo {
 
@@ -24,14 +24,18 @@ public class TestUnidade_Emprestimo {
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        assertNotNull(emp);
     }
 
     @Test
     void test_Criacao_Emprestimo_com_null_params(){
         emp = new Emprestimo(0,null,null,null,null,null);
         assertEquals(0,emp.getId_emp());
-        assertEquals(null,emp.getDataHoraEmp());
-        assertEquals(null,emp.getFimdataHoraEmp());
+        assertNull(emp.getDataHoraEmp());
+        assertNull(emp.getFimdataHoraEmp());
+        assertNull(emp.getUtilizador());
+        assertNull(emp.getCopiaEBook());
+        assertNull(emp.getReplicaServidor());
     }
 
     @Test

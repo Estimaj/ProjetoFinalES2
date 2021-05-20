@@ -3,7 +3,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_EBook {
 
@@ -27,18 +27,19 @@ public class TestUnidade_EBook {
         fileSize = 150.0f;
         signature = "Stephen king sig";
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+        assertNotNull(eBook);
     }
 
     @Test
     void test_Criacao_EBook_com_null_params(){
         eBook = new EBook(null,null,null,null,null,0.f,null);
-        assertEquals(null,eBook.getISBN());
-        assertEquals(null,eBook.getAutor());
-        assertEquals(null,eBook.getTitulo());
-        assertEquals(null,eBook.getEditora());
-        assertEquals(null,eBook.getFormato());
+        assertNull(eBook.getISBN());
+        assertNull(eBook.getAutor());
+        assertNull(eBook.getTitulo());
+        assertNull(eBook.getEditora());
+        assertNull(eBook.getFormato());
         assertEquals(0.f,eBook.getFileSize());
-        assertEquals(null,eBook.getSignature());
+        assertNull(eBook.getSignature());
     }
 
     @Test
