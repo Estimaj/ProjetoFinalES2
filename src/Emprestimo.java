@@ -80,6 +80,7 @@ public class Emprestimo {
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
             throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
-        extensaoEmprestimo++;
+        this.extensaoEmprestimo++;
+        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1); //mais 1 mes
     }
 }
