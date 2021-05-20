@@ -73,6 +73,8 @@ public class TestUnidade_Emprestimo {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
+        LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(1);
+        assertEquals(extensaoEmprestimo,emp.getFimdataHoraEmp());
     }
     @Test
     void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException {
@@ -83,6 +85,8 @@ public class TestUnidade_Emprestimo {
         emp.extenderEmprestimo();
         emp.extenderEmprestimo();
         assertEquals(2,emp.getExtensaoEmprestimo());
+        LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(2);
+        assertEquals(extensaoEmprestimo,emp.getFimdataHoraEmp());
     }
 
     @Test
