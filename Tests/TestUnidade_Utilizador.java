@@ -22,7 +22,7 @@ public class TestUnidade_Utilizador {
         email_user = "Maria@exemplo.pt";
         morada_user = "Rua da Amargura";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertNotNull(user);
     }
@@ -45,7 +45,7 @@ public class TestUnidade_Utilizador {
         email_user = "Jarvas@exemplo.pt";
         morada_user = "Rua da Amargura";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(id_user,user.getId_utilizador());
     }
@@ -58,7 +58,7 @@ public class TestUnidade_Utilizador {
         email_user = "Clark@exemplo.pt";
         morada_user = "Krypton";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(nome_user,user.getNome_utilizador());
     }
@@ -70,7 +70,7 @@ public class TestUnidade_Utilizador {
         email_user = "Joey@exemplo.pt";
         morada_user = "Rua do Esquecimento";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(email_user,user.getEmail_utilizador());
     }
@@ -82,7 +82,7 @@ public class TestUnidade_Utilizador {
         email_user = "Phoebe@exemplo.pt";
         morada_user = "Rua da Phoebe";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(morada_user,user.getMorada_utilizador());
     }
@@ -94,7 +94,7 @@ public class TestUnidade_Utilizador {
         email_user = "Monica@exemplo.pt";
         morada_user = "Rua da Monica";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(telefone_user,user.getTelefone_utilizador());
     }
@@ -107,7 +107,19 @@ public class TestUnidade_Utilizador {
         email_user = "Chandler@exemplo.pt";
         morada_user = "Rua do Esquecimento";
         telefone_user = "12123123";
-        estado_user = "0";
+        estado_user = "ativo";
+        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+        assertEquals(estado_user,user.getEstado_utilizador());
+    }
+
+    @Test
+    void test_setEstadoUtilizador_desativo(){
+        id_user = 7;
+        nome_user = "Chandler";
+        email_user = "Chandler@exemplo.pt";
+        morada_user = "Rua do Esquecimento";
+        telefone_user = "12123123";
+        estado_user = "desativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertEquals(estado_user,user.getEstado_utilizador());
     }

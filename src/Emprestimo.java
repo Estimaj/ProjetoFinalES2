@@ -18,6 +18,7 @@ public class Emprestimo {
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
+        //se o user estiver ativo
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
         this.replicaServidor = replicaServidor;
