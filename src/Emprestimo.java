@@ -15,10 +15,11 @@ public class Emprestimo {
     private ReplicaServidor replicaServidor;
 
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor) {
+        //if (utilizador.getEstado_utilizador().equals("desativo"))
+          //  return;
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
-        //se o user estiver ativo
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
         this.replicaServidor = replicaServidor;

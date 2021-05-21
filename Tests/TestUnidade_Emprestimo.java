@@ -17,6 +17,7 @@ public class TestUnidade_Emprestimo {
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private ReplicaServidor replicaServidor = new ReplicaServidor("Viseu");
+    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","desativo");
 
     @Test
     void test_Criacao_Emprestimo(){
@@ -25,6 +26,15 @@ public class TestUnidade_Emprestimo {
         FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
         assertNotNull(emp);
+    }
+
+    @Test
+    void test_Criacao_Emprestimo_Com_User_Desativo(){
+        id_emp = 1;
+        dataHoraEmp = LocalDate.now();
+        FimdataHoraEmp = dataHoraEmp;
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook,replicaServidor);
+        assertNull(emp);
     }
 
     @Test
