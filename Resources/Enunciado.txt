@@ -7,22 +7,22 @@ Todo
 
 Uma biblioteca disponibiliza livros para empréstimo em formato ebook. Os requisitos da aplicação encontram-se descritos seguidamente
 
-1. Os ebooks encontram-se disponíveis no formato epub e pdf
+1. Os ebooks encontram-se disponíveis no formato epub e pdf   -> Teste para os formatos epub, pdf e null
 
-2. Os livros em formato de ebook contêm o tamanho do ficheiro e assinatura (hash) do ficheiro
+2. Os livros em formato de ebook contêm o tamanho do ficheiro e assinatura (hash) do ficheiro   ->  Teste para os tamanho com limite, particionamento de equivalência BlackBox
 
-3. O processo de empréstimo de livro requer a seleção da réplica do servidor onde se encontra a cópia do ficheiro ebook geograficamente mais próxima do utente
+3. O processo de empréstimo de livro requer a seleção da réplica do servidor onde se encontra a cópia do ficheiro ebook geograficamente mais próxima do utente  -> Teste para a seleção da replica
 
-4. Ao solicitar o livro para empréstimo, o utente assina um termo de responsabilidade específico para cada editora.
-Esse termo define os termos do empréstimo e protege os direitos do autor, responsabilizando o utente pela partilha ilegal do ficheiro
+4. Ao solicitar o livro para empréstimo, o utente assina um termo de responsabilidade específico para cada editora. Esse termo define os termos do empréstimo e protege os direitos do autor, responsabilizando o utente pela partilha ilegal do ficheiro
 
-5. Os livros são visualizados num componente web da aplicação
+5. Os livros são visualizados num componente web da aplicação  -> Testar comunicação com API
 
-6. A visualização do livro é permitida até à data limite do empréstimo, se a conta do utilizador estiver ativa
+6. A visualização do livro é permitida até à data limite do empréstimo, se a conta do utilizador estiver ativa  > Teste se a conta esta ativa (Testes de Condição => WhiteBox, talvez ?????)
 
-7. O empréstimo pode ser prolongado por igual período de empréstimo (associado ao livro) duas vezes
+7. O empréstimo pode ser prolongado por igual período de empréstimo (associado ao livro) duas vezes (Teste White Box)
 
-8. No caso de deteção de fraude (ex: tentativa de download ilegal do ficheiro) , a conta do utilizador é cancelada
+
+8. No caso de deteção de fraude (ex: tentativa de download ilegal do ficheiro) , a conta do utilizador é cancelada  > Teste quando a conta está cancelada
 
 
 Todo
