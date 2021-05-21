@@ -83,4 +83,21 @@ public class Emprestimo {
         this.extensaoEmprestimo++;
         this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1); //mais 1 mes
     }
+
+    /*
+    * @param Emprestimo
+    * @param LocalDate data
+    *
+    * @return True/False
+    *
+    * @Test -> whiteBox
+    * @Test -> whiteBox com extensao de emprestimo
+    * */
+    public boolean visualizacaoEBook(LocalDate data_visualizacao){
+        /*
+        *   se data_visualizacao maior getDataHoraEmp e data_visualizacao menor getFimdataHoraEmp e getUtilizador().estado igual a ativo
+        *   devolve true
+         */
+        return false;
+    }
 }
