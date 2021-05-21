@@ -1,0 +1,32 @@
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+
+Respostas de sucesso:
+200 OK
+-Estas requisição foi bem sucedida. O significado do sucesso varia de acordo com o método HTTP:
+
+Respostas de erro do Cliente:
+400 Bad Request
+-Essa resposta significa que o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+
+401 Unauthorized
+Embora o padrão HTTP especifique "unauthorized", semanticamente, essa resposta significa "unauthenticated". Ou seja, o cliente deve se autenticar para obter a resposta solicitada.
+
+404 Not Found
+-O servidor não pode encontrar o recurso solicitado. Este código de resposta talvez seja o mais famoso devido à frequência com que acontece na web.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

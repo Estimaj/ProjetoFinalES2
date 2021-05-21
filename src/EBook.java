@@ -8,6 +8,10 @@ public class EBook {
     private String Signature;
 
     public EBook(String ISBN, String autor, String titulo, String editora, String formato, Float fileSize, String signature) {
+        if(formato != "epub" && formato != "pdf"){
+            System.out.println("Code 400");
+            return;
+        }
         this.ISBN = ISBN;
         this.Autor = autor;
         this.titulo = titulo;
