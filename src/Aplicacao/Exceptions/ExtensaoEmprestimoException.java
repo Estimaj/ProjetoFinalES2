@@ -1,4 +1,4 @@
-package Exceptions;
+package Aplicacao.Exceptions;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
-import Exceptions.ExtensaoEmprestimoException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import Aplicacao.*;
+import Aplicacao.Exceptions.EmprestimoException;
+import Aplicacao.Exceptions.ExtensaoEmprestimoException;
+import org.junit.jupiter.api.*;
+
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,82 +16,87 @@ public class TestUnidade_Emprestimo {
     private Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
-    private ReplicaServidor replicaServidor = new ReplicaServidor("Viseu");
+    private Server server = new Server("Portugal");
+    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+
     private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","desativo");
 
     @Test
-    void test_Criacao_Emprestimo(){
+    void test_Criacao_Emprestimo() throws EmprestimoException {
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertNotNull(emp);
     }
 
     @Test
-    void test_Criacao_Emprestimo_Com_User_Desativo(){
+    void test_Criacao_Emprestimo_Com_User_Desativo() throws EmprestimoException {
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook,replicaServidor);
-        assertNull(emp);
+        Throwable exception = assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook, replicaServidor_aveiro,1);
+        });
+        assertEquals(EmprestimoException.class, exception.getClass());
     }
 
     @Test
-    void test_Criacao_Emprestimo_com_null_params(){
-        emp = new Emprestimo(0,null,null,null,null,null);
+    void test_Criacao_Emprestimo_com_null_params() throws EmprestimoException {
+        emp = new Emprestimo(0,null,null,null,null,null,0);
         assertEquals(0,emp.getId_emp());
         assertNull(emp.getDataHoraEmp());
         assertNull(emp.getFimdataHoraEmp());
         assertNull(emp.getUtilizador());
         assertNull(emp.getCopiaEBook());
         assertNull(emp.getReplicaServidor());
+        assertEquals(0,emp.getAssinaturaTR());
     }
 
     @Test
-    void test_setIdEmprestimo(){
+    void test_setIdEmprestimo() throws EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(id_emp,emp.getId_emp());
     }
 
     @Test
-    void test_setDataHoraEmp(){
+    void test_setDataHoraEmp() throws EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(dataHoraEmp,emp.getDataHoraEmp());
     }
 
     @Test
-    void test_setFimdataHoraEmp(){
+    void test_setFimdataHoraEmp() throws EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(FimdataHoraEmp,emp.getFimdataHoraEmp());
     }
 
     @Test
-    void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
         LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(1);
         assertEquals(extensaoEmprestimo,emp.getFimdataHoraEmp());
     }
     @Test
-    void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException, EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         emp.extenderEmprestimo();
         assertEquals(2,emp.getExtensaoEmprestimo());
@@ -100,11 +105,11 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException, EmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
     }
@@ -147,6 +152,10 @@ public class TestUnidade_Emprestimo {
     }
 
 
+    @BeforeAll
+    void set(){
+        server.addReplica(replicaServidor_aveiro);
+    }
     @BeforeEach
     void setUp() {
     }

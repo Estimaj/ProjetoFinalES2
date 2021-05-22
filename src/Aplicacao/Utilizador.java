@@ -1,3 +1,5 @@
+package Aplicacao;
+
 public class Utilizador {
 
     private Integer id_utilizador;

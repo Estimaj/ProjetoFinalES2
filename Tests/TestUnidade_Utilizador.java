@@ -1,3 +1,4 @@
+import Aplicacao.Utilizador;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ public class TestUnidade_Utilizador {
     private String telefone_user = null;
     private String estado_user = null;
 
+
     @Test
     void test_Criacao_User(){
         id_user = 1;
@@ -25,6 +27,11 @@ public class TestUnidade_Utilizador {
         estado_user = "ativo";
         user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
         assertNotNull(user);
+    }
+
+    @Test
+    void test_User_null(){
+        assertNull(user);
     }
 
     @Test

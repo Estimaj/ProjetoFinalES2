@@ -1,20 +1,22 @@
+package Aplicacao;
+
 public class EBook {
     private String ISBN;
-    private String Autor;
+    private String autor;
     private String titulo;
     private String editora;
     private String formato;
-    private Float FileSize;
-    private String Signature;
+    private float fileSize;
+    private String signature;
 
-    public EBook(String ISBN, String autor, String titulo, String editora, String formato, Float fileSize, String signature) {
+    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String signature) {
         this.ISBN = ISBN;
-        this.Autor = autor;
+        this.autor = autor;
         this.titulo = titulo;
         this.editora = editora;
         this.formato = formato;
-        this.FileSize = fileSize;
-        this.Signature = signature;
+        this.fileSize = fileSize;
+        this.signature = signature;
     }
 
     public String getISBN() {
@@ -26,11 +28,11 @@ public class EBook {
     }
 
     public String getAutor() {
-        return Autor;
+        return autor;
     }
 
     public void setAutor(String autor) {
-        Autor = autor;
+        this.autor = autor;
     }
 
     public String getTitulo() {
@@ -58,18 +60,18 @@ public class EBook {
     }
 
     public float getFileSize() {
-        return FileSize;
+        return fileSize;
     }
 
     public void setFileSize(float fileSize) {
-        FileSize = fileSize;
+        this.fileSize = fileSize;
     }
 
     public String getSignature() {
-        return Signature;
+        return signature;
     }
 
     public void setSignature(String signature) {
-        Signature = signature;
+        this.signature = signature;
     }
 }

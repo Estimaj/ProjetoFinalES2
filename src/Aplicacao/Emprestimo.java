@@ -1,4 +1,7 @@
-import Exceptions.ExtensaoEmprestimoException;
+package Aplicacao;
+
+import Aplicacao.Exceptions.EmprestimoException;
+import Aplicacao.Exceptions.ExtensaoEmprestimoException;
 
 import java.time.LocalDate;
 
@@ -13,16 +16,19 @@ public class Emprestimo {
     private Utilizador utilizador;
     private CopiaEBook copiaEBook;
     private ReplicaServidor replicaServidor;
+    private int assinaturaTR = 0;
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor) {
-        //if (utilizador.getEstado_utilizador().equals("desativo"))
-          //  return;
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int assinaturaTR) throws EmprestimoException {
+        if (utilizador.getEstado_utilizador().equals("desativo"))
+            throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
+
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
         this.replicaServidor = replicaServidor;
+        this.assinaturaTR = assinaturaTR;
     }
 
     public int getId_emp() {
@@ -73,6 +79,15 @@ public class Emprestimo {
         this.replicaServidor = replicaServidor;
     }
 
+
+    public int getAssinaturaTR() {
+        return assinaturaTR;
+    }
+
+    public void setAssinaturaTR(int assinaturaTR) {
+        this.assinaturaTR = assinaturaTR;
+    }
+
     public int getExtensaoEmprestimo() {
         return extensaoEmprestimo;
     }
@@ -87,7 +102,7 @@ public class Emprestimo {
     }
 
     /*
-    * @param Emprestimo
+    * @param Aplicacao.Emprestimo
     * @param LocalDate data
     *
     * @return True/False

@@ -1,3 +1,4 @@
+import Aplicacao.EBook;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ public class TestUnidade_EBook {
     private String formato;
     private Float fileSize = 0.f;
     private String signature;
+    private int assinatura = 1;
 
 
     @Test

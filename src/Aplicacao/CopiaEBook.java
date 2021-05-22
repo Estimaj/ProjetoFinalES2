@@ -1,3 +1,5 @@
+package Aplicacao;
+
 public class CopiaEBook {
 
     private int id;
@@ -12,7 +14,7 @@ public class CopiaEBook {
         return id;
     }
 
-    public EBook getLivro() {
+    public EBook getEBook() {
         return eBook;
     }
 }
