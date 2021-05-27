@@ -1,6 +1,10 @@
 import Exceptions.ExtensaoEmprestimoException;
+import Exceptions.NotAllowedToReadException;
 
+import java.text.ParseException;
 import java.time.LocalDate;
+
+import java.util.Date;
 
 public class Emprestimo {
 
@@ -8,6 +12,7 @@ public class Emprestimo {
     private LocalDate dataHoraEmp;
     private LocalDate fimdataHoraEmp;
     private int extensaoEmprestimo = 0;
+    private long duracaoInicial = 0;
     private int extensaoMaximaEmprestimo = 2;
     private int extensaoMinimaEmprestimo = 0;
     private Utilizador utilizador;
@@ -23,6 +28,11 @@ public class Emprestimo {
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
         this.replicaServidor = replicaServidor;
+        this.duracaoInicial = java.time.Duration.between(dataHoraEmp, fimdataHoraEmp).toDays();
+    }
+
+    public long getDuracaoInicial() {
+        return duracaoInicial;
     }
 
     public int getId_emp() {
@@ -78,13 +88,15 @@ public class Emprestimo {
     }
 
     public void extenderEmprestimo() throws ExtensaoEmprestimoException {
-        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo > extensaoMaximaEmprestimo){
+        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo >= extensaoMaximaEmprestimo){
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
             throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
         this.extensaoEmprestimo++;
-        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1); //mais 1 mes
+        this.fimdataHoraEmp = this.fimdataHoraEmp.plusDays(this.duracaoInicial);
     }
+
+
 
     /*
     * @param Emprestimo
