@@ -61,10 +61,13 @@ public class TestIntegracao_DetecaoFraude {
     void EmprestimoWithCanceledAccount() {
         //so apanha quando o user esta cancelado
         System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
+        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         server.addReplica(replicaServidor_aveiro);
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
         });
+
+        assertEquals("desativado",user_desativo.getEstado_utilizador());
     }
 
     @BeforeAll
