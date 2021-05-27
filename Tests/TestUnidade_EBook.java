@@ -1,3 +1,6 @@
+import Exceptions.InvalidEBookFormatException;
+import Exceptions.InvalidEBookSignatureException;
+import Exceptions.InvalidEBookSizeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +21,7 @@ public class TestUnidade_EBook {
 
 
     @Test
-    void test_Criacao_EBook(){
+    void test_Criacao_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
@@ -31,7 +34,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_Criacao_EBook_com_null_params(){
+    void test_Criacao_EBook_com_null_params() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         eBook = new EBook(null,null,null,null,null,0.f,null);
         assertNull(eBook.getISBN());
         assertNull(eBook.getAutor());
@@ -43,7 +46,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setISBN(){
+    void test_setISBN() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Ross";
         titulo = "The Shinning";
@@ -57,7 +60,7 @@ public class TestUnidade_EBook {
 
 
     @Test
-    void test_setautor(){
+    void test_setautor() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Ross";
         titulo = "The Haunting";
@@ -70,7 +73,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setTitulo(){
+    void test_setTitulo() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Rachel";
         titulo = "Little Woman";
@@ -83,7 +86,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setEditora(){
+    void test_setEditora() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Ross";
         titulo = "The Night of the Living Dead";
@@ -96,7 +99,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setformato(){
+    void test_setformato() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Phoebe";
         titulo = "Justice League";
@@ -110,7 +113,7 @@ public class TestUnidade_EBook {
 
 
     @Test
-    void test_setFileSize(){
+    void test_setFileSize() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Capitao Americano";
         titulo = "Avengers";
@@ -123,7 +126,7 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setSignature(){
+    void test_setSignature() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         ISBN = "akjshdahq123123";
         autor = "Elizabeth";
         titulo = "WandaVision";

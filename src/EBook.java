@@ -1,3 +1,7 @@
+import Exceptions.InvalidEBookFormatException;
+import Exceptions.InvalidEBookSignatureException;
+import Exceptions.InvalidEBookSizeException;
+
 public class EBook {
     private String ISBN;
     private String Autor;
@@ -7,10 +11,15 @@ public class EBook {
     private Float FileSize;
     private String Signature;
 
-    public EBook(String ISBN, String autor, String titulo, String editora, String formato, Float fileSize, String signature) {
+    public EBook(String ISBN, String autor, String titulo, String editora, String formato, Float fileSize, String signature) throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
         if(formato != "epub" && formato != "pdf"){
-            System.out.println("Code 400");
-            return;
+            throw new InvalidEBookFormatException("Formato incorreto.");
+        }
+        if(fileSize > 155.5f || fileSize < 0){
+            throw new InvalidEBookSizeException("Ficheiro superior a 155.5 mb.");
+        }
+        if(signature == null){
+            throw new InvalidEBookSignatureException("Ficheiro com signature incorreta.");
         }
         this.ISBN = ISBN;
         this.Autor = autor;

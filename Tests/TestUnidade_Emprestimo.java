@@ -1,4 +1,7 @@
 import Exceptions.ExtensaoEmprestimoException;
+import Exceptions.InvalidEBookFormatException;
+import Exceptions.InvalidEBookSignatureException;
+import Exceptions.InvalidEBookSizeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,9 @@ public class TestUnidade_Emprestimo {
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private ReplicaServidor replicaServidor = new ReplicaServidor("Viseu");
     private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","desativo");
+
+    public TestUnidade_Emprestimo() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookSignatureException {
+    }
 
     @Test
     void test_Criacao_Emprestimo(){
