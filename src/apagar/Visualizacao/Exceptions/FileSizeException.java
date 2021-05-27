@@ -1,4 +1,4 @@
-package Visualizacao.Exceptions;
+package apagar.Visualizacao.Exceptions;
 
 public class FileSizeException extends Exception {
     public FileSizeException(String message) {

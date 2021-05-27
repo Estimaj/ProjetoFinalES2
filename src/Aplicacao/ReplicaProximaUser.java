@@ -1,26 +1,11 @@
 package Aplicacao;
 
-import Aplicacao.Exceptions.InvalidServerException;
-
 import java.util.ArrayList;
 
-public class Server {
-    private String localizacao_Server;
+public class ReplicaProximaUser {
     private ArrayList<ReplicaServidor> replicasArrayList = new ArrayList<>();
 
-    public Server(String localizacao_Server) throws InvalidServerException {
-        if (localizacao_Server.chars().allMatch(Character::isDigit) || localizacao_Server == null || localizacao_Server == "")
-            throw new InvalidServerException("Invalid Server Exception");
-
-        this.localizacao_Server = localizacao_Server.toLowerCase();
-    }
-
-    public String getLocalizacao_Server() {
-        return localizacao_Server;
-    }
-
-    public void setLocalizacao_Server(String localizacao_Server) {
-        this.localizacao_Server = localizacao_Server;
+    public ReplicaProximaUser() {
     }
 
     public void addReplica(ReplicaServidor replicasArrayListervidor) {
@@ -31,21 +16,17 @@ public class Server {
         replicasArrayList.add(replicasArrayListervidor);
     }
 
+
     public CopiaEBook getCopia_of_Replica(CopiaEBook copiaEBook) {
-        for (ReplicaServidor replicaServidor : replicasArrayList) {
-            if (replicaServidor.getCopiaEBook().equals(copiaEBook))
-                return replicaServidor.getCopiaEBook();
+        for (int i = 0; i < replicasArrayList.size(); i++) {
+            for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
+                if (copiaEBook.equals(replicasArrayList.get(i).getcopiasEBookArrayList().get(j)))
+                    return replicasArrayList.get(i).getcopiasEBookArrayList().get(j);
+            }
         }
         return null;
     }
 
-    public CopiaEBook getCopia_of_Replica1(ReplicaServidor rp) {
-        for (ReplicaServidor replicaServidor : replicasArrayList) {
-            if (replicaServidor.equals(rp))
-                return rp.getCopiaEBook();
-        }
-        return null;
-    }
 
     public ReplicaServidor getReplicabyElement(ReplicaServidor replicaServidor) {
         for (ReplicaServidor servidor : replicasArrayList) {
@@ -59,14 +40,17 @@ public class Server {
         return this.replicasArrayList.get(index);
     }
 
+
     public String show_info_replicas() {
         String to_return = null;
         for (ReplicaServidor replicaServidor : replicasArrayList) {
-            to_return = replicaServidor.getLocalizacao_Cidade_ReplicaServidor() + ", " + replicaServidor.getCopiaEBook().getEBook().getTitulo();
+            for (int j = 0; j < replicaServidor.getcopiasEBookArrayList().size(); j++) {
+                to_return = replicaServidor.getLocalizacaoReplica() + "," + replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getTitulo();
+            }
         }
-        System.out.println(to_return);
         return to_return;
     }
+
 
     public ArrayList<ReplicaServidor> getreplicasArrayList() {
         return replicasArrayList;
@@ -87,6 +71,8 @@ public class Server {
         String[] partsReplica;
         String cidadeReplica, paisReplica;
 
+
+
         if (replicasArrayList.size() == 0)
             return null;
         if (replicasArrayList.size() == 1)
@@ -94,9 +80,11 @@ public class Server {
 
         for (int i = 0; i < replicasArrayList.size(); i++) {
 
-            partsReplica = replicasArrayList.get(i).getLocalizacao_Cidade_ReplicaServidor().split(",");
+            partsReplica = replicasArrayList.get(i).getLocalizacaoReplica().split(",");
             cidadeReplica = partsReplica[0];
             paisReplica = partsReplica[1].replaceAll("\\s+", "");
+
+            System.out.println(cidadeReplica + paisReplica);
 
             if (cidadeReplica.equals(cidade) && paisReplica.equals(pais)) {
                 System.out.println("cidade = " + cidade + " | pais = " + pais);

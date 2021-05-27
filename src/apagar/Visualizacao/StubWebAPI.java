@@ -1,10 +1,9 @@
-package Visualizacao;
+package apagar.Visualizacao;
 
-import Aplicacao.CopiaEBook;
 import Aplicacao.Emprestimo;
 import Aplicacao.Exceptions.InvalidVisualizacaoException;
-import Visualizacao.Exceptions.FileExtensionException;
-import Visualizacao.Exceptions.FileSizeException;
+import apagar.Visualizacao.Exceptions.FileExtensionException;
+import apagar.Visualizacao.Exceptions.FileSizeException;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -28,9 +27,9 @@ public class StubWebAPI implements InterfaceComponenteWeb {
         //String extension = check_file_extension(parts);
 
         if (emp.getUtilizador().getEstado_utilizador().equals("desativo") || LocalDate.now().isAfter(emp.getFimdataHoraEmp()))
-            throw new InvalidVisualizacaoException("Invalid Visualizacao Exception");
+            throw new InvalidVisualizacaoException("Invalid apagar.Visualizacao Exception");
 
-        String extension = emp.getCopiaEBook().getEBook().getFormato();
+        String extension = emp.getEBook().getFormato();
 
         if (extension == null || !extension.equals("pdf"))
             throw new FileExtensionException("O formato do ficheiro so pode ser pdf ou ");
@@ -38,7 +37,7 @@ public class StubWebAPI implements InterfaceComponenteWeb {
         if (extension.getBytes().length > 100)
             throw new FileSizeException("Tamanho do ficheiro nao suportado");
 
-        String word = emp.getCopiaEBook().getEBook().getTitulo();
+        String word = emp.getEBook().getTitulo();
 
 
         //Establishes a HTTP Request with the server

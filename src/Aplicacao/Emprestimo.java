@@ -14,24 +14,27 @@ public class Emprestimo {
     private int extensaoMaximaEmprestimo = 2;
     private int extensaoMinimaEmprestimo = 0;
     private Utilizador utilizador;
-    private CopiaEBook copiaEBook;
+    private EBook eBook;
     private ReplicaServidor replicaServidor;
     private int assinaturaTR = 0;
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int assinaturaTR) throws EmprestimoException {
-        if (utilizador.getEstado_utilizador().equals("desativado"))
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, EBook eBook, int assinaturaTR) throws EmprestimoException {
+        if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
 
-        if(this.assinaturaTR == 0)
+        if(assinaturaTR == 0)
             throw new EmprestimoException("Não assinou os Termos de Responsabilidade");
+
+        if (dataHoraEmp.equals(fimdataHoraEmp))
+            throw new EmprestimoException("Datas de inicio e fim de emprestimo são iguais !!!");
+
 
 
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
         this.utilizador = utilizador;
-        this.copiaEBook = copiaEBook;
-        this.replicaServidor = replicaServidor;
+        this.eBook = eBook;
         this.assinaturaTR = assinaturaTR;
     }
 
@@ -67,12 +70,12 @@ public class Emprestimo {
         this.utilizador = utilizador;
     }
 
-    public CopiaEBook getCopiaEBook() {
-        return copiaEBook;
+    public EBook getEBook() {
+        return eBook;
     }
 
-    public void setCopiaEBook(CopiaEBook copiaEBook) {
-        this.copiaEBook = copiaEBook;
+    public void setEBook(EBook eBook) {
+        this.eBook = eBook;
     }
 
     public ReplicaServidor getReplicaServidor() {

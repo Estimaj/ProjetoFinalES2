@@ -1,10 +1,9 @@
-package Visualizacao;
+package apagar.Visualizacao;
 
-import Aplicacao.CopiaEBook;
 import Aplicacao.Emprestimo;
 import Aplicacao.Exceptions.InvalidVisualizacaoException;
-import Visualizacao.Exceptions.FileExtensionException;
-import Visualizacao.Exceptions.FileSizeException;
+import apagar.Visualizacao.Exceptions.FileExtensionException;
+import apagar.Visualizacao.Exceptions.FileSizeException;
 
 import java.io.IOException;
 

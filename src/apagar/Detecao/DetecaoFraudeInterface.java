@@ -1,4 +1,4 @@
-package Detecao;
+package apagar.Detecao;
 
 import Aplicacao.Exceptions.InvalidDetecaoFraudeException;
 import Aplicacao.Exceptions.InvalidUserException;

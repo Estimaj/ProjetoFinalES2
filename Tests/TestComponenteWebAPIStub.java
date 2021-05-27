@@ -1,8 +1,8 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
-import Visualizacao.Exceptions.FileExtensionException;
-import Visualizacao.Exceptions.FileSizeException;
-import Visualizacao.InterfaceComponenteWeb;
+import apagar.Visualizacao.Exceptions.FileExtensionException;
+import apagar.Visualizacao.Exceptions.FileSizeException;
+import apagar.Visualizacao.InterfaceComponenteWeb;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -13,14 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestComponenteWebAPIStub {
 
     private InterfaceComponenteWeb interfaceComponenteWeb = null;
-    private EBook eBook = null;
+    private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = null;
     private Utilizador user_ativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton, Krypton","111-222-111","ativo");
     private Utilizador user_desativo = new Utilizador(2,"Phoebe","phoebe@exemplo.pt","Abc1abcABC","Londres, England","111-222-111","desativo");
-    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
-    private Emprestimo emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),user_desativo, copiaEBook, replicaServidor_aveiro,1);
+    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+    private Emprestimo emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),user_desativo, eBook,1);
 
-    public TestComponenteWebAPIStub() throws InvalidUserException, InvalidReplicaException, EmprestimoException {
+
+    public TestComponenteWebAPIStub() throws InvalidUserException, InvalidReplicaException, EmprestimoException, InvalidEBookException {
     }
 
     @Test

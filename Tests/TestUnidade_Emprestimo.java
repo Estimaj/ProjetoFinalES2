@@ -12,62 +12,65 @@ public class TestUnidade_Emprestimo {
     private Integer id_emp = 1;
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
-    private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Krypton, Krypton","121-231-123","ativo");
+    private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
-    private Server server = new Server("Portugal");
-    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
-    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton","111","desativo");
+    private ReplicaProximaUser server = new ReplicaProximaUser();
+    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","desativo");
 
-    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidServerException, InvalidEBookException {
+    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException {
     }
 
     @Test
     void test_Criacao_Emprestimo() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertNotNull(emp);
     }
 
     @Test
-    void test_Criacao_Emprestimo_Com_User_Desativo() {
+    void test_Criacao_Emprestimo_Com_User_Desativo() throws InvalidUserException {
+        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","desativado");
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook, replicaServidor_aveiro,1);
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         });
     }
 
     @Test
     void test_Criacao_Emprestimo_com_null_params() throws EmprestimoException {
-        emp = new Emprestimo(0,null,null,null,null,null,1);
-        assertEquals(0,emp.getId_emp());
-        assertNull(emp.getDataHoraEmp());
-        assertNull(emp.getFimdataHoraEmp());
-        assertNull(emp.getUtilizador());
-        assertNull(emp.getCopiaEBook());
-        assertNull(emp.getReplicaServidor());
-        assertEquals(0,emp.getAssinaturaTR());
+        assertThrows(NullPointerException.class, () -> {
+            emp = new Emprestimo(0,null,null,null,null,1);
+        });
     }
 
     @Test
     void test_setIdEmprestimo() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertEquals(id_emp,emp.getId_emp());
     }
 
     @Test
     void test_setDataHoraEmp() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertEquals(dataHoraEmp,emp.getDataHoraEmp());
     }
 
     @Test
     void test_setFimdataHoraEmp() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
         assertEquals(FimdataHoraEmp,emp.getFimdataHoraEmp());
     }
 
     @Test
+    void createEmprestimoInitialDateEqualstoFinalDate() {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,LocalDate.now(),LocalDate.now(),user, eBook, 1);
+        });
+    }
+
+    @Test
     void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
         LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(1);
@@ -75,7 +78,7 @@ public class TestUnidade_Emprestimo {
     }
     @Test
     void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
         emp.extenderEmprestimo();
         emp.extenderEmprestimo();
         assertEquals(2,emp.getExtensaoEmprestimo());
@@ -85,22 +88,21 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
     }
 
     @Test
     void CreateEmprestimoOK() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertEquals(1,emp.getAssinaturaTR());
     }
 
     @Test
-    void CreateEmprestimoTRWrong() throws InvalidUserException {
-        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Coimbra, Portugal","121-231-123","ativo");
-        assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,0);
+    void CreateEmprestimoTRWrong() {
+        assertThrows(InvalidUserException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,0);
         });
     }
 

@@ -33,8 +33,10 @@ public class Utilizador {
         if (telefone_utilizador == null || !telefone_utilizador.matches(PHONE_VERIFICATION))
             throw new InvalidUserException("Utilizador invalido telefone");
 
-        if (!estado_utilizador.equals("ativo") && !estado_utilizador.equals("desativado") || estado_utilizador.matches(NUMBER_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido estado");
+        if (estado_utilizador.equals("ativo") || estado_utilizador.equals("desativado") || !estado_utilizador.matches(NUMBER_VERIFICATION))
+            System.out.println("");
+            else
+                throw new InvalidUserException("Utilizador invalido estado");
 
         if (!morada_utilizador.contains(",") || morada_utilizador.chars().allMatch(Character::isDigit) || morada_utilizador.matches(NUMBER_VERIFICATION))
             throw new InvalidUserException("Utilizador Invalido Morada");

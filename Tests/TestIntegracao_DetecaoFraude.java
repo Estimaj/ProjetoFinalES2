@@ -1,7 +1,7 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
-import Detecao.DetecaoFraudeInterface;
-import Detecao.DetecaoFraudeStub;
+import apagar.Detecao.DetecaoFraudeInterface;
+import apagar.Detecao.DetecaoFraudeStub;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -19,8 +19,8 @@ public class TestIntegracao_DetecaoFraude {
     private Emprestimo emp = null;
     private DetecaoFraudeInterface detecaoFraudeInterface = null;
     private DetecaoFraudeInterface detecaoFraudeInterfaceStub = new DetecaoFraudeStub();
-    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro", copiaEBook);
-    private Server server = new Server("Portugal");
+    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+    private ReplicaProximaUser server = new ReplicaProximaUser();
 
     public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, InvalidReplicaException, InvalidServerException {
     }
@@ -43,15 +43,15 @@ public class TestIntegracao_DetecaoFraude {
     }
 
     @Test
-    void createDetecaoFraudeOK() throws UtilizadorNullException, InvalidUserException, InvalidDetecaoFraudeException, InvalidServerException, InvalidReplicaException, EmprestimoException {
+    void createDetecaoFraudeOK() throws UtilizadorNullException, InvalidUserException, InvalidDetecaoFraudeException, EmprestimoException {
 
         server.addReplica(replicaServidor_aveiro);
 
         if (detecaoFraudeInterfaceStub.detecao_fraude(u)) { //detetou fraude
-            assertThrows(EmprestimoException.class, () -> emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, replicaServidor_aveiro, 1));
+            assertThrows(EmprestimoException.class, () -> emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, eBook, 1));
         } else {
             assertEquals(ativado, u.getEstado_utilizador());
-            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, replicaServidor_aveiro, 1);
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, eBook, 1);
             assertEquals(1,emp.getId_emp());
         }
 
@@ -63,7 +63,7 @@ public class TestIntegracao_DetecaoFraude {
         System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
         server.addReplica(replicaServidor_aveiro);
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, replicaServidor_aveiro, 1);
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
         });
     }
 

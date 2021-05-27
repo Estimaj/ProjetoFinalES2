@@ -31,7 +31,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void test_Criacao_User_com_null_params() throws InvalidUserException {
+    void test_Criacao_User_com_null_params() {
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         });
@@ -169,7 +169,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidEstado() throws InvalidUserException {
+    void createUserWithInvalidEstado() {
         estado_user = "a";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
@@ -177,7 +177,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidEstadoNumber() throws InvalidUserException {
+    void createUserWithInvalidEstadoNumber() {
         estado_user = "1";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
