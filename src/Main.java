@@ -28,8 +28,6 @@ public class Main {
         String encoded = Base64.getEncoder().encodeToString(hash);
 
         System.out.println(encoded);
-
-
 /*
         System.out.println("hello");
         Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
