@@ -1,12 +1,17 @@
 package Aplicacao;
 
+import Aplicacao.Exceptions.InvalidServerException;
+
 import java.util.ArrayList;
 
 public class Server {
     private String localizacao_Server;
     private ArrayList<ReplicaServidor> replicasArrayList = new ArrayList<>();
 
-    public Server(String localizacao_Server) {
+    public Server(String localizacao_Server) throws InvalidServerException {
+        if (localizacao_Server.chars().allMatch(Character::isDigit) || localizacao_Server == null || localizacao_Server == "")
+            throw new InvalidServerException("Invalid Server Exception");
+
         this.localizacao_Server = localizacao_Server.toLowerCase();
     }
 
@@ -30,6 +35,14 @@ public class Server {
         for (ReplicaServidor replicaServidor : replicasArrayList) {
             if (replicaServidor.getCopiaEBook().equals(copiaEBook))
                 return replicaServidor.getCopiaEBook();
+        }
+        return null;
+    }
+
+    public CopiaEBook getCopia_of_Replica1(ReplicaServidor rp) {
+        for (ReplicaServidor replicaServidor : replicasArrayList) {
+            if (replicaServidor.equals(rp))
+                return rp.getCopiaEBook();
         }
         return null;
     }

@@ -19,8 +19,12 @@ public class Emprestimo {
     private int assinaturaTR = 0;
 
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int assinaturaTR) throws EmprestimoException {
-        if (utilizador.getEstado_utilizador().equals("desativo"))
+        if (utilizador.getEstado_utilizador().equals("desativado"))
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
+
+        if(this.assinaturaTR == 0)
+            throw new EmprestimoException("Não assinou os Termos de Responsabilidade");
+
 
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;

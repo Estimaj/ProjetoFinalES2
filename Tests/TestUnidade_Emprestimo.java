@@ -1,6 +1,5 @@
 import Aplicacao.*;
-import Aplicacao.Exceptions.EmprestimoException;
-import Aplicacao.Exceptions.ExtensaoEmprestimoException;
+import Aplicacao.Exceptions.*;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -10,40 +9,35 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestUnidade_Emprestimo {
 
     private Emprestimo emp = null;
-    private Integer id_emp = null;
-    private LocalDate dataHoraEmp = null;
-    private LocalDate FimdataHoraEmp = null;
-    private Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
+    private Integer id_emp = 1;
+    private LocalDate dataHoraEmp = LocalDate.now();
+    private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
+    private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Krypton, Krypton","121-231-123","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private Server server = new Server("Portugal");
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton","111","desativo");
 
-    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","desativo");
+    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidServerException, InvalidEBookException {
+    }
 
     @Test
     void test_Criacao_Emprestimo() throws EmprestimoException {
-        id_emp = 1;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertNotNull(emp);
     }
 
     @Test
-    void test_Criacao_Emprestimo_Com_User_Desativo() throws EmprestimoException {
-        id_emp = 1;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
-        Throwable exception = assertThrows(EmprestimoException.class, () -> {
+    void test_Criacao_Emprestimo_Com_User_Desativo() {
+        assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook, replicaServidor_aveiro,1);
         });
-        assertEquals(EmprestimoException.class, exception.getClass());
     }
 
     @Test
     void test_Criacao_Emprestimo_com_null_params() throws EmprestimoException {
-        emp = new Emprestimo(0,null,null,null,null,null,0);
+        emp = new Emprestimo(0,null,null,null,null,null,1);
         assertEquals(0,emp.getId_emp());
         assertNull(emp.getDataHoraEmp());
         assertNull(emp.getFimdataHoraEmp());
@@ -55,36 +49,24 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void test_setIdEmprestimo() throws EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(id_emp,emp.getId_emp());
     }
 
     @Test
     void test_setDataHoraEmp() throws EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(dataHoraEmp,emp.getDataHoraEmp());
     }
 
     @Test
     void test_setFimdataHoraEmp() throws EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         assertEquals(FimdataHoraEmp,emp.getFimdataHoraEmp());
     }
 
     @Test
     void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
@@ -93,9 +75,6 @@ public class TestUnidade_Emprestimo {
     }
     @Test
     void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException, EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         emp.extenderEmprestimo();
@@ -106,12 +85,23 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException, EmprestimoException {
-        id_emp = 2;
-        dataHoraEmp = LocalDate.now();
-        FimdataHoraEmp = dataHoraEmp;
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
+    }
+
+    @Test
+    void CreateEmprestimoOK() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,1);
+        assertEquals(1,emp.getAssinaturaTR());
+    }
+
+    @Test
+    void CreateEmprestimoTRWrong() throws InvalidUserException {
+        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Coimbra, Portugal","121-231-123","ativo");
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook, replicaServidor_aveiro,0);
+        });
     }
 
     @Test
@@ -153,9 +143,9 @@ public class TestUnidade_Emprestimo {
 
 
     @BeforeAll
-    void set(){
-        server.addReplica(replicaServidor_aveiro);
+    static void set(){
     }
+
     @BeforeEach
     void setUp() {
     }

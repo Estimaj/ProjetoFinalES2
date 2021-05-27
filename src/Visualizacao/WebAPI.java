@@ -1,6 +1,5 @@
 package Visualizacao;
-
-import Aplicacao.CopiaEBook;
+import Aplicacao.Emprestimo;
 
 public class WebAPI implements InterfaceComponenteWeb {
 
@@ -10,7 +9,7 @@ public class WebAPI implements InterfaceComponenteWeb {
     private String RequestMethod = null;
 
     @Override
-    public void requestWebAPI(CopiaEBook copiaEBook) {
+    public void requestWebAPI(Emprestimo emp) {
     }
 
     @Override

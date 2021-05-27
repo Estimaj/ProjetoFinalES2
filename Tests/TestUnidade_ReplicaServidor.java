@@ -1,5 +1,5 @@
 import Aplicacao.*;
-import Aplicacao.Exceptions.EmprestimoException;
+import Aplicacao.Exceptions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +17,37 @@ public class TestUnidade_ReplicaServidor {
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private Server main_server = new Server("Portugal");
+    private ReplicaServidor replicaServidor_aveiro = null;
+
+    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidServerException, InvalidEBookException {
+    }
+
+    @Test
+    void createReplicaOK() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+        assertNotNull(replicaServidor_aveiro);
+    }
+
+    @Test
+    void createReplicaInvalidLocalizacaoNumber() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor("1",copiaEBook);
+        });
+    }
+
+    @Test
+    void createReplicaInvalidLocalizacaoNull() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor(null,copiaEBook);
+        });
+    }
+
+    @Test
+    void createReplicaInvalidLocalizacaoEmpty() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor("",copiaEBook);
+        });
+    }
 
 
     @Test
@@ -26,35 +57,31 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void test_Server_check_size_0(){
-        assertEquals(0,main_server.get_replicas_ArrayList_Size());
-    }
-
-    @Test
-    void test_Server_get_element_from_array_of_replicas_that_doesnt_exist(){
+    void getReplicaThatDoesNotExist() throws InvalidReplicaException {
         ReplicaServidor replica_q_nao_existe = new ReplicaServidor("Evora",copiaEBook);
         assertNull(main_server.getReplicabyElement(replica_q_nao_existe));
     }
 
 
     @Test
-    void test_Server_get_copia_from_array_of_replicas_that_exist(){
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    void getCopiaEBookofSpecificReplicaOK() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
-        assertNotNull(main_server.getCopia_of_Replica(copiaEBook));
+
+        assertNotNull(main_server.getCopia_of_Replica1(replicaServidor_aveiro));
     }
 
     @Test
-    void test_Server_get_copia_from_array_of_replicas_that_exist_check_methods(){
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    void getReplicaThatExisttoCheckMethodsofCopiaEBook() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         assertEquals(1,main_server.getCopia_of_Replica(copiaEBook).getId());
         assertEquals(eBook,main_server.getCopia_of_Replica(copiaEBook).getEBook());
     }
 
     @Test
-    void test_Server_get_copia_from_array_of_replicas_that_exist_check_methods_of_EBook(){
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    void getReplicaThatExisttoCheckMethodsofCopiaEBook_in_EBook() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         assertEquals(1,main_server.getCopia_of_Replica(copiaEBook).getId());
         assertEquals("akjshdahq123123",main_server.getCopia_of_Replica(copiaEBook).getEBook().getISBN());
@@ -63,23 +90,23 @@ public class TestUnidade_ReplicaServidor {
         assertEquals("Ray Lovejoy",main_server.getCopia_of_Replica(copiaEBook).getEBook().getEditora());
         assertEquals("pdf",main_server.getCopia_of_Replica(copiaEBook).getEBook().getFormato());
         assertEquals(150.f,main_server.getCopia_of_Replica(copiaEBook).getEBook().getFileSize());
-        assertEquals("Stephen king sig",main_server.getCopia_of_Replica(copiaEBook).getEBook().getSignature());
+        assertEquals("Stephen king sig",main_server.getCopia_of_Replica(copiaEBook).getEBook().getHash());
     }
 
     @Test
-    void test_Server_get_copia_from_array_of_replicas_that_doesnt_exist(){
+    void getNullCopiaEBookofReplica() throws InvalidCopiaEBookException {
         CopiaEBook copiaEBook_q_nao_existe = new CopiaEBook(999,eBook);
         assertNull(main_server.getCopia_of_Replica(copiaEBook_q_nao_existe));
     }
 
     @Test
-    void test_devolver_replica_por_id_que_existe(){
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    void getSpecificReplicabyId() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         assertEquals(replicaServidor_aveiro,main_server.get_ReplicaServidor_by_id(0));
     }
     @Test
-    void test_devolver_replica_por_id_que_excede_em_demasia_os_limites_do_array(){
+    void getReplicaThatExceedsArrayIndexBounds() throws InvalidReplicaException {
         ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -89,7 +116,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void test_devolver_replica_por_id_que_e_inferior_aos_limites_do_array(){
+    void getReplicaThatisLessofArrayIndexBounds() throws InvalidReplicaException {
         ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -99,23 +126,23 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void test_output_of_Replica_info_String(){
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+    void CheckContentofReplicasCopiaEBook() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         String to_Compare = "Aveiro, The Shinning";
         assertEquals(to_Compare,main_server.show_info_replicas());
     }
 
     @Test
-    void test_output_of_Replica_info_String_Null(){
+    void CheckNullContentofReplicasCopiaEBook(){
         assertNull(main_server.show_info_replicas());
     }
 
     @Test
-    void test_verifica_se_devolve_replica_mais_proxima_do_cliente_quando_o_array_tem_1_replica() throws EmprestimoException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
+    void getReplicaWithOnlyOneReplicaAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
-        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Aveiro, Portugal","111","ativo");
+        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","111","ativo");
         emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook, main_server.get_Replica_Proxima_Cliente(u),1);
 
         assertEquals(replicaServidor_aveiro,main_server.get_Replica_Proxima_Cliente(u));
@@ -123,42 +150,54 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void test_verifica_se_devolve_replica_mais_proxima_do_cliente_quando_o_array_nao_tem_replicas() throws EmprestimoException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
-        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Aveiro, Portugal","111","ativo");
+    void getReplicaWithNoReplicasAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
+        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","111","ativo");
         emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook, main_server.get_Replica_Proxima_Cliente(u),1);
         assertNull(main_server.get_Replica_Proxima_Cliente(u));
 
     }
 
     @Test
-    void test_verifica_se_devolve_replica_mais_proxima_do_cliente_quando_o_array_tem_n_replicas() throws EmprestimoException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
+    void getReplicaClosetoUserWithReplicasAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
         ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes, Portugal",copiaEBook);
         ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra, Portugal",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         main_server.addReplica(replicaServidor_guimaraes);
         main_server.addReplica(replicaServidor_coimbra);
 
-        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Guimaraes, Portugal","111","ativo");
+        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Guimaraes, Portugal","111","ativo");
         emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook, main_server.get_Replica_Proxima_Cliente(u),1);
         assertEquals(replicaServidor_guimaraes,main_server.get_Replica_Proxima_Cliente(u));
 
     }
 
     @Test
-    void test_verifica_se_devolve_replica_mais_proxima_do_cliente_quando_o_cliente_nao_tem_morada_igual_as_replicas() throws EmprestimoException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
+    void getReplicaClosetoUserWithReplicasAvaliablebutisntsameCityasUser() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro, Portugal",copiaEBook);
         ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes, Portugal",copiaEBook);
         ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra, Portugal",copiaEBook);
         main_server.addReplica(replicaServidor_aveiro);
         main_server.addReplica(replicaServidor_guimaraes);
         main_server.addReplica(replicaServidor_coimbra);
 
-        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Faro, Portugal","111","ativo");
+        Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Faro, Portugal","111","ativo");
         emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook, main_server.get_Replica_Proxima_Cliente(u),1);
         assertEquals(replicaServidor_coimbra,main_server.get_Replica_Proxima_Cliente(u));
 
+    }
+
+    @Test
+    void getReplicasSizeWith0replicas(){
+        assertEquals(0,main_server.get_replicas_ArrayList_Size());
+    }
+
+    @Test
+    void getReplicasSizeWithNreplicas() throws InvalidReplicaException {
+        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
+        main_server.addReplica(replicaServidor_aveiro);
+        assertEquals(1,main_server.get_replicas_ArrayList_Size());
     }
 
 

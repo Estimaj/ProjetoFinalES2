@@ -1,13 +1,15 @@
 package Visualizacao;
 
 import Aplicacao.CopiaEBook;
+import Aplicacao.Emprestimo;
+import Aplicacao.Exceptions.InvalidVisualizacaoException;
 import Visualizacao.Exceptions.FileExtensionException;
 import Visualizacao.Exceptions.FileSizeException;
 
 import java.io.IOException;
 
 public interface InterfaceComponenteWeb {
-    void requestWebAPI(CopiaEBook copiaEBook) throws IOException, FileExtensionException, FileSizeException;
+    void requestWebAPI(Emprestimo emp) throws IOException, FileExtensionException, FileSizeException, InvalidVisualizacaoException;
     int getResponseCode();
     void setResponseCode(int responseCode);
     String getJSONResponse();

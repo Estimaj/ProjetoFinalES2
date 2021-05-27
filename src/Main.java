@@ -1,20 +1,36 @@
-import Aplicacao.*;
-import Detecao.DetecaoFraudeInterface;
-import Detecao.DetecaoFraudeStub;
+import Aplicacao.EBook;
+import Aplicacao.Exceptions.InvalidCopiaEBookException;
+import Aplicacao.Exceptions.InvalidEBookException;
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Exceptions.UtilizadorNullException;
-import org.json.*;
+import Aplicacao.Utilizador;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws UtilizadorNullException {
+    public static void main(String[] args) throws UtilizadorNullException, InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, NoSuchAlgorithmException {
+        Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton,Krypton","111-111-111","ativo");
+        EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+
+        String str = "123";
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
+        String encoded = Base64.getEncoder().encodeToString(hash);
+
+        System.out.println(encoded);
+
+
+/*
         System.out.println("hello");
         Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
         DetecaoFraudeInterface detecaoFraudeInterface = new DetecaoFraudeStub();

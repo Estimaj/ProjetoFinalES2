@@ -1,8 +1,7 @@
 import Aplicacao.*;
+import Aplicacao.Exceptions.*;
 import Detecao.DetecaoFraudeInterface;
 import Detecao.DetecaoFraudeStub;
-import Aplicacao.Exceptions.EmprestimoException;
-import Aplicacao.Exceptions.UtilizadorNullException;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -13,57 +12,65 @@ public class TestIntegracao_DetecaoFraude {
 
     private String desativado = "desativado";
     private String ativado = "ativo";
-    private Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
-    private Utilizador user_desativo = new Utilizador(2,"Phoebe","Phoebe@exemplo.pt","Rua da Phoebe","111","desativo");
-    private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
-    private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
+    private Utilizador u = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Krypton, Krypton", "111-222-111", "ativo");
+    private Utilizador user_desativo = new Utilizador(2, "Phoebe", "phoebe@exemplo.pt", "Abc1abcABC", "Londres, England", "111-222-111", "desativado");
+    private EBook eBook = new EBook("akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
+    private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private Emprestimo emp = null;
     private DetecaoFraudeInterface detecaoFraudeInterface = null;
-    private DetecaoFraudeInterface detecaoFraudeInterfaceStub = new DetecaoFraudeStub();;
+    private DetecaoFraudeInterface detecaoFraudeInterfaceStub = new DetecaoFraudeStub();
+    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro", copiaEBook);
+    private Server server = new Server("Portugal");
 
+    public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, InvalidReplicaException, InvalidServerException {
+    }
 
     @Test
-    void test_detecao_fraude_not_null(){
+    void createConstructorDetecaoFraudeOK() {
         assertNotNull(detecaoFraudeInterfaceStub);
     }
 
     @Test
-    void test_detecao_fraude_null(){
+    void createDetecaoFraudeNull() {
         assertNull(detecaoFraudeInterface);
     }
 
     @Test
-    void test_detecao_fraude_with_User() {
-        Throwable exception = assertThrows(UtilizadorNullException.class, () -> {
+    void createDetecaoFraudeWithNullUser() {
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
             detecaoFraudeInterfaceStub.detecao_fraude(null);
         });
-        assertEquals(UtilizadorNullException.class, exception.getClass());
     }
 
     @Test
-    void test_detecao_fraude() throws UtilizadorNullException {
-        if (detecaoFraudeInterfaceStub.detecao_fraude(u) == 1)
-            assertEquals(desativado,u.getEstado_utilizador());
-        else
-            assertEquals(ativado,u.getEstado_utilizador());
+    void createDetecaoFraudeOK() throws UtilizadorNullException, InvalidUserException, InvalidDetecaoFraudeException, InvalidServerException, InvalidReplicaException, EmprestimoException {
+
+        server.addReplica(replicaServidor_aveiro);
+
+        if (detecaoFraudeInterfaceStub.detecao_fraude(u)) { //detetou fraude
+            assertThrows(EmprestimoException.class, () -> emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, replicaServidor_aveiro, 1));
+        } else {
+            assertEquals(ativado, u.getEstado_utilizador());
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, replicaServidor_aveiro, 1);
+            assertEquals(1,emp.getId_emp());
+        }
+
     }
 
     @Test
-    void test_Emprestimo_Conta_Cancelada() {
+    void EmprestimoWithCanceledAccount() {
         //so apanha quando o user esta cancelado
         System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro",copiaEBook);
-        Server server = new Server("Portugal");
         server.addReplica(replicaServidor_aveiro);
-        Throwable exception = assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),user_desativo, copiaEBook, replicaServidor_aveiro,1);
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, replicaServidor_aveiro, 1);
         });
-        assertEquals(EmprestimoException.class, exception.getClass());
     }
 
     @BeforeAll
-    static void set(){
+    static void set() {
     }
+
     @BeforeEach
     void setUp() {
     }

@@ -1,39 +1,37 @@
 import Aplicacao.EBook;
+import Aplicacao.Exceptions.InvalidEBookException;
+import Aplicacao.Utilizador;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_EBook {
 
     private EBook eBook = null;
-    private String ISBN;
-    private String autor;
-    private String titulo;
-    private String editora;
-    private String formato;
+    private String ISBN = "akjshdahq123123";
+    private String autor = "Stephen King";
+    private String titulo = "The Shinning";
+    private String editora = "Ray Lovejoy";
+    private String formato = "pdf";
     private Float fileSize = 0.f;
-    private String signature;
-    private int assinatura = 1;
+    private String hash = "Stephen king sig";
 
 
     @Test
-    void test_Criacao_EBook(){
-        ISBN = "akjshdahq123123";
-        autor = "Stephen King";
-        titulo = "The Shinning";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Stephen king sig";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void createEBookAutor() {
         assertNotNull(eBook);
     }
 
     @Test
-    void test_Criacao_EBook_com_null_params(){
+    void test_Criacao_EBook_com_null_params() throws InvalidEBookException {
         eBook = new EBook(null,null,null,null,null,0.f,null);
         assertNull(eBook.getISBN());
         assertNull(eBook.getAutor());
@@ -41,101 +39,103 @@ public class TestUnidade_EBook {
         assertNull(eBook.getEditora());
         assertNull(eBook.getFormato());
         assertEquals(0.f,eBook.getFileSize());
-        assertNull(eBook.getSignature());
+        assertNull(eBook.getHash());
     }
 
     @Test
-    void test_setISBN(){
-        ISBN = "akjshdahq123123";
-        autor = "Ross";
-        titulo = "The Shinning";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Stephen king";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void test_setISBN() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(ISBN,eBook.getISBN());
     }
 
 
     @Test
-    void test_setautor(){
-        ISBN = "akjshdahq123123";
-        autor = "Ross";
-        titulo = "The Haunting";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Stephen king";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void createEBookAutorOK() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(autor,eBook.getAutor());
     }
 
     @Test
-    void test_setTitulo(){
-        ISBN = "akjshdahq123123";
-        autor = "Rachel";
-        titulo = "Little Woman";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "dunno";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void createEBookAutorNull() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(ISBN,null,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void createEBookWrongAutorNumber() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(ISBN,"1",titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void createEBookWrongAutorEmpty() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void test_setTitulo() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(titulo,eBook.getTitulo());
     }
 
     @Test
-    void test_setEditora(){
-        ISBN = "akjshdahq123123";
-        autor = "Ross";
-        titulo = "The Night of the Living Dead";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Stephen king";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void test_setEditora() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(editora,eBook.getEditora());
     }
 
     @Test
-    void test_setformato(){
-        ISBN = "akjshdahq123123";
-        autor = "Phoebe";
-        titulo = "Justice League";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Stephen king";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void test_setformato() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(formato,eBook.getFormato());
     }
 
 
     @Test
-    void test_setFileSize(){
-        ISBN = "akjshdahq123123";
-        autor = "Capitao Americano";
-        titulo = "Avengers";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Capitao Americano king";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
+    void test_setFileSize() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize,eBook.getFileSize());
     }
 
     @Test
-    void test_setSignature(){
-        ISBN = "akjshdahq123123";
-        autor = "Elizabeth";
-        titulo = "WandaVision";
-        editora = "Ray Lovejoy";
-        formato= "pdf";
-        fileSize = 150.0f;
-        signature = "Elizabeth King";
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,signature);
-        assertEquals(signature,eBook.getSignature());
+    void test_sethash() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(hash,eBook.getHash());
     }
+
+    @Test
+    void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException {
+        hash = check_hash(hash);
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(hash,eBook.getHash());
+    }
+
+    @Test
+    void createEBookHashNull() {
+        hash = null;
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void createEBookHashEmpty() {
+        hash = "";
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    private String check_hash(String str) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(hash);
+    }
+
 
     @BeforeEach
     void setUp() {

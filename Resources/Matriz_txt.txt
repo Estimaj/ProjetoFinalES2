@@ -1,0 +1,166 @@
+------------------------------------------------------------------------------
+---User
+------------------------------------------------------------------------------
+createUserNull | null | null
+
+createUserNullConstructor | null,null,null,null,null,null | InvalidUserException
+
+createUserWithOKId | id = 1 | 1
+
+createUserWithWrongIdEquals0 | id = 0 | InvalidUserException
+
+createUserWithWrongIdLess0 | id = -1 | InvalidUserException
+
+createUserWithValidEmail |  email_user = "maria@exemplo.com" | maria@exemplo.com
+
+createUserWithInvalidEmail | email_user = maria.exemplo.pt | InvalidUserException
+
+createUserWithValidPwd | pwd_user = "Abc1abcABC" | Abc1abcABC
+
+createUserWithInvalidPwd | pwd_user = "maria" | InvalidUserException
+
+createUserWithInvalidNullPwd | pwd_user = null | InvalidUserException
+
+createUserWithValidAddress |  morada_user = "Coimbra, Portugal" | Coimbra, Portugal
+
+createUserWithInvalidAddressNumber | morada_user = "1212" | InvalidUserException
+
+createUserWithInvalidAddress | morada_user = "Rua do Esquecimento" | InvalidUserException
+
+createUserWithInvalidAddress |  morada_user = "Portugal" | InvalidUserException
+
+createUserWithOKTelefone | telefone_user = "121-231-123" | 121-231-123
+
+createUserWithNullTelefone | telefone_user = null | InvalidUserException
+
+createUserWithInvalidTelefone | telefone_user = "123 121 231 23" | InvalidUserException
+
+createUserWithValidEstado | estado_user = "ativo" | ativo
+
+createUserWithInvalidEstado | estado_user = "a" | InvalidUserException
+
+createUserWithInvalidEstadoNumber | estado_user = "1" | InvalidUserException
+
+createUserWithInvalidEstadoNull | estado_user = null | NullPointerException
+
+createUserWithvalidEstadoDesativo | estado_user = "desativo" | desativo
+
+
+
+------------------------------------------------------------------------------------------
+--EBook
+------------------------------------------------------------------------------------------
+createEBookAutor | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | EBook
+
+createEBookAutorOK | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | Stephen King
+
+createEBookAutorNull | ("akjshdahq123123",null,"The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
+
+createEBookWrongAutorEmpty | ("akjshdahq123123","","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
+
+createEBookHashOK | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | hash
+
+createEBookHashNull | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
+
+createEBookHashEmpty | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
+
+
+
+------------------------------------------------------------------------------------------
+--CopiaEBook
+------------------------------------------------------------------------------------------
+
+createCopiaEBookOK | idCopia = 1 , correct eBook | CopiaEBook
+
+createCopiaEBookNull | null | null
+
+createCopiaEBookIdEquals0andNullEBook | idCopia = 0 , eBook = null | InvalidCopiaEBookException
+
+createCopiaEBookIdEquals0andOKEBook | idCopia = 0 , correct eBook | InvalidCopiaEBookException
+
+createCopiaEBookIdLess0andOKEBook | idCopia = -1 , correct eBook | InvalidCopiaEBookException
+
+createCopiaEBookIdLess0andWrongEBook | idCopia = -1 , eBook = null | InvalidCopiaEBookException
+
+
+
+
+
+------------------------------------------------------------------------------
+---ReplicaServidor
+------------------------------------------------------------------------------
+
+createReplicaOK | "Aveiro", copiaEBook | ReplicaServidor
+
+createReplicaInvalidLocalizacaoNumber | "1", copiaEBook | InvalidReplicaException
+
+createReplicaInvalidLocalizacaoNull | null, copiaEBook | InvalidReplicaException
+
+createReplicaInvalidLocalizacaoEmpty | "", copiaEBook | InvalidReplicaException
+
+getReplicaThatDoesNotExist | "Evora", copiaEBook |null
+
+getCopiaEBookofSpecificReplicaOK | ReplicaServidor | CopiaEBook
+
+getReplicaThatExisttoCheckMethodsofCopiaEBook | "Aveiro", [copiaEBook = [1,eBook]] | 1
+
+getReplicaThatExisttoCheckMethodsofCopiaEBook | "Aveiro", [copiaEBook = [1,eBook]] | eBook
+
+getNullCopiaEBookofReplica | copiaEBook | null
+
+getSpecificReplicabyId | 0 | ReplicaServidor
+
+getReplicaThatExceedsArrayIndexBounds | 1 | IndexOutOfBoundsException
+
+getReplicaThatisLessofArrayIndexBounds | -1 | IndexOutOfBoundsException
+
+CheckContentofReplicasCopiaEBook | ReplicaServidor("Aveiro",copiaEBook) | "Aveiro, The Shinning"
+
+CheckNullContentofReplicasCopiaEBook |  | null
+
+getReplicaWithOnlyOneReplicaAvaliable | user | replicaServidor
+
+getReplicaWithNoReplicasAvaliable	| 	user		| null
+
+getReplicaClosetoUserWithReplicasAvaliable		|	user		| replicaServidor
+
+getReplicaClosetoUserWithReplicasAvaliablebutisntsameCityasUser | user | replicaServidor
+
+getReplicasSizeWith0replicas | 0 | 0
+
+getReplicasSizeWithNreplicas | 1 | 1
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------
+--API
+------------------------------------------------------------------------------------------
+getConectionAPISuccess
+
+getConectionAPIFailure
+
+
+
+
+
+------------------------------------------------------------------------------------------
+--DetecaoFraude
+-------------------------------------------------------------------------------------------
+
+createConstructorDetecaoFraudeOK | DetecaoFraudeInterface | DetecaoFraudeInterface
+
+createDetecaoFraudeNull | detecaoFraudeInterface = null | null
+
+createDetecaoFraudeWithNullUser | utilizador = null | InvalidDetecaoFraudeException
+
+createDetecaoFraudeOK | utilizador | "desativo"
+
+createDetecaoFraudeOK | utilizador | "ativo"
+
+EmprestimoWithCanceledAccount | id_emp = 1,dataHoraEmp = LocalDate.now() ,fimdataHoraEmp, LocalDate.now().plusMonths(1), utilizador, copiaEBook, replicaServidor_aveiro, 1 | EmprestimoException

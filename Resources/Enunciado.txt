@@ -13,7 +13,8 @@ Done --> 2. Os livros em formato de ebook contêm o tamanho do ficheiro e assina
 
 Quase --> 3. O processo de empréstimo de livro requer a seleção da réplica do servidor onde se encontra a cópia do ficheiro ebook geograficamente mais próxima do utente  -> Teste para a seleção da replica
 
-4. Ao solicitar o livro para empréstimo, o utente assina um termo de responsabilidade específico para cada editora. Esse termo define os termos do empréstimo e protege os direitos do autor, responsabilizando o utente pela partilha ilegal do ficheiro
+4. Ao solicitar o livro para empréstimo, o utente assina um termo de responsabilidade específico para cada editora.
+Esse termo define os termos do empréstimo e protege os direitos do autor, responsabilizando o utente pela partilha ilegal do ficheiro
 
 quase --> 5. Os livros são visualizados num componente web da aplicação  -> Testar comunicação com API
 
@@ -36,3 +37,5 @@ De forma a garantir a qualidade da aplicação, é necessário efetuar os seguin
 
 Deverão ser considerados testes black-box para todos os componentes e white-box sempre que se justificar.
 As técnicas estudadas nas aulas (e.g., particionamento de equivalência e análise dos valores limite) deverão ser exploradas.
+
+

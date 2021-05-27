@@ -1,5 +1,12 @@
 package Aplicacao;
 
+import Aplicacao.Exceptions.InvalidEBookException;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 public class EBook {
     private String ISBN;
     private String autor;
@@ -7,16 +14,35 @@ public class EBook {
     private String editora;
     private String formato;
     private float fileSize;
-    private String signature;
+    private String hash;
+    private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
-    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String signature) {
+    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException {
+
+        if (autor == null || autor.matches(NUMBER_VERIFICATION) || autor.equals(""))
+            throw new InvalidEBookException("Invalid EBook Exception");
+
+        if (hash == null || hash.equals(""))
+            throw new InvalidEBookException("Invalid EBook Exception");
+
+
         this.ISBN = ISBN;
         this.autor = autor;
         this.titulo = titulo;
         this.editora = editora;
         this.formato = formato;
         this.fileSize = fileSize;
-        this.signature = signature;
+        try {
+            this.hash = getHash(hash);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getHash(String str) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(hash);
     }
 
     public String getISBN() {
@@ -67,11 +93,11 @@ public class EBook {
         this.fileSize = fileSize;
     }
 
-    public String getSignature() {
-        return signature;
+    public String getHash() {
+        return hash;
     }
 
     public void setSignature(String signature) {
-        this.signature = signature;
+        this.hash = signature;
     }
 }

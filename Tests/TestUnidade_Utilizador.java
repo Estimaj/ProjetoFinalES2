@@ -1,3 +1,4 @@
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Utilizador;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -9,125 +10,192 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestUnidade_Utilizador {
 
     private Utilizador user = null;
-    private Integer id_user = null;
-    private String nome_user = null;
-    private String email_user = null;
-    private String morada_user = null;
-    private String telefone_user = null;
-    private String estado_user = null;
+    private Integer id_user = 1;
+    private String nome_user = "Maria";
+    private String email_user = "maria@exemplo.com";
+    private String pwd_user = "Abc1abcABC";
+    private String morada_user = "Coimbra, Portugal";
+    private String telefone_user = "121-231-123";
+    private String estado_user = "ativo";
 
 
     @Test
-    void test_Criacao_User(){
-        id_user = 1;
-        nome_user = "Maria";
-        email_user = "Maria@exemplo.pt";
-        morada_user = "Rua da Amargura";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserOk() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertNotNull(user);
     }
 
     @Test
-    void test_User_null(){
+    void createUserNull(){
         assertNull(user);
     }
 
     @Test
-    void test_Criacao_User_com_null_params(){
-        user = new Utilizador(null,null,null,null,null,null);
-        assertNull(user.getId_utilizador());
-        assertNull(user.getNome_utilizador());
-        assertNull(user.getEmail_utilizador());
-        assertNull(user.getMorada_utilizador());
-        assertNull(user.getTelefone_utilizador());
-        assertNull(user.getEstado_utilizador());
+    void test_Criacao_User_com_null_params() throws InvalidUserException {
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
     }
 
     @Test
-    void test_setIdUtilizador(){
-        id_user = 2;
-        nome_user = "Jarvas";
-        email_user = "Jarvas@exemplo.pt";
-        morada_user = "Rua da Amargura";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithOKId() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(id_user,user.getId_utilizador());
     }
 
+    @Test
+    void createUserWithWrongIdEquals0() {
+        id_user = 0;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
 
     @Test
-    void test_setNomeUtilizador(){
-        id_user = 3;
-        nome_user = "Clark";
-        email_user = "Clark@exemplo.pt";
-        morada_user = "Krypton";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithWrongIdLess0() {
+        id_user = -1;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+
+    @Test
+    void createUserWithOKName() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(nome_user,user.getNome_utilizador());
     }
 
     @Test
-    void test_setEmailUtilizador(){
-        id_user = 4;
-        nome_user = "Joey";
-        email_user = "Joey@exemplo.pt";
-        morada_user = "Rua do Esquecimento";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithNullName() {
+        nome_user = "";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidNameNumber() {
+        nome_user = "1";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+    @Test
+    void createUserWithValidEmail() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(email_user,user.getEmail_utilizador());
     }
 
     @Test
-    void test_setMoradaUtilizador(){
-        id_user = 5;
-        nome_user = "Phoebe";
-        email_user = "Phoebe@exemplo.pt";
-        morada_user = "Rua da Phoebe";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithInvalidEmail() {
+        email_user = "maria.exemplo.pt";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithValidPwd() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        assertEquals(pwd_user,user.getPwd_utilizador());
+    }
+
+    @Test
+    void createUserWithInvalidPwd() {
+        pwd_user = "maria";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidNullPwd() {
+        pwd_user = null;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithValidAddress() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(morada_user,user.getMorada_utilizador());
     }
 
     @Test
-    void test_setTelefoneUtilizador(){
-        id_user = 6;
-        nome_user = "Monica";
-        email_user = "Monica@exemplo.pt";
-        morada_user = "Rua da Monica";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithInvalidAddress() {
+        morada_user = "Rua do Esquecimento";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidAddressNumber() {
+        morada_user = "1212";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithNullTelefone() {
+        telefone_user = null;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithOKTelefone() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(telefone_user,user.getTelefone_utilizador());
+    }
+
+    @Test
+    void createUserWithInvalidTelefone() {
+        telefone_user = "123 121 231 223";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
     }
 
 
     @Test
-    void test_setEstadoUtilizador(){
-        id_user = 7;
-        nome_user = "Chandler";
-        email_user = "Chandler@exemplo.pt";
-        morada_user = "Rua do Esquecimento";
-        telefone_user = "12123123";
-        estado_user = "ativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+    void createUserWithValidEstado() throws InvalidUserException {
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(estado_user,user.getEstado_utilizador());
     }
 
     @Test
-    void test_setEstadoUtilizador_desativo(){
-        id_user = 7;
-        nome_user = "Chandler";
-        email_user = "Chandler@exemplo.pt";
-        morada_user = "Rua do Esquecimento";
-        telefone_user = "12123123";
+    void createUserWithInvalidEstado() throws InvalidUserException {
+        estado_user = "a";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidEstadoNumber() throws InvalidUserException {
+        estado_user = "1";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidEstadoNull() {
+        estado_user = null;
+        assertThrows(NullPointerException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithvalidEstadoDesativo() throws InvalidUserException {
         estado_user = "desativo";
-        user = new Utilizador(id_user,nome_user,email_user,morada_user,telefone_user,estado_user);
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(estado_user,user.getEstado_utilizador());
     }
 

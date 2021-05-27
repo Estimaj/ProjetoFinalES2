@@ -1,8 +1,10 @@
 package Detecao;
 
+import Aplicacao.Exceptions.InvalidDetecaoFraudeException;
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Utilizador;
 import Aplicacao.Exceptions.UtilizadorNullException;
 
 public interface DetecaoFraudeInterface {
-    int detecao_fraude(Utilizador u) throws UtilizadorNullException;
+    boolean detecao_fraude(Utilizador u) throws UtilizadorNullException, InvalidUserException, InvalidDetecaoFraudeException;
 }

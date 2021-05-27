@@ -1,10 +1,15 @@
 package Aplicacao;
 
+import Aplicacao.Exceptions.InvalidReplicaException;
+
 public class ReplicaServidor {
     private String localizacao_Cidade_ReplicaServidor;
     private CopiaEBook copiaEBook;
 
-    public ReplicaServidor(String localizacao_Cidade_ReplicaServidor, CopiaEBook copiaEBook) {
+    public ReplicaServidor(String localizacao_Cidade_ReplicaServidor, CopiaEBook copiaEBook) throws InvalidReplicaException {
+        if (localizacao_Cidade_ReplicaServidor == null || localizacao_Cidade_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Cidade_ReplicaServidor.equals(""))
+            throw new InvalidReplicaException("Invalid Server Exception");
+
         this.localizacao_Cidade_ReplicaServidor = localizacao_Cidade_ReplicaServidor;
         this.copiaEBook = copiaEBook;
     }

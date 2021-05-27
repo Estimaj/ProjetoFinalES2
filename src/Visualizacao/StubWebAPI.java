@@ -1,12 +1,15 @@
 package Visualizacao;
 
 import Aplicacao.CopiaEBook;
+import Aplicacao.Emprestimo;
+import Aplicacao.Exceptions.InvalidVisualizacaoException;
 import Visualizacao.Exceptions.FileExtensionException;
 import Visualizacao.Exceptions.FileSizeException;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class StubWebAPI implements InterfaceComponenteWeb {
@@ -18,14 +21,16 @@ public class StubWebAPI implements InterfaceComponenteWeb {
 
 
     @Override
-    public void requestWebAPI(CopiaEBook copiaEBook) throws IOException, FileExtensionException, FileSizeException {
+    public void requestWebAPI(Emprestimo emp) throws IOException, FileExtensionException, FileSizeException, InvalidVisualizacaoException {
 
         //File file = new File("teste\\src\\Main.java");
         //String[] parts = file.getPath().split("\\\\");
         //String extension = check_file_extension(parts);
 
+        if (emp.getUtilizador().getEstado_utilizador().equals("desativo") || LocalDate.now().isAfter(emp.getFimdataHoraEmp()))
+            throw new InvalidVisualizacaoException("Invalid Visualizacao Exception");
 
-        String extension = copiaEBook.getEBook().getFormato();
+        String extension = emp.getCopiaEBook().getEBook().getFormato();
 
         if (extension == null || !extension.equals("pdf"))
             throw new FileExtensionException("O formato do ficheiro so pode ser pdf ou ");
@@ -33,7 +38,7 @@ public class StubWebAPI implements InterfaceComponenteWeb {
         if (extension.getBytes().length > 100)
             throw new FileSizeException("Tamanho do ficheiro nao suportado");
 
-        String word = copiaEBook.getEBook().getTitulo();
+        String word = emp.getCopiaEBook().getEBook().getTitulo();
 
 
         //Establishes a HTTP Request with the server
