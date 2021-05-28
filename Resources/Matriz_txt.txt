@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 createUserNull | null | null
 
-createUserNullConstructor | null,null,null,null,null,null | InvalidUserException
+createUserNullConstructor | null,null,null,null,null,null | NullPointerException
 
 createUserWithOKId | id = 1 | 1
 
@@ -50,6 +50,12 @@ createUserWithvalidEstadoDesativo | estado_user = "desativo" | desativo
 ------------------------------------------------------------------------------------------
 --EBook
 ------------------------------------------------------------------------------------------
+createEBookOK | everything ok | eBook
+
+createEBookNull | null | null
+
+CreateEBookWithNullParams | null,null,null,null,null,0.f,null | InvalidEBookException
+
 createEBookAutor | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | EBook
 
 createEBookAutorOK | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | Stephen King
@@ -58,13 +64,11 @@ createEBookAutorNull | ("akjshdahq123123",null,"The Shinning","Ray Lovejoy","pdf
 
 createEBookWrongAutorEmpty | ("akjshdahq123123","","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
 
-createEBookHashOK | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | hash
+createEBookHashOK | hash = Bd5m2KhLtmXkK90GcrQIov5mYKAj5mL7u8rxB+zYHvQ= | Bd5m2KhLtmXkK90GcrQIov5mYKAj5mL7u8rxB+zYHvQ=
 
-createEBookHashNull | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
+createEBookHashNull | hash = null, everything else ok | InvalidEBookException
 
-createEBookHashEmpty | ("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig") | InvalidEBookException
-
-
+createEBookHashEmpty | hash = "", everything else ok | InvalidEBookException
 
 ------------------------------------------------------------------------------------------
 --CopiaEBook
@@ -110,6 +114,8 @@ CreateEmprestimoWithCopiaEBookNull | copiaEBook = null, everything else ok | Emp
 CreateEmprestimoWithReplica | replica = replicaproximaUser.get_Replica_Proxima_Cliente(user) |"Aveiro,Portugal"
 
 CreateEmprestimoWithReplicaNull | emp.setReplicaServidor(null) | EmprestimoException
+
+
 
 
 
@@ -178,7 +184,7 @@ getConectionAPIFailure
 
 ------------------------------------------------------------------------------------------
 --DetecaoFraude
--------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 
 createConstructorDetecaoFraudeOK | DetecaoFraudeInterface | DetecaoFraudeInterface
 
@@ -191,3 +197,8 @@ createDetecaoFraudeOK | utilizador | "desativo"
 createDetecaoFraudeOK | utilizador | "ativo"
 
 EmprestimoWithCanceledAccount | id_emp = 1,dataHoraEmp = LocalDate.now() ,fimdataHoraEmp, LocalDate.now().plusMonths(1), utilizador, copiaEBook, replicaServidor_aveiro, 1 | EmprestimoException
+
+
+------------------------------------------------------------------------------------------
+--Visualizar
+------------------------------------------------------------------------------------------
