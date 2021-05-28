@@ -13,16 +13,28 @@ public class Emprestimo {
     private Utilizador utilizador;
     private CopiaEBook copiaEBook;
     private ReplicaServidor replicaServidor;
+    private int Assinatura_TR = 0;
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor) {
-        //if (utilizador.getEstado_utilizador().equals("desativo"))
-          //  return;
+
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int asstr) {
+        if (utilizador.getEstado_utilizador().equals("desativo"))
+           return;
+        if (this.getAssinatura_TR() == 0 )
+            return;
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
         this.utilizador = utilizador;
         this.copiaEBook = copiaEBook;
         this.replicaServidor = replicaServidor;
+        this.Assinatura_TR = asstr;
+
+    }
+
+    public int getAssinatura_TR() { return Assinatura_TR; }
+
+    public void setAssinatura_TR(int assinatura_TR) {
+        Assinatura_TR = assinatura_TR;
     }
 
     public int getId_emp() {

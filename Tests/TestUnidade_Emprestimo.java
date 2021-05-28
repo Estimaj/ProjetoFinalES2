@@ -13,18 +13,20 @@ public class TestUnidade_Emprestimo {
     private Integer id_emp = null;
     private LocalDate dataHoraEmp = null;
     private LocalDate FimdataHoraEmp = null;
+    private int asstr = 1;
     private Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private ReplicaServidor replicaServidor = new ReplicaServidor("Viseu");
     private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","desativo");
 
+
     @Test
     void test_Criacao_Emprestimo(){
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         assertNotNull(emp);
     }
 
@@ -33,13 +35,13 @@ public class TestUnidade_Emprestimo {
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user_desativo, copiaEBook,replicaServidor,asstr);
         assertNull(emp);
     }
 
     @Test
     void test_Criacao_Emprestimo_com_null_params(){
-        emp = new Emprestimo(0,null,null,null,null,null);
+        emp = new Emprestimo(0,null,null,null,null,null,0);
         assertEquals(0,emp.getId_emp());
         assertNull(emp.getDataHoraEmp());
         assertNull(emp.getFimdataHoraEmp());
@@ -53,7 +55,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         assertEquals(id_emp,emp.getId_emp());
     }
 
@@ -62,7 +64,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         assertEquals(dataHoraEmp,emp.getDataHoraEmp());
     }
 
@@ -71,7 +73,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         assertEquals(FimdataHoraEmp,emp.getFimdataHoraEmp());
     }
 
@@ -80,7 +82,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
         LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(1);
@@ -91,7 +93,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         emp.extenderEmprestimo();
         emp.extenderEmprestimo();
         assertEquals(2,emp.getExtensaoEmprestimo());
@@ -104,7 +106,7 @@ public class TestUnidade_Emprestimo {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor);
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,asstr);
         emp.extenderEmprestimo();
         assertEquals(1,emp.getExtensaoEmprestimo());
     }
