@@ -124,10 +124,12 @@ public class TestUnidade_Emprestimo {
         replicaproximaUser.addReplica(replicaServidor_guimaraes);
         replicaproximaUser.addReplica(replicaServidor_coimbra);
 
-        ReplicaServidor replica = replicaproximaUser.get_Replica_Proxima_Cliente(user);
-        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
 
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        ReplicaServidor replica = replicaproximaUser.get_Replica_Proxima_Cliente(emp);
+        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
+
+
         emp.setReplicaServidor(replica);
         assertEquals("Aveiro,Portugal",emp.getReplicaServidor().getLocalizacaoReplica());
     }

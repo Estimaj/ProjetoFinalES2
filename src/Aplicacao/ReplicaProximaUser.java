@@ -64,13 +64,12 @@ public class ReplicaProximaUser {
         return this.replicasArrayList.size();
     }
 
-    public ReplicaServidor get_Replica_Proxima_Cliente(Utilizador u) {
-        String[] parts = u.getMorada_utilizador().split(",");
+    public ReplicaServidor get_Replica_Proxima_Cliente(Emprestimo emp) {
+        String[] parts = emp.getUtilizador().getMorada_utilizador().split(",");
         String cidade = parts[0]; // get cidade
         String pais = parts[1].replaceAll("\\s+", ""); // remove spaces
         String[] partsReplica;
         String cidadeReplica, paisReplica;
-
 
 
         if (replicasArrayList.size() == 0)
@@ -78,23 +77,35 @@ public class ReplicaProximaUser {
         if (replicasArrayList.size() == 1)
             return replicasArrayList.get(0);
 
+
         for (int i = 0; i < replicasArrayList.size(); i++) {
-
-            partsReplica = replicasArrayList.get(i).getLocalizacaoReplica().split(",");
-            cidadeReplica = partsReplica[0];
-            paisReplica = partsReplica[1].replaceAll("\\s+", "");
-
-            System.out.println(cidadeReplica + paisReplica);
-
-            if (cidadeReplica.equals(cidade) && paisReplica.equals(pais)) {
-                System.out.println("cidade = " + cidade + " | pais = " + pais);
-                return replicasArrayList.get(i);
+            for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
+                partsReplica = replicasArrayList.get(i).getLocalizacaoReplica().split(",");
+                cidadeReplica = partsReplica[0];
+                paisReplica = partsReplica[1].replaceAll("\\s+", "");
+                System.out.println(cidadeReplica + paisReplica);
+                // se tiver o ebook
+                if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())){
+                    // se a replica for da mesma cidade e pais e tiver a replica
+                    if (paisReplica.equals(pais) && cidadeReplica.equals(cidade) ) {
+                        System.out.println("cidade = " + cidade + " | pais = " + pais);
+                        return replicasArrayList.get(i);
+                    }
+                }
             }
-
         }
-        if (replicasArrayList.size() > 2){
-            System.out.println("size > 2");
-            return replicasArrayList.get(replicasArrayList.size() - 1);
+
+        for (int i = 0; i < replicasArrayList.size(); i++) {
+            for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
+                partsReplica = replicasArrayList.get(i).getLocalizacaoReplica().split(",");
+                cidadeReplica = partsReplica[0];
+                paisReplica = partsReplica[1].replaceAll("\\s+", "");
+                System.out.println(cidadeReplica + paisReplica);
+                // se tiver o ebook
+                if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())){
+                    return replicasArrayList.get(i);
+                }
+            }
         }
 
         return null;
