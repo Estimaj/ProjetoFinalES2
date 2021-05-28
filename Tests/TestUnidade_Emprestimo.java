@@ -143,8 +143,6 @@ public class TestUnidade_Emprestimo {
     }
 
 
-
-
     @Test
     void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
