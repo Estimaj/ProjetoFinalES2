@@ -24,19 +24,27 @@ public class ReplicaServidor {
         return localizacao_Cidade_ReplicaServidor;
     }
 
-    public String getLocalizacaoReplica() {
-        return localizacao_Cidade_ReplicaServidor + "," + localizacao_Pais_ReplicaServidor;
-    }
-
     public void setLocalizacao_Cidade_ReplicaServidor(String localizacao_Cidade_ReplicaServidor) {
         this.localizacao_Cidade_ReplicaServidor = localizacao_Cidade_ReplicaServidor;
+    }
+
+    public String getLocalizacao_Pais_ReplicaServidor() {
+        return localizacao_Pais_ReplicaServidor;
+    }
+
+    public void setLocalizacao_Pais_ReplicaServidor(String localizacao_Pais_ReplicaServidor) {
+        this.localizacao_Pais_ReplicaServidor = localizacao_Pais_ReplicaServidor;
+    }
+
+    public String getLocalizacaoReplica() {
+        return localizacao_Cidade_ReplicaServidor + "," + localizacao_Pais_ReplicaServidor;
     }
 
     public void addCopiaEBook(CopiaEBook copiaEBook) {
         copiasEBookArrayList.add(copiaEBook);
     }
 
-    public void removeReplica(CopiaEBook copiaEBook) {
+    public void removeCopiaEBook(CopiaEBook copiaEBook) {
         copiasEBookArrayList.remove(copiaEBook);
     }
 
@@ -44,7 +52,7 @@ public class ReplicaServidor {
         return copiasEBookArrayList;
     }
 
-    public void setreplicasArrayList(ArrayList<CopiaEBook> copiasEBookArrayList) {
+    public void setCopiasEBookArrayList(ArrayList<CopiaEBook> copiasEBookArrayList) {
         this.copiasEBookArrayList = copiasEBookArrayList;
     }
 }

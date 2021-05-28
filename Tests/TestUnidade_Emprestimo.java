@@ -23,13 +23,13 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_Criacao_Emprestimo() throws EmprestimoException {
+    void CreateEmprestimoOK() throws EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
-        assertNotNull(emp);
+        assertEquals(1,emp.getId_emp());
     }
 
     @Test
-    void test_Criacao_Emprestimo_Com_User_Desativo() throws InvalidUserException {
+    void CreateEmprestimoWithUserDesativo() throws InvalidUserException {
         user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","desativado");
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
@@ -37,26 +37,26 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_Criacao_Emprestimo_com_null_params() throws EmprestimoException {
+    void CreateEmprestimoWithNullParams() throws EmprestimoException {
         assertThrows(NullPointerException.class, () -> {
             emp = new Emprestimo(0,null,null,null,null,1);
         });
     }
 
     @Test
-    void test_setIdEmprestimo() throws EmprestimoException {
+    void CreateEmprestimoSetIdEmp() throws EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertEquals(id_emp,emp.getId_emp());
     }
 
     @Test
-    void test_setDataHoraEmp() throws EmprestimoException {
+    void CreateEmprestimoSetDataHoraEmp() throws EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         assertEquals(dataHoraEmp,emp.getDataHoraEmp());
     }
 
     @Test
-    void test_setFimdataHoraEmp() throws EmprestimoException {
+    void CreateEmprestimoSetFimDataHoraEmp() throws EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook, 1);
         assertEquals(FimdataHoraEmp,emp.getFimdataHoraEmp());
     }
@@ -67,6 +67,81 @@ public class TestUnidade_Emprestimo {
             emp = new Emprestimo(id_emp,LocalDate.now(),LocalDate.now(),user, eBook, 1);
         });
     }
+
+    @Test
+    void createEmprestimoInitialDateisBeforetoFinalDate() {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,LocalDate.now(),LocalDate.now().minusMonths(1),user, eBook, 1);
+        });
+    }
+
+    @Test
+    void CreateEmprestimoTROK() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+        assertEquals(1,emp.getAssinaturaTR());
+    }
+
+    @Test
+    void CreateEmprestimoTRWrong() {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,0);
+        });
+    }
+
+    @Test
+    void CreateEmprestimoWithEBook() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        assertEquals("The Shinning",emp.getEBook().getTitulo());
+    }
+    @Test
+    void CreateEmprestimoWithEBookNull() {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, null ,1);
+        });
+    }
+
+    @Test
+    void CreateEmprestimoWithCopiaEBook() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        emp.setCopiaEBook(copiaEBook);
+        assertEquals(1,emp.getCopiaEBook().getId());
+    }
+
+    @Test
+    void CreateEmprestimoWithCopiaEBookNull() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        assertThrows(EmprestimoException.class, () -> {
+            emp.setCopiaEBook(null);
+        });
+    }
+
+    @Test
+    void CreateEmprestimoWithReplica() throws EmprestimoException, InvalidReplicaException, InvalidUserException {
+        ReplicaProximaUser replicaproximaUser = new ReplicaProximaUser();
+        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
+        replicaproximaUser.addReplica(replicaServidor_aveiro);
+        replicaproximaUser.addReplica(replicaServidor_guimaraes);
+        replicaproximaUser.addReplica(replicaServidor_coimbra);
+
+        ReplicaServidor replica = replicaproximaUser.get_Replica_Proxima_Cliente(user);
+        user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
+
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        emp.setReplicaServidor(replica);
+        assertEquals("Aveiro,Portugal",emp.getReplicaServidor().getLocalizacaoReplica());
+    }
+
+    @Test
+    void CreateEmprestimoWithReplicaNull() throws EmprestimoException {
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        assertThrows(EmprestimoException.class, () -> {
+            emp.setReplicaServidor(null);
+        });
+    }
+
+
+
 
     @Test
     void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
@@ -93,18 +168,6 @@ public class TestUnidade_Emprestimo {
         assertEquals(1,emp.getExtensaoEmprestimo());
     }
 
-    @Test
-    void CreateEmprestimoOK() throws EmprestimoException {
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
-        assertEquals(1,emp.getAssinaturaTR());
-    }
-
-    @Test
-    void CreateEmprestimoTRWrong() {
-        assertThrows(InvalidUserException.class, () -> {
-            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,0);
-        });
-    }
 
     @Test
     void test_BlackBox_Particionamento_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException {

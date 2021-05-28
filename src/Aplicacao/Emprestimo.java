@@ -17,6 +17,8 @@ public class Emprestimo {
     private EBook eBook;
     private ReplicaServidor replicaServidor;
     private int assinaturaTR = 0;
+    private CopiaEBook copiaEBook;
+
 
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, EBook eBook, int assinaturaTR) throws EmprestimoException {
         if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
@@ -25,8 +27,12 @@ public class Emprestimo {
         if(assinaturaTR == 0)
             throw new EmprestimoException("Não assinou os Termos de Responsabilidade");
 
-        if (dataHoraEmp.equals(fimdataHoraEmp))
+        if (dataHoraEmp.isEqual(fimdataHoraEmp) || fimdataHoraEmp.isBefore(dataHoraEmp))
             throw new EmprestimoException("Datas de inicio e fim de emprestimo são iguais !!!");
+
+        if (eBook == null)
+            throw new EmprestimoException("EBook é null !!!");
+
 
 
 
@@ -82,10 +88,23 @@ public class Emprestimo {
         return replicaServidor;
     }
 
-    public void setReplicaServidor(ReplicaServidor replicaServidor) {
+    public void setReplicaServidor(ReplicaServidor replicaServidor) throws EmprestimoException {
+        if (replicaServidor == null)
+            throw new EmprestimoException("setCopiaEBook null");
+
         this.replicaServidor = replicaServidor;
     }
 
+    public CopiaEBook getCopiaEBook() {
+        return copiaEBook;
+    }
+
+    public void setCopiaEBook(CopiaEBook copiaEBook) throws EmprestimoException {
+        if (copiaEBook == null)
+            throw new EmprestimoException("setCopiaEBook null");
+
+        this.copiaEBook = copiaEBook;
+    }
 
     public int getAssinaturaTR() {
         return assinaturaTR;

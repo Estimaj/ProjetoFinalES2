@@ -84,6 +84,33 @@ createCopiaEBookIdLess0andWrongEBook | idCopia = -1 , eBook = null | InvalidCopi
 
 
 
+------------------------------------------------------------------------------------------
+--Emprestimo
+------------------------------------------------------------------------------------------
+CreateEmprestimoOK | everything ok | 1
+
+CreateEmprestimoWithUserDesativo | estado_user = "desativado", everything else ok | EmprestimoException
+
+CreateEmprestimoWithNullParams | everything null | NullPointerException
+
+CreateEmprestimoSetFimDataHoraEmp | everything ok | LocalDate.now().plusMonths(1)
+
+createEmprestimoInitialDateEqualstoFinalDate |     dataHoraEmp = LocalDate.now(), FimdataHoraEmp = LocalDate.now(), everything else ok | EmprestimoException
+
+createEmprestimoInitialDateisBeforetoFinalDate |     dataHoraEmp = LocalDate.now(), FimdataHoraEmp = LocalDate.now().minusMonths(1), everything else ok | EmprestimoException
+
+CreateEmprestimoWithEBook | everything ok | "The Shinning"
+
+CreateEmprestimoWithEBook | ebook = null | EmprestimoException
+
+CreateEmprestimoWithCopiaEBook | copiaEBook = 1, ebook | 1
+
+CreateEmprestimoWithCopiaEBookNull | copiaEBook = null, everything else ok | EmprestimoException
+
+CreateEmprestimoWithReplica | replica = replicaproximaUser.get_Replica_Proxima_Cliente(user) |"Aveiro,Portugal"
+
+CreateEmprestimoWithReplicaNull | emp.setReplicaServidor(null) | EmprestimoException
+
 
 
 ------------------------------------------------------------------------------
