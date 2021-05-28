@@ -31,9 +31,9 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void test_Criacao_User_com_null_params() {
-        assertThrows(InvalidUserException.class, () -> {
-            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+    void createUserNullConstructor() {
+        assertThrows(NullPointerException.class, () -> {
+            user = new Utilizador(null,null,null,null,null,null,null);
         });
     }
 

@@ -24,22 +24,21 @@ public class TestUnidade_EBook {
     private Float fileSize = 0.f;
     private String hash = "Stephen king sig";
 
-
     @Test
-    void createEBookAutor() {
+    void createEBookOK() throws InvalidEBookException {
+        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertNotNull(eBook);
+    }
+    @Test
+    void createEBookNull() {
+        assertNull(eBook);
     }
 
     @Test
-    void test_Criacao_EBook_com_null_params() throws InvalidEBookException {
-        eBook = new EBook(null,null,null,null,null,0.f,null);
-        assertNull(eBook.getISBN());
-        assertNull(eBook.getAutor());
-        assertNull(eBook.getTitulo());
-        assertNull(eBook.getEditora());
-        assertNull(eBook.getFormato());
-        assertEquals(0.f,eBook.getFileSize());
-        assertNull(eBook.getHash());
+    void CreateEBookWithNullParams() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(null,null,null,null,null,0.f,null);
+        });
     }
 
     @Test
@@ -101,17 +100,12 @@ public class TestUnidade_EBook {
         assertEquals(fileSize,eBook.getFileSize());
     }
 
-    @Test
-    void test_sethash() throws InvalidEBookException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(hash,eBook.getHash());
-    }
 
     @Test
     void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException {
-        hash = check_hash(hash);
+        hash = check_hash(this.hash);
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(hash,eBook.getHash());
+        assertEquals(check_hash(this.hash),eBook.getHash());
     }
 
     @Test
