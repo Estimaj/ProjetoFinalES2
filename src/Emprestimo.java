@@ -1,3 +1,4 @@
+import Exceptions.AssinaturaEmprestimoException;
 import Exceptions.ExtensaoEmprestimoException;
 
 import java.time.LocalDate;
@@ -16,11 +17,11 @@ public class Emprestimo {
     private int Assinatura_TR = 0;
 
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int asstr) {
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, ReplicaServidor replicaServidor, int asstr) throws AssinaturaEmprestimoException {
         if (utilizador.getEstado_utilizador().equals("desativo"))
            return;
         if (this.getAssinatura_TR() == 0 )
-            return;
+            throw new AssinaturaEmprestimoException("Necessita de assinar o termo de responsabilidade da editora !!!");
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
@@ -33,9 +34,7 @@ public class Emprestimo {
 
     public int getAssinatura_TR() { return Assinatura_TR; }
 
-    public void setAssinatura_TR(int assinatura_TR) {
-        Assinatura_TR = assinatura_TR;
-    }
+    public void setAssinatura_TR(int assinatura_TR) { Assinatura_TR = assinatura_TR; }
 
     public int getId_emp() {
         return id_emp;

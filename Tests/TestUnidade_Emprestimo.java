@@ -1,3 +1,4 @@
+import Exceptions.AssinaturaEmprestimoException;
 import Exceptions.ExtensaoEmprestimoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +15,7 @@ public class TestUnidade_Emprestimo {
     private LocalDate dataHoraEmp = null;
     private LocalDate FimdataHoraEmp = null;
     private int asstr = 1;
+    private int n_asstr = 0;
     private Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
@@ -22,7 +24,7 @@ public class TestUnidade_Emprestimo {
 
 
     @Test
-    void test_Criacao_Emprestimo(){
+    void test_Criacao_Emprestimo() throws AssinaturaEmprestimoException {
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -31,7 +33,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_Criacao_Emprestimo_Com_User_Desativo(){
+    void test_Criacao_Emprestimo_Com_User_Desativo() throws AssinaturaEmprestimoException {
         id_emp = 1;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -40,7 +42,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_Criacao_Emprestimo_com_null_params(){
+    void test_Criacao_Emprestimo_com_null_params() throws AssinaturaEmprestimoException {
         emp = new Emprestimo(0,null,null,null,null,null,0);
         assertEquals(0,emp.getId_emp());
         assertNull(emp.getDataHoraEmp());
@@ -51,7 +53,19 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setIdEmprestimo(){
+    void test_Criacao_Emprestimo_Sem_AssinaturaTR() throws AssinaturaEmprestimoException {
+        id_emp = 1;
+        dataHoraEmp = LocalDate.now();
+        FimdataHoraEmp = dataHoraEmp;
+        assertThrows(AssinaturaEmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, copiaEBook,replicaServidor,n_asstr);
+        });
+    }
+
+
+
+    @Test
+    void test_setIdEmprestimo() throws AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -60,7 +74,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setDataHoraEmp(){
+    void test_setDataHoraEmp() throws AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -69,7 +83,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setFimdataHoraEmp(){
+    void test_setFimdataHoraEmp() throws AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -78,7 +92,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -89,7 +103,7 @@ public class TestUnidade_Emprestimo {
         assertEquals(extensaoEmprestimo,emp.getFimdataHoraEmp());
     }
     @Test
-    void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException, AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
@@ -102,7 +116,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException {
+    void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException, AssinaturaEmprestimoException {
         id_emp = 2;
         dataHoraEmp = LocalDate.now();
         FimdataHoraEmp = dataHoraEmp;
