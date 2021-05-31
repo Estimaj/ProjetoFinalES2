@@ -204,7 +204,7 @@ createDetecaoFraudeOK | utilizador | "desativo"
 
 createDetecaoFraudeOK | utilizador | "ativo"
 
-EmprestimoWithCanceledAccount | id_emp = 1,dataHoraEmp = LocalDate.now() ,fimdataHoraEmp, LocalDate.now().plusMonths(1), utilizador, copiaEBook, replicaServidor_aveiro, 1 | EmprestimoException
+CreateEmprestimoWithCanceledAccount | estado = "desativado", everything else ok | EmprestimoException
 
 
 ------------------------------------------------------------------------------------------

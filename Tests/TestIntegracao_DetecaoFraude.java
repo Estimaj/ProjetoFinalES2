@@ -58,7 +58,7 @@ public class TestIntegracao_DetecaoFraude {
     }
 
     @Test
-    void EmprestimoWithCanceledAccount() {
+    void CreateEmprestimoWithCanceledAccount() {
         //so apanha quando o user esta cancelado
         System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
