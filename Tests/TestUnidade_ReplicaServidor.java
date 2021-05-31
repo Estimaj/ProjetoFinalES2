@@ -15,7 +15,7 @@ public class TestUnidade_ReplicaServidor {
     private Utilizador u = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
-    private ReplicaProximaUser replicaproximaUser = new ReplicaProximaUser();
+    private GestorReplicas replicaproximaUser = new GestorReplicas();
     private ReplicaServidor replicaServidor_aveiro = null;
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
 

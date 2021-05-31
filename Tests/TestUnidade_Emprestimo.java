@@ -15,7 +15,7 @@ public class TestUnidade_Emprestimo {
     private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
-    private ReplicaProximaUser replicaProximaUser = new ReplicaProximaUser();
+    private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
     private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","desativado");
 
@@ -130,13 +130,13 @@ public class TestUnidade_Emprestimo {
         replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
         replicaServidor_coimbra.addCopiaEBook(copiaEBook);
-        replicaProximaUser.addReplica(replicaServidor_aveiro);
-        replicaProximaUser.addReplica(replicaServidor_guimaraes);
-        replicaProximaUser.addReplica(replicaServidor_coimbra);
+        gestorReplicas.addReplica(replicaServidor_aveiro);
+        gestorReplicas.addReplica(replicaServidor_guimaraes);
+        gestorReplicas.addReplica(replicaServidor_coimbra);
 
         user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
-        ReplicaServidor replica = replicaProximaUser.get_Replica_Proxima_Cliente(emp);
+        ReplicaServidor replica = gestorReplicas.get_Replica_Proxima_Cliente(emp);
 
         emp.setReplicaServidor(replica);
         assertEquals("Aveiro,Portugal",emp.getReplicaServidor().getLocalizacaoReplica());

@@ -20,7 +20,7 @@ public class TestIntegracao_DetecaoFraude {
     private DetecaoFraudeInterface detecaoFraudeInterface = null;
     private DetecaoFraudeInterface detecaoFraudeInterfaceStub = new DetecaoFraudeStub();
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
-    private ReplicaProximaUser server = new ReplicaProximaUser();
+    private GestorReplicas server = new GestorReplicas();
 
     public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, InvalidReplicaException, InvalidServerException, InvalidEBookSizeException, InvalidEBookFormatException {
     }

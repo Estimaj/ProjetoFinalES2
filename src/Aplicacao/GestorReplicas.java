@@ -4,10 +4,10 @@ import Aplicacao.Exceptions.EmprestimoException;
 
 import java.util.ArrayList;
 
-public class ReplicaProximaUser {
+public class GestorReplicas {
     private ArrayList<ReplicaServidor> replicasArrayList = new ArrayList<>();
 
-    public ReplicaProximaUser() {
+    public GestorReplicas() {
     }
 
     public void addReplica(ReplicaServidor replicasArrayListervidor) {
