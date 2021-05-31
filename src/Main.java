@@ -19,16 +19,22 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws UtilizadorNullException, InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, NoSuchAlgorithmException {
-        Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton,Krypton","111-111-111","ativo");
+        String aux = "desativado";
+        Utilizador user = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Krypton,Krypton","111-111-111",aux);
+
+
+
+        /*
         EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
 
         String str = "123";
+
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64.getEncoder().encodeToString(hash);
 
         System.out.println(encoded);
-/*
+
         System.out.println("hello");
         Utilizador u = new Utilizador(1,"Clark","Clark@exemplo.pt","Krypton","111","ativo");
         DetecaoFraudeInterface detecaoFraudeInterface = new DetecaoFraudeStub();

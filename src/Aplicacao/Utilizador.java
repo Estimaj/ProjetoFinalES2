@@ -1,6 +1,8 @@
 package Aplicacao;
 import Aplicacao.Exceptions.InvalidUserException;
 
+import java.util.Objects;
+
 
 public class Utilizador {
 
@@ -33,9 +35,7 @@ public class Utilizador {
         if (telefone_utilizador == null || !telefone_utilizador.matches(PHONE_VERIFICATION))
             throw new InvalidUserException("Utilizador invalido telefone");
 
-        if (estado_utilizador.equals("ativo") || estado_utilizador.equals("desativado") || !estado_utilizador.matches(NUMBER_VERIFICATION))
-            System.out.println();
-        else
+        if (!Objects.equals(estado_utilizador, "ativo") && !Objects.equals(estado_utilizador,"desativado") || estado_utilizador.matches(NUMBER_VERIFICATION) || estado_utilizador == null)
             throw new InvalidUserException("Utilizador invalido estado");
 
 

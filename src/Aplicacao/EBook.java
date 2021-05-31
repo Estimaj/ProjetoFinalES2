@@ -1,6 +1,8 @@
 package Aplicacao;
 
 import Aplicacao.Exceptions.InvalidEBookException;
+import Aplicacao.Exceptions.InvalidEBookFormatException;
+import Aplicacao.Exceptions.InvalidEBookSizeException;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -17,13 +19,20 @@ public class EBook {
     private String hash;
     private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
-    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException {
+    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
 
         if (autor == null || autor.matches(NUMBER_VERIFICATION) || autor.equals(""))
             throw new InvalidEBookException("Invalid EBook Exception");
 
         if (hash == null || hash.equals(""))
-            throw new InvalidEBookException("Invalid EBook Exception");
+            throw new InvalidEBookException("Ficheiro com signature incorreta.");
+
+        if(formato != "epub" && formato != "pdf"){
+            throw new InvalidEBookFormatException("Formato incorreto.");
+        }
+        if(fileSize > 155.5f || fileSize < 0){
+            throw new InvalidEBookSizeException("Ficheiro superior a 155.5 mb.");
+        }
 
 
         this.ISBN = ISBN;

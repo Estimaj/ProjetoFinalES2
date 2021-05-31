@@ -187,14 +187,14 @@ public class TestUnidade_Utilizador {
     @Test
     void createUserWithInvalidEstadoNull() {
         estado_user = null;
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         });
     }
 
     @Test
     void createUserWithvalidEstadoDesativo() throws InvalidUserException {
-        estado_user = "desativo";
+        estado_user = "desativado";
         user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(estado_user,user.getEstado_utilizador());
     }

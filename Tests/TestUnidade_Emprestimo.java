@@ -15,11 +15,11 @@ public class TestUnidade_Emprestimo {
     private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
     private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
-    private ReplicaProximaUser server = new ReplicaProximaUser();
+    private ReplicaProximaUser replicaProximaUser = new ReplicaProximaUser();
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
-    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","desativo");
+    private Utilizador user_desativo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","desativado");
 
-    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException {
+    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
     @Test
@@ -89,6 +89,13 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
+    void CreateEmprestimoTRDifferent1() {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,2);
+        });
+    }
+
+    @Test
     void CreateEmprestimoWithEBook() throws EmprestimoException {
         emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
         assertEquals("The Shinning",emp.getEBook().getTitulo());
@@ -117,18 +124,19 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void CreateEmprestimoWithReplica() throws EmprestimoException, InvalidReplicaException, InvalidUserException {
-        ReplicaProximaUser replicaproximaUser = new ReplicaProximaUser();
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
-        replicaproximaUser.addReplica(replicaServidor_aveiro);
-        replicaproximaUser.addReplica(replicaServidor_guimaraes);
-        replicaproximaUser.addReplica(replicaServidor_coimbra);
+        replicaServidor_coimbra.addCopiaEBook(copiaEBook);
+        replicaProximaUser.addReplica(replicaServidor_aveiro);
+        replicaProximaUser.addReplica(replicaServidor_guimaraes);
+        replicaProximaUser.addReplica(replicaServidor_coimbra);
 
-
-        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
-        ReplicaServidor replica = replicaproximaUser.get_Replica_Proxima_Cliente(emp);
         user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
-
+        emp = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook ,1);
+        ReplicaServidor replica = replicaProximaUser.get_Replica_Proxima_Cliente(emp);
 
         emp.setReplicaServidor(replica);
         assertEquals("Aveiro,Portugal",emp.getReplicaServidor().getLocalizacaoReplica());

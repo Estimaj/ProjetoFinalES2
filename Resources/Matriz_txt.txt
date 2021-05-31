@@ -41,9 +41,9 @@ createUserWithInvalidEstado | estado_user = "a" | InvalidUserException
 
 createUserWithInvalidEstadoNumber | estado_user = "1" | InvalidUserException
 
-createUserWithInvalidEstadoNull | estado_user = null | NullPointerException
+createUserWithInvalidEstadoNull | estado_user = null | InvalidUserException
 
-createUserWithvalidEstadoDesativo | estado_user = "desativo" | desativo
+createUserWithvalidEstadoDesativo | estado_user = "desativado" | desativado
 
 
 
@@ -103,6 +103,12 @@ createEmprestimoInitialDateEqualstoFinalDate |     dataHoraEmp = LocalDate.now()
 
 createEmprestimoInitialDateisBeforetoFinalDate |     dataHoraEmp = LocalDate.now(), FimdataHoraEmp = LocalDate.now().minusMonths(1), everything else ok | EmprestimoException
 
+CreateEmprestimoTROK | assinaturaTR = 1, everything else ok | 1
+
+CreateEmprestimoTRWrong | assinaturaTR = 0, everything else ok | EmprestimoException
+
+CreateEmprestimoTRDifferent1 | assinaturaTR = 2, everything else ok | EmprestimoException
+
 CreateEmprestimoWithEBook | everything ok | "The Shinning"
 
 CreateEmprestimoWithEBook | ebook = null | EmprestimoException
@@ -154,6 +160,8 @@ CheckNullContentofReplicasCopiaEBook |  | null
 getReplicaWithOnlyOneReplicaAvaliable | user | replicaServidor
 
 getReplicaWithNoReplicasAvaliable	| 	user		| null
+
+getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull | user = null everything else ok |EmprestimoException
 
 getReplicaClosetoUserWithReplicasAvaliable		|	user		| replicaServidor
 

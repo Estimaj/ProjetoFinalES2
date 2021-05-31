@@ -1,6 +1,7 @@
 import Aplicacao.EBook;
 import Aplicacao.Exceptions.InvalidEBookException;
-import Aplicacao.Utilizador;
+import Aplicacao.Exceptions.InvalidEBookFormatException;
+import Aplicacao.Exceptions.InvalidEBookSizeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ public class TestUnidade_EBook {
     private String hash = "Stephen king sig";
 
     @Test
-    void createEBookOK() throws InvalidEBookException {
+    void createEBookOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertNotNull(eBook);
     }
@@ -42,14 +43,14 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setISBN() throws InvalidEBookException {
+    void test_setISBN() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(ISBN,eBook.getISBN());
     }
 
 
     @Test
-    void createEBookAutorOK() throws InvalidEBookException {
+    void createEBookAutorOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(autor,eBook.getAutor());
     }
@@ -76,33 +77,33 @@ public class TestUnidade_EBook {
     }
 
     @Test
-    void test_setTitulo() throws InvalidEBookException {
+    void test_setTitulo() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(titulo,eBook.getTitulo());
     }
 
     @Test
-    void test_setEditora() throws InvalidEBookException {
+    void test_setEditora() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(editora,eBook.getEditora());
     }
 
     @Test
-    void test_setformato() throws InvalidEBookException {
+    void test_setformato() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(formato,eBook.getFormato());
     }
 
 
     @Test
-    void test_setFileSize() throws InvalidEBookException {
+    void test_setFileSize() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize,eBook.getFileSize());
     }
 
 
     @Test
-    void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException {
+    void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException, InvalidEBookSizeException, InvalidEBookFormatException {
         hash = check_hash(this.hash);
         eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(check_hash(this.hash),eBook.getHash());
@@ -122,6 +123,172 @@ public class TestUnidade_EBook {
         assertThrows(InvalidEBookException.class, () -> {
             eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
         });
+    }
+
+    /**
+     *  Formato não permitido
+     *
+     *  return InvalidEBookFormatException
+     */
+    @Test
+    void test_formato_EBook() {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "html";
+        fileSize = 150.0f;
+        hash = "Stephen king sig";
+        assertThrows(InvalidEBookFormatException.class, () -> {
+            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    /**
+     *  Formato null
+     *
+     *  return InvalidEBookFormatException
+     */
+    @Test
+    void test_formato_null_EBook() {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= null;
+        fileSize = 150.0f;
+        hash = "Stephen king sig";
+        assertThrows(InvalidEBookFormatException.class, () -> {
+            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    /**
+     *  Formato correto com o formato pdf
+     *
+     *  return InvalidEBookFormatException
+     */
+    @Test
+    void test_formato_correto_Pdf_EBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = 150.0f;
+        hash = "Stephen king sig";
+        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals("pdf", eBook.getFormato());
+    }
+
+    /**
+     *  Formato correto com o formato epub
+     *
+     *  return InvalidEBookFormatException
+     */
+    @Test
+    void test_formato_correto_EPub_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "epub";
+        fileSize = 150.0f;
+        hash = "Stephen king sig";
+        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(formato, eBook.getFormato());
+    }
+
+    /**
+     *  SizeFile Superior a 5.5, não permitido
+     *
+     *  return InvalidEBookSizeException
+     */
+    @Test
+    void test_SizeFile_Superior_EBook() {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = 155.6f;
+        hash = "Stephen king sig";
+        assertThrows(InvalidEBookSizeException.class, () -> {
+            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    /**
+     *  SizeFile Inferior a 0, não permitido
+     *
+     *  return InvalidEBookSizeException
+     */
+    @Test
+    void test_SizeFile_Inferior_EBook() {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = -155.5f;
+        hash = "Stephen king sig";
+        assertThrows(InvalidEBookSizeException.class, () -> {
+            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    /**
+     *  SizeFile in range [0, 155.5], permitido
+     *
+     *  return true
+     */
+    @Test
+    void test_SizeFile_Correto_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = 120f;
+        hash = "Stephen king sig";
+        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(fileSize, eBook.getFileSize());
+    }
+
+    /**
+     *  SizeFile is 0, permitido
+     *
+     *  return true
+     */
+    @Test
+    void test_SizeFile_Correto_0_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = 0f;
+        hash = "Stephen king sig";
+        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(fileSize, eBook.getFileSize());
+    }
+
+    /**
+     *  SizeFile is 155.5, permitido
+     *
+     *  return true
+     */
+    @Test
+    void test_SizeFile_Correto_155_5_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        ISBN = "akjshdahq123123";
+        autor = "Stephen King";
+        titulo = "The Shinning";
+        editora = "Ray Lovejoy";
+        formato= "pdf";
+        fileSize = 155.5f;
+        hash = "Stephen king sig";
+        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(fileSize, eBook.getFileSize());
     }
 
     private String check_hash(String str) throws NoSuchAlgorithmException {

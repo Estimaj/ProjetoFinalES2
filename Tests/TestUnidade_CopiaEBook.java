@@ -2,6 +2,8 @@ import Aplicacao.CopiaEBook;
 import Aplicacao.EBook;
 import Aplicacao.Exceptions.InvalidCopiaEBookException;
 import Aplicacao.Exceptions.InvalidEBookException;
+import Aplicacao.Exceptions.InvalidEBookFormatException;
+import Aplicacao.Exceptions.InvalidEBookSizeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +24,7 @@ public class TestUnidade_CopiaEBook {
     private int idCopia = 1;
     private CopiaEBook copiaEBook = null;
 
-    public TestUnidade_CopiaEBook() throws InvalidEBookException {
+    public TestUnidade_CopiaEBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
 

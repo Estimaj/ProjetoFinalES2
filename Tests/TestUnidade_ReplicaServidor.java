@@ -19,7 +19,7 @@ public class TestUnidade_ReplicaServidor {
     private ReplicaServidor replicaServidor_aveiro = null;
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
 
-    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidServerException, InvalidEBookException, InvalidUserException, EmprestimoException {
+    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidServerException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
     @Test
@@ -157,7 +157,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaWithNoReplicasAvaliable() throws InvalidReplicaException {
+    void getReplicaWithNoReplicasAvaliable() throws InvalidReplicaException, EmprestimoException {
         replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
 
@@ -165,7 +165,29 @@ public class TestUnidade_ReplicaServidor {
         assertNull(replicaproximaUser.get_Replica_Proxima_Cliente(emp));
 
     }
+    @Test
+    void getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
+        replicaServidor_coimbra.addCopiaEBook(copiaEBook);
 
+        replicaproximaUser.addReplica(replicaServidor_aveiro);
+        replicaproximaUser.addReplica(replicaServidor_guimaraes);
+        replicaproximaUser.addReplica(replicaServidor_coimbra);
+
+        emp = new Emprestimo(1,LocalDate.now(), LocalDate.now().plusMonths(2),u,eBook,1);
+        emp.setReplicaServidor(replicaServidor_guimaraes);
+        emp.setUtilizador(null);
+
+        //devolve a replica existente na cidade do USER
+        assertThrows(EmprestimoException.class, () -> {
+            replicaproximaUser.get_Replica_Proxima_Cliente(emp);
+        });
+
+    }
     @Test
     void getReplicaClosetoUserWithReplicasAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
@@ -181,9 +203,9 @@ public class TestUnidade_ReplicaServidor {
 
         u = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Guimaraes, Portugal","121-231-123","ativo");
         emp = new Emprestimo(1,LocalDate.now(), LocalDate.now().plusMonths(2),u,eBook,1);
-
+        emp.setReplicaServidor(replicaServidor_guimaraes);
         //devolve a replica existente na cidade do USER
-        assertEquals(replicaServidor_guimaraes,replicaproximaUser.get_Replica_Proxima_Cliente(emp));
+        assertEquals(emp.getReplicaServidor(),replicaproximaUser.get_Replica_Proxima_Cliente(emp));
 
     }
 

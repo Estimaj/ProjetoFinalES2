@@ -22,7 +22,7 @@ public class TestIntegracao_DetecaoFraude {
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
     private ReplicaProximaUser server = new ReplicaProximaUser();
 
-    public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, InvalidReplicaException, InvalidServerException {
+    public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidCopiaEBookException, InvalidEBookException, InvalidReplicaException, InvalidServerException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
     @Test

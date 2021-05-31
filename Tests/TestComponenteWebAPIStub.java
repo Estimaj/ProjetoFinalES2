@@ -21,11 +21,11 @@ public class TestComponenteWebAPIStub {
     private Emprestimo emp = new Emprestimo(1,LocalDate.now(),LocalDate.now().plusMonths(1),user_desativo, eBook,1);
 
 
-    public TestComponenteWebAPIStub() throws InvalidUserException, InvalidReplicaException, EmprestimoException, InvalidEBookException {
+    public TestComponenteWebAPIStub() throws InvalidUserException, InvalidReplicaException, EmprestimoException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
     @Test
-    void test_conexao_API_quando_formato_e_NULL() throws InvalidCopiaEBookException, InvalidEBookException {
+    void test_conexao_API_quando_formato_e_NULL() throws InvalidCopiaEBookException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
 
         eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy",null,150.f,"Stephen king sig");
         copiaEBook = new CopiaEBook(1,eBook);
@@ -38,7 +38,7 @@ public class TestComponenteWebAPIStub {
     }
 
     @Test
-    void test_conexao_API_quando_formato_e_nao_e_pdf() throws InvalidCopiaEBookException, InvalidEBookException {
+    void test_conexao_API_quando_formato_e_nao_e_pdf() throws InvalidCopiaEBookException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
 
         eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","txt",150.f,"Stephen king sig");
         copiaEBook = new CopiaEBook(1,eBook);
@@ -51,7 +51,7 @@ public class TestComponenteWebAPIStub {
     }
 
     @Test
-    void getConectionAPISuccess() throws IOException, FileExtensionException, FileSizeException, InvalidCopiaEBookException, InvalidEBookException, InvalidVisualizacaoException {
+    void getConectionAPISuccess() throws IOException, FileExtensionException, FileSizeException, InvalidCopiaEBookException, InvalidEBookException, InvalidVisualizacaoException, InvalidEBookSizeException, InvalidEBookFormatException {
 
         eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
         copiaEBook = new CopiaEBook(1,eBook);
@@ -65,7 +65,7 @@ public class TestComponenteWebAPIStub {
     }
 
     @Test
-    void getConectionAPIFailure() throws IOException, FileExtensionException, FileSizeException, InvalidCopiaEBookException, InvalidEBookException, InvalidVisualizacaoException {
+    void getConectionAPIFailure() throws IOException, FileExtensionException, FileSizeException, InvalidCopiaEBookException, InvalidEBookException, InvalidVisualizacaoException, InvalidEBookSizeException, InvalidEBookFormatException {
 
         eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
         copiaEBook = new CopiaEBook(1,eBook);
@@ -79,7 +79,7 @@ public class TestComponenteWebAPIStub {
     }
 
     @Test
-    void test_conexao_API_File_Size_maior_do_que_permitido() throws InvalidCopiaEBookException, InvalidEBookException {
+    void test_conexao_API_File_Size_maior_do_que_permitido() throws InvalidCopiaEBookException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
 
         eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
         copiaEBook = new CopiaEBook(1,eBook);

@@ -1,5 +1,7 @@
 package Aplicacao;
 
+import Aplicacao.Exceptions.EmprestimoException;
+
 import java.util.ArrayList;
 
 public class ReplicaProximaUser {
@@ -64,7 +66,10 @@ public class ReplicaProximaUser {
         return this.replicasArrayList.size();
     }
 
-    public ReplicaServidor get_Replica_Proxima_Cliente(Emprestimo emp) {
+    public ReplicaServidor get_Replica_Proxima_Cliente(Emprestimo emp) throws EmprestimoException {
+        if (emp.getUtilizador() == null)
+                throw new EmprestimoException("get_Replica_Proxima_Cliente user é null");
+
         String[] parts = emp.getUtilizador().getMorada_utilizador().split(",");
         String cidade = parts[0]; // get cidade
         String pais = parts[1].replaceAll("\\s+", ""); // remove spaces
@@ -107,7 +112,6 @@ public class ReplicaProximaUser {
                 }
             }
         }
-
         return null;
     }
 

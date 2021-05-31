@@ -24,7 +24,7 @@ public class Emprestimo {
         if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
 
-        if(assinaturaTR == 0)
+        if(assinaturaTR != 1)
             throw new EmprestimoException("Não assinou os Termos de Responsabilidade");
 
         if (dataHoraEmp.isEqual(fimdataHoraEmp) || fimdataHoraEmp.isBefore(dataHoraEmp))
@@ -90,7 +90,7 @@ public class Emprestimo {
 
     public void setReplicaServidor(ReplicaServidor replicaServidor) throws EmprestimoException {
         if (replicaServidor == null)
-            throw new EmprestimoException("setCopiaEBook null");
+            throw new EmprestimoException("setReplicaServidor null");
 
         this.replicaServidor = replicaServidor;
     }
@@ -119,28 +119,11 @@ public class Emprestimo {
     }
 
     public void extenderEmprestimo() throws ExtensaoEmprestimoException {
-        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo > extensaoMaximaEmprestimo){
+        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo >= extensaoMaximaEmprestimo){
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
             throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
         this.extensaoEmprestimo++;
-        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1); //mais 1 mes
-    }
-
-    /*
-    * @param Aplicacao.Emprestimo
-    * @param LocalDate data
-    *
-    * @return True/False
-    *
-    * @Test -> whiteBox
-    * @Test -> whiteBox com extensao de emprestimo
-    * */
-    public int visualizacaoEBook(LocalDate data_visualizacao){
-        /*
-        *   se data_visualizacao maior getDataHoraEmp e data_visualizacao menor getFimdataHoraEmp e getUtilizador().estado igual a ativo
-        *   devolve 200
-         */
-        return 400;
+        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1);
     }
 }
