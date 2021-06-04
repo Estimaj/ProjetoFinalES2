@@ -178,22 +178,25 @@ public class TestUnidade_Emprestimo {
 
 
     @Test
-    void test_BlackBox_Particionamento_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException {
-        /*
-        *   fixme
-        *       perceber inputs possiveis
-        *       perceper outputs expectaveis
-        *
-        *       |		|		|		|
-		*		        0		2
-		*
-		*       valores entre 0 e 2
-		*       valores apartir de 2
-		*       valores abaixo de 0
-		*
-        * */
+    void test_BlackBox_Particionamento_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+        LocalDate test = empAtivo.getFimdataHoraEmp();
+        empAtivo.extenderEmprestimo();
 
-        //Testes aqui
+        //Ver se aumentou a primeira extensão e se a data atualizou
+        assertEquals(1, empAtivo.getExtensaoEmprestimo());
+        assertEquals(test.plusMonths(1), empAtivo.getFimdataHoraEmp());
+
+        empAtivo.extenderEmprestimo();
+
+        //Ver se aumentou a segunda extensão e se a data atualizou
+        assertEquals(2,empAtivo.getExtensaoEmprestimo() );
+        assertEquals(test.plusMonths(2), empAtivo.getFimdataHoraEmp());
+
+        //Atirar throw à terceira extensão
+        assertThrows(ExtensaoEmprestimoException.class, () -> {
+            empAtivo.extenderEmprestimo();
+        });
     }
 
     @Test
