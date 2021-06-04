@@ -24,7 +24,7 @@ public class TestUnidade_Visualizar {
 
 
     @Test
-    void test_Visualizar_() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
+    void test_Visualizar_VV() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
         Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
         Visualizar visualizar = new Visualizar();
@@ -34,22 +34,52 @@ public class TestUnidade_Visualizar {
             empAtivo.getUtilizador().setEstado_utilizador("desativado");
             visualizar.verificarPodeLer(empAtivo, empAtivo.getFimdataHoraEmp().plusMonths(50));
         });
+
+
+    }
+
+    @Test
+    void test_Visualizar_VF() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
+        Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Visualizar visualizar = new Visualizar();
+
+
         //VF -> A condição utilizador está inativo é ativada
         assertThrows(NotAllowedToReadException.class, () -> {
             empAtivo.getUtilizador().setEstado_utilizador("desativado");
             visualizar.verificarPodeLer(empAtivo, empAtivo.getDataHoraEmp());
         });
+
+
+    }
+
+    @Test
+    void test_Visualizar_FV() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
+        Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Visualizar visualizar = new Visualizar();
+
         //FV -> A condição data superior a limite é ativada
         assertThrows(NotAllowedToReadException.class, () -> {
             visualizar.verificarPodeLer(empAtivo, empAtivo.getFimdataHoraEmp().plusMonths(50));
         });
+
+
+    }
+
+    @Test
+    void test_Visualizar_FF() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
+        Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Visualizar visualizar = new Visualizar();
+
         //FF
         empAtivo.getUtilizador().setEstado_utilizador("ativo");
         assertTrue(visualizar.verificarPodeLer(empAtivo, empAtivo.getDataHoraEmp()));
 
 
     }
-
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {

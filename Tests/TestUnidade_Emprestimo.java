@@ -178,7 +178,7 @@ public class TestUnidade_Emprestimo {
 
 
     @Test
-    void test_BlackBox_Particionamento_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
+    void Extensao_de_Emprestimo_1_Vez() throws ExtensaoEmprestimoException, EmprestimoException {
         Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
         LocalDate test = empAtivo.getFimdataHoraEmp();
         empAtivo.extenderEmprestimo();
@@ -187,36 +187,38 @@ public class TestUnidade_Emprestimo {
         assertEquals(1, empAtivo.getExtensaoEmprestimo());
         assertEquals(test.plusMonths(1), empAtivo.getFimdataHoraEmp());
 
+    }
+
+    @Test
+    void Extensao_de_Emprestimo_2_Vez() throws ExtensaoEmprestimoException, EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+        LocalDate test = empAtivo.getFimdataHoraEmp();
+        empAtivo.extenderEmprestimo();
+
         empAtivo.extenderEmprestimo();
 
         //Ver se aumentou a segunda extensão e se a data atualizou
         assertEquals(2,empAtivo.getExtensaoEmprestimo() );
         assertEquals(test.plusMonths(2), empAtivo.getFimdataHoraEmp());
 
+
+    }
+
+    @Test
+    void Extensao_de_Emprestimo_3_Vez() throws ExtensaoEmprestimoException, EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+        LocalDate test = empAtivo.getFimdataHoraEmp();
+        empAtivo.extenderEmprestimo();
+
+
+        empAtivo.extenderEmprestimo();
+
+
         //Atirar throw à terceira extensão
         assertThrows(ExtensaoEmprestimoException.class, () -> {
             empAtivo.extenderEmprestimo();
         });
     }
-
-    @Test
-    void test_BlackBox_Valores_Limite_Extensao_de_Emprestimo() throws ExtensaoEmprestimoException {
-        /*
-         *   fixme
-         *       perceber inputs possiveis
-         *       perceper outputs expectaveis
-         *
-         *       |		|		|		|
-         *		        0		2
-         *
-         *       escolher os valores 0 e 2 para o Test
-         *       escolher os valores limite [-1 , 0 , 1 , 2 , 5  ]
-         *
-         * */
-
-        //Testes aqui
-    }
-
 
     @BeforeAll
     static void set(){
