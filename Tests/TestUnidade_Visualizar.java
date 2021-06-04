@@ -24,8 +24,7 @@ public class TestUnidade_Visualizar {
 
 
     @Test
-    void test_Vizualizar_() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
-        Utilizador userInativo = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","desativado");
+    void test_Visualizar_() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
         Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
         Visualizar visualizar = new Visualizar();
