@@ -20,6 +20,7 @@ public class Emprestimo {
     private CopiaEBook copiaEBook;
 
 
+
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, EBook eBook, int assinaturaTR) throws EmprestimoException {
         if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
@@ -42,7 +43,10 @@ public class Emprestimo {
         this.utilizador = utilizador;
         this.eBook = eBook;
         this.assinaturaTR = assinaturaTR;
+
     }
+
+
 
     public int getId_emp() {
         return id_emp;
@@ -119,28 +123,11 @@ public class Emprestimo {
     }
 
     public void extenderEmprestimo() throws ExtensaoEmprestimoException {
-        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo > extensaoMaximaEmprestimo){
+        if (extensaoEmprestimo < extensaoMinimaEmprestimo || extensaoEmprestimo >= extensaoMaximaEmprestimo){
             System.out.println("Chegou ao limite de extensoes de emprestimo !!!");
             throw new ExtensaoEmprestimoException("Chegou ao limite de extensoes de emprestimo !!!");
         }
         this.extensaoEmprestimo++;
-        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1); //mais 1 mes
-    }
-
-    /*
-    * @param Aplicacao.Emprestimo
-    * @param LocalDate data
-    *
-    * @return True/False
-    *
-    * @Test -> whiteBox
-    * @Test -> whiteBox com extensao de emprestimo
-    * */
-    public int visualizacaoEBook(LocalDate data_visualizacao){
-        /*
-        *   se data_visualizacao maior getDataHoraEmp e data_visualizacao menor getFimdataHoraEmp e getUtilizador().estado igual a ativo
-        *   devolve 200
-         */
-        return 400;
+        this.fimdataHoraEmp = this.fimdataHoraEmp.plusMonths(1);
     }
 }
