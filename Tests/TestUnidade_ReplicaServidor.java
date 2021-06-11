@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestUnidade_ReplicaServidor {
 
     private Utilizador u = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
-    private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private GestorReplicas replicaproximaUser = new GestorReplicas();
     private ReplicaServidor replicaServidor_aveiro = null;
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
 
-    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidServerException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
+    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
 
     @Test
@@ -166,7 +166,7 @@ public class TestUnidade_ReplicaServidor {
 
     }
     @Test
-    void getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+    void getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull() throws EmprestimoException, InvalidReplicaException {
         replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");

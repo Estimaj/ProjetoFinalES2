@@ -20,7 +20,7 @@ public class TestUnidade_CopiaEBook {
     private String formato = "pdf";
     private float fileSize = 150.f;
     private String signature = "Stephen king sig";
-    private EBook eBook = new EBook(ISBN, autor, titulo, editora, formato, fileSize, signature);
+    private EBook eBook = new EBook(1,ISBN, autor, titulo, editora, formato, fileSize, signature);
     private int idCopia = 1;
     private CopiaEBook copiaEBook = null;
 

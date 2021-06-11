@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_EBook {
 
+    private int idEbook = 1;
     private EBook eBook = null;
     private String ISBN = "akjshdahq123123";
     private String autor = "Stephen King";
@@ -27,7 +28,7 @@ public class TestUnidade_EBook {
 
     @Test
     void createEBookOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertNotNull(eBook);
     }
     @Test
@@ -36,68 +37,87 @@ public class TestUnidade_EBook {
     }
 
     @Test
+    void CreateEBookIdEBookOK() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(1,eBook.getIdEbook());
+    }
+    @Test
+    void CreateEBookIdEBookLessThen0() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(-1,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void CreateEBookIdEBookEquals0() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(0,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
     void CreateEBookWithNullParams() {
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(null,null,null,null,null,0.f,null);
+            eBook = new EBook(idEbook,null,null,null,null,null,0.f,null);
         });
     }
 
     @Test
     void test_setISBN() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(ISBN,eBook.getISBN());
     }
 
 
     @Test
     void createEBookAutorOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(autor,eBook.getAutor());
     }
 
     @Test
     void createEBookAutorNull() {
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(ISBN,null,titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(idEbook,ISBN,null,titulo,editora,formato,fileSize,hash);
         });
     }
 
     @Test
     void createEBookWrongAutorNumber() {
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(ISBN,"1",titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(idEbook,ISBN,"1",titulo,editora,formato,fileSize,hash);
         });
     }
 
     @Test
     void createEBookWrongAutorEmpty() {
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(idEbook,ISBN,"",titulo,editora,formato,fileSize,hash);
         });
     }
 
     @Test
     void test_setTitulo() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(titulo,eBook.getTitulo());
     }
 
     @Test
     void test_setEditora() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(editora,eBook.getEditora());
     }
 
     @Test
     void test_setformato() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(formato,eBook.getFormato());
     }
 
 
     @Test
     void test_setFileSize() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize,eBook.getFileSize());
     }
 
@@ -105,7 +125,7 @@ public class TestUnidade_EBook {
     @Test
     void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException, InvalidEBookSizeException, InvalidEBookFormatException {
         hash = check_hash(this.hash);
-        eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(check_hash(this.hash),eBook.getHash());
     }
 
@@ -113,7 +133,7 @@ public class TestUnidade_EBook {
     void createEBookHashNull() {
         hash = null;
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(idEbook,ISBN,"",titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -121,7 +141,7 @@ public class TestUnidade_EBook {
     void createEBookHashEmpty() {
         hash = "";
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(ISBN,"",titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(idEbook,ISBN,"",titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -140,7 +160,7 @@ public class TestUnidade_EBook {
         fileSize = 150.0f;
         hash = "Stephen king sig";
         assertThrows(InvalidEBookFormatException.class, () -> {
-            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+            EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -159,7 +179,7 @@ public class TestUnidade_EBook {
         fileSize = 150.0f;
         hash = "Stephen king sig";
         assertThrows(InvalidEBookFormatException.class, () -> {
-            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+            EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -177,7 +197,7 @@ public class TestUnidade_EBook {
         formato= "pdf";
         fileSize = 150.0f;
         hash = "Stephen king sig";
-        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals("pdf", eBook.getFormato());
     }
 
@@ -195,7 +215,7 @@ public class TestUnidade_EBook {
         formato= "epub";
         fileSize = 150.0f;
         hash = "Stephen king sig";
-        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(formato, eBook.getFormato());
     }
 
@@ -214,7 +234,7 @@ public class TestUnidade_EBook {
         fileSize = 155.6f;
         hash = "Stephen king sig";
         assertThrows(InvalidEBookSizeException.class, () -> {
-            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+            EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -233,7 +253,7 @@ public class TestUnidade_EBook {
         fileSize = -155.5f;
         hash = "Stephen king sig";
         assertThrows(InvalidEBookSizeException.class, () -> {
-            EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+            EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         });
     }
 
@@ -251,7 +271,7 @@ public class TestUnidade_EBook {
         formato= "pdf";
         fileSize = 120f;
         hash = "Stephen king sig";
-        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize, eBook.getFileSize());
     }
 
@@ -269,7 +289,7 @@ public class TestUnidade_EBook {
         formato= "pdf";
         fileSize = 0f;
         hash = "Stephen king sig";
-        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize, eBook.getFileSize());
     }
 
@@ -287,7 +307,7 @@ public class TestUnidade_EBook {
         formato= "pdf";
         fileSize = 155.5f;
         hash = "Stephen king sig";
-        EBook eBook = new EBook(ISBN,autor,titulo,editora,formato,fileSize,hash);
+        EBook eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(fileSize, eBook.getFileSize());
     }
 

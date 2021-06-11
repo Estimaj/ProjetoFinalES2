@@ -33,9 +33,6 @@ public class Emprestimo {
         if (eBook == null)
             throw new EmprestimoException("EBook é null !!!");
 
-
-
-
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
@@ -64,7 +61,10 @@ public class Emprestimo {
         return fimdataHoraEmp;
     }
 
-    public void setFimdataHoraEmp(LocalDate fimdataHoraEmp) {
+    public void setFimdataHoraEmp(LocalDate fimdataHoraEmp) throws EmprestimoException {
+        if (dataHoraEmp.isEqual(fimdataHoraEmp) || fimdataHoraEmp.isBefore(dataHoraEmp))
+            throw new EmprestimoException("Datas de inicio e fim de emprestimo são iguais !!!");
+
         this.fimdataHoraEmp = fimdataHoraEmp;
     }
 
@@ -72,7 +72,10 @@ public class Emprestimo {
         return utilizador;
     }
 
-    public void setUtilizador(Utilizador utilizador) {
+    public void setUtilizador(Utilizador utilizador) throws EmprestimoException {
+        if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
+            throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
+
         this.utilizador = utilizador;
     }
 
@@ -80,7 +83,10 @@ public class Emprestimo {
         return eBook;
     }
 
-    public void setEBook(EBook eBook) {
+    public void setEBook(EBook eBook) throws EmprestimoException {
+        if (eBook == null)
+            throw new EmprestimoException("EBook é null !!!");
+
         this.eBook = eBook;
     }
 
@@ -108,10 +114,6 @@ public class Emprestimo {
 
     public int getAssinaturaTR() {
         return assinaturaTR;
-    }
-
-    public void setAssinaturaTR(int assinaturaTR) {
-        this.assinaturaTR = assinaturaTR;
     }
 
     public int getExtensaoEmprestimo() {

@@ -13,7 +13,7 @@ public class TestUnidade_Emprestimo {
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
     private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
-    private EBook eBook = new EBook("akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
@@ -37,7 +37,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void CreateEmprestimoWithNullParams() throws EmprestimoException {
+    void CreateEmprestimoWithNullParams() {
         assertThrows(NullPointerException.class, () -> {
             emp = new Emprestimo(0,null,null,null,null,1);
         });
@@ -220,6 +220,54 @@ public class TestUnidade_Emprestimo {
         });
     }
 
+    @Test
+    void UpdateEmprestimoSetFimdataHoraEmpEqualdataHoraEmprestimo() throws EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+
+        assertThrows(EmprestimoException.class, () -> {
+            empAtivo.setFimdataHoraEmp(dataHoraEmp);
+        });
+    }
+
+    @Test
+    void UpdateEmprestimoSetFimdataHoraEmpBeforedataHoraEmprestimo() throws EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+
+        assertThrows(EmprestimoException.class, () -> {
+            empAtivo.setFimdataHoraEmp(dataHoraEmp.minusMonths(1));
+        });
+    }
+
+    @Test
+    void UpdateEmprestimoSetUtilizadorDesativado() throws EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+
+        assertThrows(EmprestimoException.class, () -> {
+            empAtivo.setUtilizador(user_desativo);
+        });
+    }
+
+    @Test
+    void UpdateEmprestimoSetEBookNull() throws EmprestimoException {
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
+
+        assertThrows(EmprestimoException.class, () -> {
+            empAtivo.setEBook(null);
+        });
+    }
+
+    @Test
+    void CreateEmprestimoWithCanceledAccount() {
+        //so apanha quando o user esta cancelado
+        System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
+        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
+        gestorReplicas.addReplica(replicaServidor_aveiro);
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
+        });
+
+        assertEquals("desativado",user_desativo.getEstado_utilizador());
+    }
     @BeforeAll
     static void set(){
     }

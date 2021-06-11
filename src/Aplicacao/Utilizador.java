@@ -23,7 +23,7 @@ public class Utilizador {
         if (id_utilizador <= 0)
             throw new InvalidUserException("Utilizador invalido Id");
 
-        if (nome_utilizador == null || nome_utilizador.chars().allMatch(Character::isDigit) || nome_utilizador.matches(NUMBER_VERIFICATION))
+        if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION))
             throw new InvalidUserException("Utilizador invalido nome");
 
         if (email_utilizador == null || !email_utilizador.matches(EMAIL_VERIFICATION))
@@ -38,8 +38,7 @@ public class Utilizador {
         if (!Objects.equals(estado_utilizador, "ativo") && !Objects.equals(estado_utilizador,"desativado") || estado_utilizador.matches(NUMBER_VERIFICATION) || estado_utilizador == null)
             throw new InvalidUserException("Utilizador invalido estado");
 
-
-        if (!morada_utilizador.contains(",") || morada_utilizador.chars().allMatch(Character::isDigit) || morada_utilizador.matches(NUMBER_VERIFICATION))
+        if (!morada_utilizador.contains(",") || morada_utilizador.matches(NUMBER_VERIFICATION))
             throw new InvalidUserException("Utilizador Invalido Morada");
 
         this.id_utilizador = id_utilizador;
@@ -121,5 +120,9 @@ public class Utilizador {
             throw new InvalidUserException("Utilizador invalido => estado");
 
         this.estado_utilizador = estado_utilizador;
+    }
+
+    public boolean autenticacao(String em, String pw){
+        return this.getEmail_utilizador().equals(em) && this.getPwd_utilizador().equals(pw);
     }
 }

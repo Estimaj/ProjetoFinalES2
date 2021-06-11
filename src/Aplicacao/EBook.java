@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class EBook {
+    private int idEbook;
     private String ISBN;
     private String autor;
     private String titulo;
@@ -19,7 +20,10 @@ public class EBook {
     private String hash;
     private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
-    public EBook(String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
+    public EBook(int idEbook, String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
+
+        if (idEbook <= 0)
+            throw new InvalidEBookException("EBook invalido Id");
 
         if (autor == null || autor.matches(NUMBER_VERIFICATION) || autor.equals(""))
             throw new InvalidEBookException("Invalid EBook Exception");
@@ -30,11 +34,11 @@ public class EBook {
         if(formato != "epub" && formato != "pdf"){
             throw new InvalidEBookFormatException("Formato incorreto.");
         }
-        if(fileSize > 155.5f || fileSize < 0){
+        if(fileSize < 0 || fileSize > 155.5f ){
             throw new InvalidEBookSizeException("Ficheiro superior a 155.5 mb.");
         }
 
-
+        this.idEbook = idEbook;
         this.ISBN = ISBN;
         this.autor = autor;
         this.titulo = titulo;
@@ -48,10 +52,8 @@ public class EBook {
         }
     }
 
-    private String getHash(String str) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
-        return Base64.getEncoder().encodeToString(hash);
+    public int getIdEbook() {
+        return idEbook;
     }
 
     public String getISBN() {
@@ -108,5 +110,11 @@ public class EBook {
 
     public void setSignature(String signature) {
         this.hash = signature;
+    }
+
+    private String getHash(String str) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(hash);
     }
 }
