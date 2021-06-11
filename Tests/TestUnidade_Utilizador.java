@@ -75,6 +75,14 @@ public class TestUnidade_Utilizador {
 
     @Test
     void createUserWithNullName() {
+        nome_user = null;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithEmptyName() {
         nome_user = "";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
@@ -83,7 +91,7 @@ public class TestUnidade_Utilizador {
 
     @Test
     void createUserWithNameLengthAboveMax() {
-        nome_user = "InêsJustrianaPereira";
+        nome_user = "MariaJustrianaPereira";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         });
@@ -177,7 +185,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidTelefone2() {
+    void createUserWithInvalidTelefoneWithLetters() {
         telefone_user = "123a121b231";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
@@ -185,7 +193,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidTelefone3() {
+    void createUserWithInvalidTelefoneWithSpacesAndLetters() {
         telefone_user = "12a 012 032";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
@@ -193,7 +201,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidTelefone4() {
+    void createUserWithInvalidTelefoneWithSpaces() {
         telefone_user = "121 012 032";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);

@@ -1,7 +1,5 @@
 import Aplicacao.Exceptions.InvalidFuncException;
-import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
-import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,8 +8,8 @@ public class TestFuncionario {
 
     private Funcionario func = null;
     private Integer id_func = 1;
-    private String nome_func = "Maria";
-    private String email_func= "maria@exemplo.com";
+    private String nome_func = "Ines";
+    private String email_func= "ines@exemplo.com";
     private String pwd_func = "Abc1abcABC";
 
 
@@ -68,9 +66,15 @@ public class TestFuncionario {
         func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         assertEquals(nome_func,func.getNome_func());
     }
-
     @Test
     void createfuncWithNullName() {
+        nome_func = null;
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+    @Test
+    void createfuncWithEmptyName() {
         nome_func = "";
         assertThrows(InvalidFuncException.class, () -> {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);

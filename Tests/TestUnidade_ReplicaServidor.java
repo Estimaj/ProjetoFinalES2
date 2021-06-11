@@ -24,28 +24,53 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void createReplicaOK() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         assertNotNull(replicaServidor_aveiro);
+    }
+    @Test
+    void createReplicaIdOk() throws InvalidReplicaException {
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
+        assertEquals(1,replicaServidor_aveiro.getId_replica());
+    }
+
+    @Test
+    void createReplicaIdLessThenMinimum() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor(-1,"Aveiro","Portugal");
+        });
+    }
+
+    @Test
+    void createReplicaIdEqualsTo0() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor(0,"Aveiro","Portugal");
+        });
+    }
+    @Test
+    void createReplicaIdExcedsMaximum() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_aveiro = new ReplicaServidor(40000,"Aveiro","Portugal");
+        });
     }
 
     @Test
     void createReplicaInvalidLocalizacaoNumber() {
         assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_aveiro = new ReplicaServidor("1","1");
+            replicaServidor_aveiro = new ReplicaServidor(1,"1","1");
         });
     }
 
     @Test
     void createReplicaInvalidLocalizacaoNull() {
         assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_aveiro = new ReplicaServidor(null,null);
+            replicaServidor_aveiro = new ReplicaServidor(1,null,null);
         });
     }
 
     @Test
     void createReplicaInvalidLocalizacaoEmpty() {
         assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_aveiro = new ReplicaServidor("","");
+            replicaServidor_aveiro = new ReplicaServidor(1,"","");
         });
     }
 
@@ -58,21 +83,21 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaThatDoesNotExist() throws InvalidReplicaException {
-        ReplicaServidor replica_q_nao_existe = new ReplicaServidor("Evora","Portugal");
+        ReplicaServidor replica_q_nao_existe = new ReplicaServidor(1,"Evora","Portugal");
         assertNull(replicaproximaUser.getReplicabyElement(replica_q_nao_existe));
     }
 
 
     @Test
     void getCopiaEBookofSpecificReplicaOK() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         assertNotNull(replicaproximaUser.getReplicabyElement(replicaServidor_aveiro));
     }
 
     @Test
     void getReplicaThatExisttoCheckMethodsofCopiaEBook() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         assertEquals(1,replicaproximaUser.getCopia_of_Replica(copiaEBook).getId());
@@ -81,7 +106,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaThatExisttoCheckMethodsofCopiaEBook_in_EBook() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         assertEquals(1,replicaproximaUser.getCopia_of_Replica(copiaEBook).getId());
@@ -105,14 +130,14 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getSpecificReplicabyId() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         assertEquals(replicaServidor_aveiro,replicaproximaUser.get_ReplicaServidor_by_id(0));
     }
 
     @Test
     void getReplicaThatExceedsArrayIndexBounds() throws InvalidReplicaException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
             replicaproximaUser.get_ReplicaServidor_by_id(1);
@@ -122,7 +147,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaThatisLessofArrayIndexBounds() throws InvalidReplicaException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
             replicaproximaUser.get_ReplicaServidor_by_id(-1);
@@ -132,7 +157,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void CheckContentofReplicasCopiaEBook() throws InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         String to_Compare = "Aveiro,Portugal,The Shinning";
@@ -146,7 +171,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaWithOnlyOneReplicaAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro"," Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro"," Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         u = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Guimaraes, Portugal","121-231-123","ativo");
@@ -158,7 +183,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaWithNoReplicasAvaliable() throws InvalidReplicaException, EmprestimoException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
 
         //devolve null
@@ -167,11 +192,11 @@ public class TestUnidade_ReplicaServidor {
     }
     @Test
     void getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull() throws EmprestimoException, InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor(2,"Guimaraes", "Portugal");
         replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
+        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor(3,"Coimbra", "Portugal");
         replicaServidor_coimbra.addCopiaEBook(copiaEBook);
 
         replicaproximaUser.addReplica(replicaServidor_aveiro);
@@ -192,11 +217,11 @@ public class TestUnidade_ReplicaServidor {
     }
     @Test
     void getReplicaClosetoUserWithReplicasAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor(2,"Guimaraes", "Portugal");
         replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
+        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor(3,"Coimbra", "Portugal");
         replicaServidor_coimbra.addCopiaEBook(copiaEBook);
 
         replicaproximaUser.addReplica(replicaServidor_aveiro);
@@ -213,11 +238,11 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaClosetoUserWithReplicasAvaliablebutisntsameCityasUser() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
-        replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
+        replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor("Guimaraes", "Portugal");
+        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor(2,"Guimaraes", "Portugal");
         replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor("Coimbra", "Portugal");
+        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor(3,"Coimbra", "Portugal");
         replicaServidor_coimbra.addCopiaEBook(copiaEBook);
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         replicaproximaUser.addReplica(replicaServidor_guimaraes);
@@ -239,7 +264,7 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicasSizeWithNreplicas() throws InvalidReplicaException {
-        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor("Aveiro","Portugal");
+        ReplicaServidor replicaServidor_aveiro = new ReplicaServidor(1,"Aveiro","Portugal");
         replicaproximaUser.addReplica(replicaServidor_aveiro);
         assertEquals(1,replicaproximaUser.get_replicas_ArrayList_Size());
     }

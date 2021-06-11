@@ -5,19 +5,34 @@ import Aplicacao.Exceptions.InvalidReplicaException;
 import java.util.ArrayList;
 
 public class ReplicaServidor {
+    private int id_replica;
     private String localizacao_Pais_ReplicaServidor;
     private String localizacao_Cidade_ReplicaServidor;
     private ArrayList<CopiaEBook> copiasEBookArrayList = new ArrayList<>();
 
-    public ReplicaServidor(String localizacao_Cidade_ReplicaServidor, String localizacao_Pais_ReplicaServidor) throws InvalidReplicaException {
+    public ReplicaServidor(int id_replica, String localizacao_Cidade_ReplicaServidor, String localizacao_Pais_ReplicaServidor) throws InvalidReplicaException {
+
+        if (id_replica <= 0 || id_replica > 30000)
+            throw new InvalidReplicaException("Invalid Server Exception");
+
+
         if (localizacao_Cidade_ReplicaServidor == null || localizacao_Cidade_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Cidade_ReplicaServidor.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception");
 
         if (localizacao_Pais_ReplicaServidor == null || localizacao_Pais_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Pais_ReplicaServidor.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception");
 
+        this.id_replica = id_replica;
         this.localizacao_Pais_ReplicaServidor = localizacao_Pais_ReplicaServidor;
         this.localizacao_Cidade_ReplicaServidor = localizacao_Cidade_ReplicaServidor;
+    }
+
+    public int getId_replica() {
+        return id_replica;
+    }
+
+    public void setId_replica(int id_replica) {
+        this.id_replica = id_replica;
     }
 
     public String getLocalizacao_Cidade_ReplicaServidor() {

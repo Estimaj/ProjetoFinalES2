@@ -20,7 +20,7 @@ public class TestUnidade_CopiaEBook {
     private String formato = "pdf";
     private float fileSize = 150.f;
     private String signature = "Stephen king sig";
-    private EBook eBook = new EBook(1,ISBN, autor, titulo, editora, formato, fileSize, signature);
+    private EBook eBook = new EBook(1, ISBN, autor, titulo, editora, formato, fileSize, signature);
     private int idCopia = 1;
     private CopiaEBook copiaEBook = null;
 
@@ -35,41 +35,48 @@ public class TestUnidade_CopiaEBook {
 
     @Test
     void createCopiaEBookOK() throws InvalidCopiaEBookException {
-        copiaEBook = new CopiaEBook(idCopia,eBook);
+        copiaEBook = new CopiaEBook(idCopia, eBook);
         assertNotNull(copiaEBook);
+    }
+
+    @Test
+    void createCopiaEBookIdOk() throws InvalidCopiaEBookException {
+        copiaEBook = new CopiaEBook(1, eBook);
+        assertEquals(1,copiaEBook.getId());
     }
 
     @Test
     void createCopiaEBookIdGreatMax() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(30001,eBook);
+            copiaEBook = new CopiaEBook(30001, eBook);
         });
     }
 
     @Test
     void createCopiaEBookIdEquals0andNullEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(0,null);
+            copiaEBook = new CopiaEBook(0, null);
         });
     }
 
     @Test
     void createCopiaEBookIdEquals0andOKEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(0,eBook);
+            copiaEBook = new CopiaEBook(0, eBook);
         });
     }
 
     @Test
     void createCopiaEBookIdLess0andOKEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(-1,eBook);
+            copiaEBook = new CopiaEBook(-1, eBook);
         });
     }
+
     @Test
     void createCopiaEBookIdLess0andWrongEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(-1,null);
+            copiaEBook = new CopiaEBook(-1, null);
         });
     }
 
