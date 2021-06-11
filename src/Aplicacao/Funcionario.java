@@ -1,6 +1,6 @@
 package Aplicacao;
 
-import Aplicacao.Exceptions.InvalidUserException;
+import Aplicacao.Exceptions.InvalidFuncException;
 
 
 public class Funcionario {
@@ -14,19 +14,19 @@ public class Funcionario {
     private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
 
-    public Funcionario(Integer id_func, String nome_func, String email_func, String pwd_func) throws InvalidUserException {
+    public Funcionario(Integer id_func, String nome_func, String email_func, String pwd_func) throws InvalidFuncException {
 
         if (id_func <= 0)
-            throw new InvalidUserException("Func invalido Id");
+            throw new InvalidFuncException("Func invalido Id");
 
-        if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION))
-            throw new InvalidUserException("Func invalido nome");
+        if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION) || nome_func.equals(""))
+            throw new InvalidFuncException("Func invalido nome");
 
-        if (email_func == null || !email_func.matches(EMAIL_VERIFICATION))
-            throw new InvalidUserException("Func invalido em");
+        if (email_func == null || !email_func.matches(EMAIL_VERIFICATION) || email_func.equals(""))
+            throw new InvalidFuncException("Func invalido em");
 
-        if (pwd_func == null || !pwd_func.matches(PWD_VERIFICATION))
-            throw new InvalidUserException("Func invalido pwd");
+        if (pwd_func == null || !pwd_func.matches(PWD_VERIFICATION) || pwd_func.equals(""))
+            throw new InvalidFuncException("Func invalido pwd");
 
         this.id_func = id_func;
         this.nome_func = nome_func;
