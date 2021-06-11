@@ -20,7 +20,7 @@ public class Utilizador {
 
     public Utilizador(Integer id_utilizador, String nome_utilizador, String email_utilizador, String pwd_utilizador,String morada_utilizador, String telefone_utilizador, String estado_utilizador) throws InvalidUserException {
 
-        if (id_utilizador <= 0)
+        if (id_utilizador <= 0 || id_utilizador > 30000)
             throw new InvalidUserException("Utilizador invalido Id");
 
         if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals(""))

@@ -59,6 +59,13 @@ public class TestUnidade_Utilizador {
         });
     }
 
+    @Test
+    void createUserWithWrongIdHigh30000() {
+        id_user = 30001;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
 
     @Test
     void createUserWithOKName() throws InvalidUserException {
