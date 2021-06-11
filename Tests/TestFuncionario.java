@@ -103,7 +103,7 @@ public class TestFuncionario {
 
     @Test
     void createfuncWithInvalidEmail() {
-        email_func = "maria.exemplo.pt";
+        email_func = "ines.exemplo.pt";
         assertThrows(InvalidFuncException.class, () -> {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
@@ -117,7 +117,7 @@ public class TestFuncionario {
 
     @Test
     void createfuncWithInvalidPwd() {
-        pwd_func = "maria";
+        pwd_func = "ines";
         assertThrows(InvalidFuncException.class, () -> {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
