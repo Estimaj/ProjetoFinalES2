@@ -123,6 +123,29 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
+    void CheckIdBelow0() throws EmprestimoException {
+
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(-1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
+        });
+    }
+
+    @Test
+    void CheckIdEqual0() throws EmprestimoException {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(0, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
+        });
+
+    }
+
+    @Test
+    void CheckIdAbove30000() throws EmprestimoException {
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(40000000, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
+        });
+    }
+
+    @Test
     void CreateEmprestimoWithReplica() throws EmprestimoException, InvalidReplicaException, InvalidUserException {
         replicaServidor_aveiro = new ReplicaServidor("Aveiro", "Portugal");
         replicaServidor_aveiro.addCopiaEBook(copiaEBook);
