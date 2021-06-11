@@ -5,16 +5,25 @@ import Aplicacao.Exceptions.InvalidUserException;
 
 import java.time.LocalDate;
 
-public class DetecaoFraude1 {
+public class DetecaoFraude {
 
     private int id_detecao;
     private Utilizador utilizador;
     private LocalDate dateDetecao;
     private Funcionario func;
 
-    public DetecaoFraude1(int id_detecao, Utilizador utilizador, Funcionario func) throws InvalidDetecaoFraudeException, InvalidUserException {
-        if (id_detecao <= 0 ||utilizador == null || func == null || utilizador.getEstado_utilizador().equals("desativado"))
-            throw new InvalidDetecaoFraudeException("Utilizador é NULL");
+    public DetecaoFraude(int id_detecao, Utilizador utilizador, Funcionario func) throws InvalidDetecaoFraudeException, InvalidUserException {
+        if (id_detecao <= 0 || id_detecao > 30000 )
+            throw new InvalidDetecaoFraudeException("Detecao Erro ID");
+
+        if (utilizador == null)
+            throw new InvalidDetecaoFraudeException("Detecao Erro User");
+
+        if (func == null)
+            throw new InvalidDetecaoFraudeException("Detecao Erro Func");
+
+        if (utilizador.getEstado_utilizador().equals("desativado"))
+            throw new InvalidDetecaoFraudeException("Detecao Erro User desativado");
 
         this.id_detecao = id_detecao;
         this.utilizador = utilizador;

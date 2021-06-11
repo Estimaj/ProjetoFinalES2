@@ -14,7 +14,7 @@ public class TestIntegracao_DetecaoFraude {
     private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private Emprestimo emp =  new Emprestimo(1,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
-    private DetecaoFraude1 detecaoFraude = new DetecaoFraude1(1,user,func);
+    private DetecaoFraude detecaoFraude = new DetecaoFraude(1,user,func);
 
     public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException {
     }
@@ -31,16 +31,37 @@ public class TestIntegracao_DetecaoFraude {
     }
 
     @Test
+    void createDetecaoFraudeIdEquals0() {
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
+            detecaoFraude = new DetecaoFraude(0,user,func);
+        });
+    }
+
+    @Test
+    void createDetecaoFraudeIdLess0() {
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
+            detecaoFraude = new DetecaoFraude(-1,user,func);
+        });
+    }
+
+    @Test
+    void createDetecaoFraudeIdGreatMax() {
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
+            detecaoFraude = new DetecaoFraude(30001,user,func);
+        });
+    }
+
+    @Test
     void createDetecaoFraudeWithNullUser() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude1(1,null,func);
+            detecaoFraude = new DetecaoFraude(1,null,func);
         });
     }
 
     @Test
     void createDetecaoFraudeWithNullFunc() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude1(1,user,null);
+            detecaoFraude = new DetecaoFraude(1,user,null);
         });
     }
     @Test

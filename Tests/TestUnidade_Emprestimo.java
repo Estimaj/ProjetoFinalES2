@@ -39,7 +39,7 @@ public class TestUnidade_Emprestimo {
     @Test
     void CreateEmprestimoWithNullParams() {
         assertThrows(NullPointerException.class, () -> {
-            emp = new Emprestimo(0,null,null,null,null,1);
+            emp = new Emprestimo(1,null,null,null,null,1);
         });
     }
 

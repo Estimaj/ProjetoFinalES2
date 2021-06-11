@@ -2,6 +2,7 @@ package Aplicacao;
 
 import Aplicacao.Exceptions.EmprestimoException;
 import Aplicacao.Exceptions.ExtensaoEmprestimoException;
+import Aplicacao.Exceptions.InvalidUserException;
 
 import java.time.LocalDate;
 
@@ -21,6 +22,10 @@ public class Emprestimo {
 
 
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, EBook eBook, int assinaturaTR) throws EmprestimoException {
+
+        if (id_emp <= 0 || id_emp > 30000)
+            throw new EmprestimoException("Emprestimo invalido Id");
+
         if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
 

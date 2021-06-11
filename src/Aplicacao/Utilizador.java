@@ -15,15 +15,15 @@ public class Utilizador {
     private String estado_utilizador;
     private static final String EMAIL_VERIFICATION = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
     private static final String PWD_VERIFICATION = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
-    private static final String PHONE_VERIFICATION = "[1-9]{3}[-]?[0-9]{3}[-]?[0-9]{3}";
+    private static final String PHONE_VERIFICATION = "[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3}";
     private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
     public Utilizador(Integer id_utilizador, String nome_utilizador, String email_utilizador, String pwd_utilizador,String morada_utilizador, String telefone_utilizador, String estado_utilizador) throws InvalidUserException {
 
-        if (id_utilizador <= 0)
+        if (id_utilizador <= 0 || id_utilizador > 30000)
             throw new InvalidUserException("Utilizador invalido Id");
 
-        if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals(""))
+        if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals("") || nome_utilizador.length() > 15)
             throw new InvalidUserException("Utilizador invalido nome");
 
         if (email_utilizador == null || !email_utilizador.matches(EMAIL_VERIFICATION))

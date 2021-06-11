@@ -16,7 +16,7 @@ public class Funcionario {
 
     public Funcionario(Integer id_func, String nome_func, String email_func, String pwd_func) throws InvalidFuncException {
 
-        if (id_func <= 0)
+        if (id_func <= 0 || id_func > 30000)
             throw new InvalidFuncException("Func invalido Id");
 
         if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION) || nome_func.equals(""))

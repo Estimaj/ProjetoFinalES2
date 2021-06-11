@@ -38,6 +38,13 @@ public class TestFuncionario {
     }
 
     @Test
+    void createfuncWithGreatMax()  {
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(30001,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
     void createfuncWithWrongIdEquals0() {
         id_func = 0;
         assertThrows(InvalidFuncException.class, () -> {

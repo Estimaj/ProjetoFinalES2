@@ -40,17 +40,26 @@ public class TestUnidade_CopiaEBook {
     }
 
     @Test
+    void createCopiaEBookIdGreatMax() {
+        assertThrows(InvalidCopiaEBookException.class, () -> {
+            copiaEBook = new CopiaEBook(30001,eBook);
+        });
+    }
+
+    @Test
     void createCopiaEBookIdEquals0andNullEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
             copiaEBook = new CopiaEBook(0,null);
         });
     }
+
     @Test
     void createCopiaEBookIdEquals0andOKEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
             copiaEBook = new CopiaEBook(0,eBook);
         });
     }
+
     @Test
     void createCopiaEBookIdLess0andOKEBook() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
