@@ -1,5 +1,7 @@
 import Aplicacao.Exceptions.InvalidFuncException;
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
+import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -75,6 +77,13 @@ public class TestFuncionario {
         });
     }
 
+    @Test
+    void createFuncWithNameLengthAboveMax() {
+        nome_func = "InêsJustrianaPereira";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
     @Test
     void createfuncWithInvalidNameNumber() {
         nome_func = "1";

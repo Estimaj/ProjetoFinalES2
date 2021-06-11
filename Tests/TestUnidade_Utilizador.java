@@ -82,6 +82,14 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
+    void createUserWithNameLengthAboveMax() {
+        nome_user = "InêsJustrianaPereira";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
     void createUserWithInvalidNameNumber() {
         nome_user = "1";
         assertThrows(InvalidUserException.class, () -> {
