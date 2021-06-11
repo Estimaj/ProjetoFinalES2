@@ -168,6 +168,29 @@ public class TestUnidade_Utilizador {
         });
     }
 
+    @Test
+    void createUserWithInvalidTelefone2() {
+        telefone_user = "123a121b231";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidTelefone3() {
+        telefone_user = "12a 012 032";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidTelefone4() {
+        telefone_user = "121 012 032";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
 
     @Test
     void createUserWithValidEstado() throws InvalidUserException {
