@@ -19,7 +19,7 @@ public class Funcionario {
         if (id_func <= 0 || id_func > 30000)
             throw new InvalidFuncException("Func invalido Id");
 
-        if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION) || nome_func.equals(""))
+        if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION) || nome_func.equals("") || nome_func.length() > 15)
             throw new InvalidFuncException("Func invalido nome");
 
         if (email_func == null || !email_func.matches(EMAIL_VERIFICATION) || email_func.equals(""))

@@ -56,6 +56,13 @@ public class TestUnidade_EBook {
     }
 
     @Test
+    void CreateEBookIdEBookGreatMax() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(40000,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
     void CreateEBookWithNullParams() {
         assertThrows(InvalidEBookException.class, () -> {
             eBook = new EBook(idEbook,null,null,null,null,null,0.f,null);
