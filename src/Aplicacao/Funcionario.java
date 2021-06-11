@@ -17,16 +17,16 @@ public class Funcionario {
     public Funcionario(Integer id_func, String nome_func, String email_func, String pwd_func) throws InvalidUserException {
 
         if (id_func <= 0)
-            throw new InvalidUserException("Utilizador invalido Id");
+            throw new InvalidUserException("Func invalido Id");
 
         if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido nome");
+            throw new InvalidUserException("Func invalido nome");
 
         if (email_func == null || !email_func.matches(EMAIL_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido em");
+            throw new InvalidUserException("Func invalido em");
 
         if (pwd_func == null || !pwd_func.matches(PWD_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido pwd");
+            throw new InvalidUserException("Func invalido pwd");
 
         this.id_func = id_func;
         this.nome_func = nome_func;

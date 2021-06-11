@@ -73,7 +73,7 @@ public class Emprestimo {
     }
 
     public void setUtilizador(Utilizador utilizador) throws EmprestimoException {
-        if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
+        if (utilizador.getEstado_utilizador().equals("desativado"))
             throw new EmprestimoException("O Aplicacao.Utilizador está desativo");
 
         this.utilizador = utilizador;

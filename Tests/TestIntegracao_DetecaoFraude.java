@@ -1,8 +1,5 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
-import apagar.Detecao.DetecaoFraude;
-import apagar.Detecao.DetecaoFraudeInterface;
-import apagar.Detecao.DetecaoFraudeStub;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -16,7 +13,7 @@ public class TestIntegracao_DetecaoFraude {
     private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Aveiro, Portugal","121-231-123","ativo");
     private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
     private Emprestimo emp =  new Emprestimo(1,dataHoraEmp,FimdataHoraEmp,user, eBook,1);
-    private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","JoAo12!");
+    private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
     private DetecaoFraude1 detecaoFraude = new DetecaoFraude1(1,user,func);
 
     public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException {
@@ -24,24 +21,33 @@ public class TestIntegracao_DetecaoFraude {
 
     @Test
     void createConstructorDetecaoFraudeOK() {
-
+        assertNotNull(detecaoFraude);
     }
 
     @Test
     void createDetecaoFraudeNull() {
-
+        detecaoFraude = null;
+        assertNull(detecaoFraude);
     }
 
     @Test
     void createDetecaoFraudeWithNullUser() {
-
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
+            detecaoFraude = new DetecaoFraude1(1,null,func);
+        });
     }
 
     @Test
-    void createDetecaoFraudeOK() throws UtilizadorNullException, InvalidUserException, InvalidDetecaoFraudeException, EmprestimoException {
-
-
+    void createDetecaoFraudeWithNullFunc() {
+        assertThrows(InvalidDetecaoFraudeException.class, () -> {
+            detecaoFraude = new DetecaoFraude1(1,user,null);
+        });
     }
+    @Test
+    void createDetecaoFraudeGetEstadoUser() {
+        assertEquals("desativado",user.getEstado_utilizador());
+    }
+
 
     @BeforeAll
     static void set() {

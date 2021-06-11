@@ -180,10 +180,11 @@ public class TestUnidade_ReplicaServidor {
 
         emp = new Emprestimo(1,LocalDate.now(), LocalDate.now().plusMonths(2),u,eBook,1);
         emp.setReplicaServidor(replicaServidor_guimaraes);
-        emp.setUtilizador(null);
+
 
         //devolve a replica existente na cidade do USER
-        assertThrows(EmprestimoException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
+            emp.setUtilizador(null);
             replicaproximaUser.get_Replica_Proxima_Cliente(emp);
         });
 
