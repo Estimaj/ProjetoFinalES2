@@ -23,7 +23,7 @@ public class Utilizador {
         if (id_utilizador <= 0)
             throw new InvalidUserException("Utilizador invalido Id");
 
-        if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION))
+        if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals(""))
             throw new InvalidUserException("Utilizador invalido nome");
 
         if (email_utilizador == null || !email_utilizador.matches(EMAIL_VERIFICATION))

@@ -185,8 +185,9 @@ public class TestUnidade_ReplicaServidor {
         //devolve a replica existente na cidade do USER
         assertThrows(NullPointerException.class, () -> {
             emp.setUtilizador(null);
-            replicaproximaUser.get_Replica_Proxima_Cliente(emp);
         });
+
+        assertEquals(replicaServidor_aveiro,replicaproximaUser.get_Replica_Proxima_Cliente(emp));
 
     }
     @Test
