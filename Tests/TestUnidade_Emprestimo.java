@@ -123,15 +123,14 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void CheckIdBelow0() throws EmprestimoException {
-
+    void CreateEmprestimoCheckIdBelow0() {
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(-1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
         });
     }
 
     @Test
-    void CheckIdEqual0() throws EmprestimoException {
+    void CreateEmprestimoCheckIdEqual0() {
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(0, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
         });
@@ -139,7 +138,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void CheckIdAbove30000() throws EmprestimoException {
+    void CreateEmprestimoCheckIdAbove30000() {
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(40000000, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook,  1);
         });
