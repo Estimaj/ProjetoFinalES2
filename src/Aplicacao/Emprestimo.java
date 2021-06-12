@@ -32,8 +32,13 @@ public class Emprestimo {
         if(assinaturaTR != 1)
             throw new EmprestimoException("Não assinou os Termos de Responsabilidade");
 
-        if (dataHoraEmp.isEqual(fimdataHoraEmp) || fimdataHoraEmp.isBefore(dataHoraEmp))
+        if (dataHoraEmp.isEqual(fimdataHoraEmp))
             throw new EmprestimoException("Datas de inicio e fim de emprestimo são iguais !!!");
+
+        if (dataHoraEmp.isBefore(LocalDate.now()) || fimdataHoraEmp.isBefore(dataHoraEmp) )
+            throw new EmprestimoException("" +
+                    "Datas de inicio nao pode ser inferior a data final !!!\n" +
+                    "Datas de Fim nao pode ser inferior a data atual !!!\n");
 
         if (eBook == null)
             throw new EmprestimoException("EBook é null !!!");

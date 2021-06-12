@@ -31,6 +31,10 @@ public class TestIntegracao_DetecaoFraude {
     }
 
     @Test
+    void createDetecaoFraudeIdOk() {
+        assertEquals(1,detecaoFraude.getId_detecao());
+    }
+    @Test
     void createDetecaoFraudeIdEquals0() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
             detecaoFraude = new DetecaoFraude(0,user,func);

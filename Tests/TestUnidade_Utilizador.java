@@ -177,7 +177,7 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithInvalidTelefone() {
+    void createUserWithInvalidTelefoneAboveMaxQuantityofNumbers() {
         telefone_user = "123 121 231 223";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
