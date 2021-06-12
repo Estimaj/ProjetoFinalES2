@@ -1,5 +1,9 @@
 import Aplicacao.Exceptions.InvalidFuncException;
+import Aplicacao.Exceptions.InvalidFuncException;
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
+import Aplicacao.Funcionario;
+import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -123,6 +127,45 @@ public class TestFuncionario {
         });
     }
 
+    @Test
+    void createFuncWithEmptyPwd() {
+        pwd_func = "";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createfuncWithInvalidPwdLenghLessThenMinimum() {
+        pwd_func = "Abc1aB";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createfuncWithInvalidPwdLenghLessEqualsToMinimum() {
+        pwd_func = "Abc1abC";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createfuncWithInvalidPwdLenghAboveMaximum() {
+        pwd_func = "Abc1aBAbc1aBAbc1aBAbc1aB";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createfuncWithInvalidPwdLenghEqualsToMaximum() {
+        pwd_func = "Abc1abCabCabCabCabCabC";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
     @Test
     void createfuncWithInvalidNullPwd() {
         pwd_func = null;

@@ -29,8 +29,12 @@ public class Utilizador {
         if (email_utilizador == null || !email_utilizador.matches(EMAIL_VERIFICATION))
             throw new InvalidUserException("Utilizador invalido em");
 
-        if (pwd_utilizador == null || !pwd_utilizador.matches(PWD_VERIFICATION))
+        if (pwd_utilizador == null || !pwd_utilizador.matches(PWD_VERIFICATION) || pwd_utilizador.equals(""))
             throw new InvalidUserException("Utilizador invalido pwd");
+
+        if (pwd_utilizador.length() <= 7 || pwd_utilizador.length() >= 21)
+            throw new InvalidUserException("Utilizador invalido pwd" +
+                    "\nNumero de caracteres errados");
 
         if (telefone_utilizador == null || !telefone_utilizador.matches(PHONE_VERIFICATION))
             throw new InvalidUserException("Utilizador invalido telefone");

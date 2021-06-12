@@ -1,6 +1,7 @@
 package Aplicacao;
 
 import Aplicacao.Exceptions.InvalidFuncException;
+import Aplicacao.Exceptions.InvalidUserException;
 
 
 public class Funcionario {
@@ -27,6 +28,10 @@ public class Funcionario {
 
         if (pwd_func == null || !pwd_func.matches(PWD_VERIFICATION) || pwd_func.equals(""))
             throw new InvalidFuncException("Func invalido pwd");
+
+        if (pwd_func.length() <= 7 || pwd_func.length() >= 21)
+            throw new InvalidFuncException("Utilizador invalido pwd" +
+                    "\nNumero de caracteres errados");
 
         this.id_func = id_func;
         this.nome_func = nome_func;

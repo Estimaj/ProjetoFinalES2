@@ -133,6 +133,46 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
+    void createUserWithEmptyPwd() {
+        pwd_user = "";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidPwdLenghLessThenMinimum() {
+        pwd_user = "Abc1aB";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidPwdLenghLessEqualsToMinimum() {
+        pwd_user = "Abc1abC";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidPwdLenghAboveMaximum() {
+        pwd_user = "Abc1aBAbc1aBAbc1aBAbc1aB";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidPwdLenghEqualsToMaximum() {
+        pwd_user = "Abc1abCabCabCabCabCabC";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
     void createUserWithInvalidNullPwd() {
         pwd_user = null;
         assertThrows(InvalidUserException.class, () -> {
