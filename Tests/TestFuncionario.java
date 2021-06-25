@@ -42,9 +42,24 @@ public class TestFuncionario {
     }
 
     @Test
-    void createfuncWithGreatMax()  {
+    void createfuncWithIdLess30001() throws InvalidFuncException {
+        id_func = 30000;
+        func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        assertEquals(id_func,func.getId_func());
+    }
+
+    @Test
+    void createfuncWithIdEquals30001() {
+        id_func = 30001;
         assertThrows(InvalidFuncException.class, () -> {
-            func = new Funcionario(30001,nome_func,email_func,pwd_func);
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createfuncWithGreat30001()  {
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(30002,nome_func,email_func,pwd_func);
         });
     }
 
@@ -62,6 +77,13 @@ public class TestFuncionario {
         assertThrows(InvalidFuncException.class, () -> {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
+    }
+
+    @Test
+    void createfuncWithWrongIdGreat0() throws InvalidFuncException {
+        id_func = 1;
+        func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        assertEquals(id_func,func.getId_func());
     }
 
 

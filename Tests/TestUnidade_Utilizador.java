@@ -60,12 +60,33 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
-    void createUserWithWrongIdHigh30000() {
+    void createUserWithWrongIdGreat0() throws InvalidUserException {
+        id_user = 1;
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        assertEquals(id_user,user.getId_utilizador());
+    }
+
+    @Test
+    void createUserWithWrongIdLess30001() throws InvalidUserException {
+        id_user = 30000;
+        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        assertEquals(id_user,user.getId_utilizador());
+    }
+    @Test
+    void createUserWithWrongIdEquals30001() {
         id_user = 30001;
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         });
     }
+    @Test
+    void createUserWithWrongIdGreat30001() {
+        id_user = 30002;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
 
     @Test
     void createUserWithOKName() throws InvalidUserException {
