@@ -69,7 +69,8 @@ public class TestIntegracao_DetecaoFraude {
         });
     }
     @Test
-    void createDetecaoFraudeGetEstadoUser() {
+    void createDetecaoFraudeGetEstadoUser() throws InvalidDetecaoFraudeException, InvalidUserException {
+        detecaoFraude = new DetecaoFraude(1,user,func);
         assertEquals("desativado",user.getEstado_utilizador());
     }
 
