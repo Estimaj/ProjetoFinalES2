@@ -58,17 +58,17 @@ public class TestDatabaseStub {
     }
 
     @Test
-    void LoginFalse00() {
+    void LoginFalseEmailandPwdNull() {
         db.addUser(u);
         assertNull(db.Login("", ""));
     }
     @Test
-    void LoginFalse01() {
+    void LoginFalseEmailNullPwdOK() {
         db.addUser(u);
         assertNull(db.Login("", "Abc1abcABC"));
     }
     @Test
-    void LoginFalse10() {
+    void LoginFalseEmailOKPwdNull() {
         db.addUser(u);
         assertNull(db.Login("maria@exemplo.com", ""));
     }
