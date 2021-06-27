@@ -102,7 +102,7 @@ public class Database {
         return interfaceDB.getReplica(id_replica);
     }
 
-    public JSONObject getCopiaFromReplica(int id_replica){
+    public String getCopiaFromReplica(int id_replica){
         return interfaceDB.getCopiaFromReplicas(id_replica);
     }
 

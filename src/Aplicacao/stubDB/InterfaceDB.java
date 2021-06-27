@@ -36,5 +36,5 @@ public interface InterfaceDB {
     int saveReplica(ReplicaServidor rp);
     int removeReplica(int id_replica);
     ReplicaServidor getReplica(int id_replica);
-    JSONObject getCopiaFromReplicas(int id_replica);
+    String getCopiaFromReplicas(int id_replica);
 }

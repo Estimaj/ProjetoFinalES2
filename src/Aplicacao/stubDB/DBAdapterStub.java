@@ -222,20 +222,25 @@ public class DBAdapterStub implements InterfaceDB {
     }
 
     @Override
-    public JSONObject getCopiaFromReplicas(int id_replica) {
-        JSONObject json = new JSONObject();
-        int key;
-        String titulo;
+    public String getCopiaFromReplicas(int id_replica) {
+        int key = 0;
+        String titulo = null,autor = null, editora = null, formato = null;
+        float filesize;
+        StringBuilder s = new StringBuilder();
         for (ReplicaServidor replicaServidor : replicaServidorArrayList) {
             if (replicaServidor.getId_replica() == id_replica) {
                 for (int j = 0; j < replicaServidor.getcopiasEBookArrayList().size(); j++) {
                     key = replicaServidor.getcopiasEBookArrayList().get(j).getId();
                     titulo = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getTitulo();
-                    json.put(String.valueOf(key), titulo);
+                    autor = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getAutor();
+                    editora = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getEditora();
+                    formato = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFormato();
+                    filesize = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFileSize();
+                    s.append("{\"").append(key).append("\":\n\t{\n\t\t'Titulo': '").append(titulo).append("',\n\t\t'Autor': '").append(autor).append("',").append("\n\t\t'Editora': '").append(editora).append("',").append("\n\t\t'Formato': '").append(formato).append("',").append("\n\t\t'FileSize': '").append(filesize).append("',").append("\n\t\t'Autor': '").append(autor).append("\n\t}\n},\n");
                 }
             }
         }
-        return json;
+        return s.toString();
     }
 
 

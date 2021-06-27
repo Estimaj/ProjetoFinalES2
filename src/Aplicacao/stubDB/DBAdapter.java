@@ -113,7 +113,7 @@ public class DBAdapter implements InterfaceDB {
     }
 
     @Override
-    public JSONObject getCopiaFromReplicas(int id_replica) {
+    public String getCopiaFromReplicas(int id_replica) {
         return null;
     }
 }

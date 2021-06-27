@@ -284,11 +284,11 @@ public class TestDatabaseStub {
         rp.addCopiaEBook(copiaEBook_lusiadas);
         db.addReplicaServidor(rp);
 
-        JSONObject jsonObject = db.getCopiaFromReplica(1);
+        String jsonObject = db.getCopiaFromReplica(1);
         System.out.println(jsonObject);
 
-        assertTrue(jsonObject.has(String.valueOf(1)));
-        assertTrue(jsonObject.has(String.valueOf(2)));
+        assertTrue(jsonObject.contains("1"));
+        assertTrue(jsonObject.contains("2"));
 
     }
 
