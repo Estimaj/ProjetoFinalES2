@@ -1,9 +1,6 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public interface InterfaceDB {
 
@@ -11,7 +8,7 @@ public interface InterfaceDB {
     int removeUser(int id_user);
     Utilizador getUser(int id_user);
     Utilizador Login(String email, String pwd);
-
+    String listaOfUsers();
 
     int saveEBook(EBook eBook);
     EBook getEBook(int idEBook);

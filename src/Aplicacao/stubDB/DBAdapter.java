@@ -1,9 +1,6 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class DBAdapter implements InterfaceDB {
 
@@ -24,6 +21,11 @@ public class DBAdapter implements InterfaceDB {
 
     @Override
     public Utilizador Login(String email, String pwd) {
+        return null;
+    }
+
+    @Override
+    public String listaOfUsers() {
         return null;
     }
 

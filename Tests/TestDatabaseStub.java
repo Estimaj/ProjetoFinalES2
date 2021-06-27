@@ -1,11 +1,9 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
 import Aplicacao.stubDB.Database;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,6 +71,18 @@ public class TestDatabaseStub {
     void LoginFalse10() {
         db.addUser(u);
         assertNull(db.Login("maria@exemplo.com", ""));
+    }
+
+    @Test
+    void ListaOfUsers() throws InvalidUserException {
+        db.addUser(u);
+        u = new Utilizador(2,"ines","ines@exemplo.com","Abc1abcABC","Coimbra, Portugal","121-231-123","ativo");
+        db.addUser(u);
+        String jsonObject = db.ListaOfUsers();
+        System.out.println(jsonObject);
+
+        assertTrue(jsonObject.contains("1"));
+        assertTrue(jsonObject.contains("2"));
     }
     //----------------------------------
     @Test

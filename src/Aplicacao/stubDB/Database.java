@@ -1,9 +1,6 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class Database {
 
@@ -26,6 +23,9 @@ public class Database {
         return interfaceDB.Login(email, pwd);
     }
 
+    public String ListaOfUsers(){
+        return interfaceDB.listaOfUsers();
+    }
 
     //----EBook
     public int addEBook(EBook eBook) {

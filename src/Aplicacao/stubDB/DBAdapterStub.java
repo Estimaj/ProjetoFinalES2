@@ -52,6 +52,22 @@ public class DBAdapterStub implements InterfaceDB {
     }
 
     @Override
+    public String listaOfUsers() {
+        int key = 0;
+        String nome = null, email = null, morada = null, contacto = null, estado = null;
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < utilizadorArrayList.size(); i++) {
+            key = utilizadorArrayList.get(i).getId_utilizador();
+            email = utilizadorArrayList.get(i).getEmail_utilizador();
+            morada = utilizadorArrayList.get(i).getMorada_utilizador();
+            contacto = utilizadorArrayList.get(i).getTelefone_utilizador();
+            estado = utilizadorArrayList.get(i).getEstado_utilizador();
+            s.append("{\"").append(key).append("\":\n\t{\n\t\t'Email': '").append(email).append("',").append("\n\t\t'Morada': '").append(morada).append("\n\t\t'Contacto': '").append(contacto).append("'\n\t\t'Estado': '").append(estado).append("'\n\t}\n},\n");
+        }
+        return s.toString();
+    }
+
+    @Override
     public int saveEBook(EBook eBook) {
         if (eBook != null) {
             ebookArrayList.add(eBook);
@@ -192,7 +208,7 @@ public class DBAdapterStub implements InterfaceDB {
 
     @Override
     public int saveReplica(ReplicaServidor rp) {
-        if (rp != null){
+        if (rp != null) {
             replicaServidorArrayList.add(rp);
             return rp.getId_replica();
         }
@@ -202,7 +218,7 @@ public class DBAdapterStub implements InterfaceDB {
     @Override
     public int removeReplica(int id_replica) {
         for (int i = 0; i < replicaServidorArrayList.size(); i++) {
-            if (replicaServidorArrayList.get(i).getId_replica() == id_replica ) {
+            if (replicaServidorArrayList.get(i).getId_replica() == id_replica) {
                 replicaServidorArrayList.remove(i);
                 return 1;
             }
@@ -223,7 +239,7 @@ public class DBAdapterStub implements InterfaceDB {
     @Override
     public String getCopiaFromReplicas(int id_replica) {
         int key = 0;
-        String titulo = null,autor = null, editora = null, formato = null;
+        String titulo = null, autor = null, editora = null, formato = null;
         float filesize;
         StringBuilder s = new StringBuilder();
         for (ReplicaServidor replicaServidor : replicaServidorArrayList) {
