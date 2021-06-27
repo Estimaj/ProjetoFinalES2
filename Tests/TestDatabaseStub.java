@@ -277,7 +277,7 @@ public class TestDatabaseStub {
 
     @Test
     void getCopiasFromReplicasOK() throws InvalidCopiaEBookException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
-        EBook eBook_Lusiadas = new EBook(1,"akjshdahq123123","Stephen King","Lusiadas","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+        EBook eBook_Lusiadas = new EBook(1,"akjshdahq123123","Stephen King","The Haunting","Ray Lovejoy","pdf",150.f,"Stephen king sig");
         CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
         CopiaEBook copiaEBook_lusiadas = new CopiaEBook(2,eBook_Lusiadas);
         rp.addCopiaEBook(copiaEBook);
