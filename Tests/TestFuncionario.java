@@ -1,9 +1,5 @@
 import Aplicacao.Exceptions.InvalidFuncException;
-import Aplicacao.Exceptions.InvalidFuncException;
-import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
-import Aplicacao.Funcionario;
-import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -35,6 +35,10 @@ public class ReplicaServidor {
         this.id_replica = id_replica;
     }
 
+    public int getSize(){
+        return copiasEBookArrayList.size();
+    }
+
     public String getLocalizacao_Cidade_ReplicaServidor() {
         return localizacao_Cidade_ReplicaServidor;
     }
