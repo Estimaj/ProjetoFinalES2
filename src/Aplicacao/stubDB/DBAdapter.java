@@ -4,6 +4,8 @@ import Aplicacao.*;
 
 public class DBAdapter implements InterfaceDB {
 
+    private String conexaoDB = "";
+
     @Override
     public int saveUser(Utilizador u) {
         return -1;
