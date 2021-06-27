@@ -62,11 +62,13 @@ public class TestDatabaseStub {
         db.addUser(u);
         assertNull(db.Login("", ""));
     }
+
     @Test
     void LoginFalseEmailNullPwdOK() {
         db.addUser(u);
         assertNull(db.Login("", "Abc1abcABC"));
     }
+
     @Test
     void LoginFalseEmailOKPwdNull() {
         db.addUser(u);
@@ -84,6 +86,7 @@ public class TestDatabaseStub {
         assertTrue(jsonObject.contains("1"));
         assertTrue(jsonObject.contains("2"));
     }
+
     //----------------------------------
     @Test
     void saveEBookInStubOK() {
@@ -133,6 +136,7 @@ public class TestDatabaseStub {
         db.addEmprestimo(emp);
         assertEquals(emp,db.getEmprestimo(1));
     }
+
     @Test
     void getEmprestimoFalse() {
         assertNull(db.getEmprestimo(-10));
@@ -155,6 +159,7 @@ public class TestDatabaseStub {
         db.addEmprestimo(emp);
         assertEquals(u,db.getUtilizadorFromEmprestimo(1));
     }
+
     @Test
     void getUserFromEmprestimoWhenEmprestimoDoesntExist() {
         db.addEmprestimo(emp);
@@ -242,11 +247,13 @@ public class TestDatabaseStub {
         db.addFuncionario(func);
         assertNull(db.LoginFuncionario("", ""));
     }
+
     @Test
     void LoginFuncFalse01() {
         db.addFuncionario(func);
         assertNull(db.LoginFuncionario("", "Abc1abcABC"));
     }
+
     @Test
     void LoginFuncFalse10() {
         db.addFuncionario(func);
