@@ -1,6 +1,7 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
+import Aplicacao.Exceptions.InvalidUserException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,6 +43,21 @@ public class DBAdapterStub implements InterfaceDB {
                 return utilizadorArrayList.get(i);
         }
         return null;
+    }
+
+    @Override
+    public int updateUser(int id_user, String pwd, String telefone) throws InvalidUserException {
+        if (pwd == null || pwd == "" || telefone == null || telefone == ""){
+            return 0;
+        }
+        for (int i = 0; i < utilizadorArrayList.size(); i++) {
+            if (utilizadorArrayList.get(i).getId_utilizador().equals(id_user)){
+                utilizadorArrayList.get(i).setPwd_utilizador(pwd);
+                utilizadorArrayList.get(i).setTelefone_utilizador(telefone);
+                return utilizadorArrayList.get(i).getId_utilizador();
+            }
+        }
+        return 0;
     }
 
     @Override

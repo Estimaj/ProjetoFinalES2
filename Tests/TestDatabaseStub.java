@@ -53,6 +53,36 @@ public class TestDatabaseStub {
     }
 
     @Test
+    void UpdateUserOK() throws InvalidUserException {
+        db.addUser(u);
+        assertEquals(1,db.updateUser(1,"Abc1abcABC..1","121-231-123"));
+    }
+
+    @Test
+    void UpdateUserPwdNull() throws InvalidUserException {
+        db.addUser(u);
+        assertEquals(0,db.updateUser(1,null,"121-231-123"));
+    }
+
+    @Test
+    void UpdateUserPwdEmpty() throws InvalidUserException {
+        db.addUser(u);
+        assertEquals(0,db.updateUser(1,"","121-231-123"));
+    }
+
+    @Test
+    void UpdateUserTelefoneEmpty() throws InvalidUserException {
+        db.addUser(u);
+        assertEquals(0,db.updateUser(1,"Abc1abcABC..1",""));
+    }
+
+    @Test
+    void UpdateUserTelefonenull() throws InvalidUserException {
+        db.addUser(u);
+        assertEquals(0,db.updateUser(1,"Abc1abcABC..1",null));
+    }
+
+    @Test
     void LoginOK() {
         db.addUser(u);
         assertEquals(u,db.Login("maria@exemplo.com","Abc1abcABC"));

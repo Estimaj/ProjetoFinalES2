@@ -1,6 +1,7 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
+import Aplicacao.Exceptions.InvalidUserException;
 import org.json.JSONObject;
 
 public interface InterfaceDB {
@@ -8,6 +9,7 @@ public interface InterfaceDB {
     int saveUser(Utilizador u);
     int removeUser(int id_user);
     Utilizador getUser(int id_user);
+    int updateUser(int id_user, String pwd, String telefone) throws InvalidUserException;
     Utilizador Login(String email, String pwd);
     JSONObject listaOfUsers();
 

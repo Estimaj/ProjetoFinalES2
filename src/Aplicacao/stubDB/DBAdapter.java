@@ -1,6 +1,7 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
+import Aplicacao.Exceptions.InvalidUserException;
 import org.json.JSONObject;
 
 public class DBAdapter implements InterfaceDB {
@@ -20,6 +21,11 @@ public class DBAdapter implements InterfaceDB {
     @Override
     public Utilizador getUser(int id_user) {
         return null;
+    }
+
+    @Override
+    public int updateUser(int id_user, String pwd, String telefone) {
+        return 0;
     }
 
     @Override
