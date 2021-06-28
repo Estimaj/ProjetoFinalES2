@@ -1,6 +1,7 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
 import Aplicacao.stubDB.Database;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -10,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDatabaseStub {
 
     private final Database db = new Database();
-    private Utilizador u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Coimbra, Portugal","121-231-123","ativo");
+    private Utilizador u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
     private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig");
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
-    private ReplicaServidor rp = new ReplicaServidor(1,"Aveiro","Portugal");
+    private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
 
     public TestDatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException {
     }
@@ -77,11 +78,12 @@ public class TestDatabaseStub {
 
     @Test
     void ListaOfUsers() throws InvalidUserException {
+        u = new Utilizador(1,"maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
         db.addUser(u);
-        u = new Utilizador(2,"ines","ines@exemplo.com","Abc1abcABC","Coimbra, Portugal","121-231-123","ativo");
+        u = new Utilizador(2,"ines","ines@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
         db.addUser(u);
         String jsonObject = db.ListaOfUsers();
-        System.out.println(jsonObject);
+        //System.out.println(jsonObject);
 
         assertTrue(jsonObject.contains("1"));
         assertTrue(jsonObject.contains("2"));

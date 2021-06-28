@@ -184,6 +184,7 @@ public class TestFuncionario {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
     }
+
     @Test
     void createfuncWithInvalidNullPwd() {
         pwd_func = null;

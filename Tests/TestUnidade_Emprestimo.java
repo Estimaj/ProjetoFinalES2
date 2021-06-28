@@ -12,12 +12,12 @@ public class TestUnidade_Emprestimo {
     private Integer id_emp = 1;
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
-    private Utilizador user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Aveiro, Portugal", "121-231-123", "ativo");
+    private Utilizador user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
     private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
-    private ReplicaServidor replicaServidor_aveiro = new ReplicaServidor(1, "Aveiro", "Portugal");
-    private Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Aveiro, Portugal", "121-231-123", "desativado");
+    private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal");
+    private Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
 
     public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
     }
@@ -30,7 +30,7 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void CreateEmprestimoWithUserDesativo() throws InvalidUserException {
-        user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Aveiro, Portugal", "121-231-123", "desativado");
+        user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, eBook, 1);
         });
@@ -168,21 +168,23 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void CreateEmprestimoWithReplica() throws EmprestimoException, InvalidReplicaException, InvalidUserException {
-        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_guimaraes = new ReplicaServidor(2, "Guimaraes", "Portugal");
-        replicaServidor_guimaraes.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_coimbra = new ReplicaServidor(3, "Coimbra", "Portugal");
-        replicaServidor_coimbra.addCopiaEBook(copiaEBook);
-        gestorReplicas.addReplica(replicaServidor_aveiro);
-        gestorReplicas.addReplica(replicaServidor_guimaraes);
-        gestorReplicas.addReplica(replicaServidor_coimbra);
+        replicaServidor_portugal = new ReplicaServidor(1,"Portugal");
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        replicaServidor_franca.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+        replicaServidor_Espanha.addCopiaEBook(copiaEBook);
 
-        user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Aveiro, Portugal", "121-231-123", "ativo");
+        gestorReplicas.addReplica(replicaServidor_portugal);
+        gestorReplicas.addReplica(replicaServidor_franca);
+        gestorReplicas.addReplica(replicaServidor_Espanha);
+
+        user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
         emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, eBook, 1);
         ReplicaServidor replica = gestorReplicas.get_Replica_Proxima_Cliente(emp);
 
         emp.setReplicaServidor(replica);
-        assertEquals("Aveiro,Portugal", emp.getReplicaServidor().getLocalizacaoReplica());
+        assertEquals("Portugal", emp.getReplicaServidor().getLocalizacaoReplica());
     }
 
     @Test
@@ -304,8 +306,8 @@ public class TestUnidade_Emprestimo {
     void CreateEmprestimoWithCanceledAccount() {
         //so apanha quando o user esta cancelado
         System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
-        replicaServidor_aveiro.addCopiaEBook(copiaEBook);
-        gestorReplicas.addReplica(replicaServidor_aveiro);
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
+        gestorReplicas.addReplica(replicaServidor_portugal);
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, eBook, 1);
         });

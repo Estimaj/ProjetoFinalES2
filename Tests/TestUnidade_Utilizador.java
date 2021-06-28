@@ -14,7 +14,7 @@ public class TestUnidade_Utilizador {
     private String nome_user = "Maria";
     private String email_user = "maria@exemplo.com";
     private String pwd_user = "Abc1abcABC";
-    private String morada_user = "Coimbra, Portugal";
+    private String morada_user = "Portugal";
     private String telefone_user = "121-231-123";
     private String estado_user = "ativo";
 

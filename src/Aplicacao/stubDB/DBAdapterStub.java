@@ -1,6 +1,9 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -62,8 +65,10 @@ public class DBAdapterStub implements InterfaceDB {
             morada = utilizadorArrayList.get(i).getMorada_utilizador();
             contacto = utilizadorArrayList.get(i).getTelefone_utilizador();
             estado = utilizadorArrayList.get(i).getEstado_utilizador();
-            s.append("{\"").append(key).append("\":\n\t{\n\t\t'Email': '").append(email).append("',").append("\n\t\t'Morada': '").append(morada).append("\n\t\t'Contacto': '").append(contacto).append("'\n\t\t'Estado': '").append(estado).append("'\n\t}\n},\n");
+            s.append("{\"").append(key).append("\":\n\t{\n\t\t'Email': '").append(email).append("',").append("\n\t\t'Morada': '").append(morada).append("',").append("\n\t\t'Contacto': '").append(contacto).append("',").append("\n\t\t'Estado': '").append(estado).append("'\n\t}\n},\n");
         }
+        System.out.println(s);
+
         return s.toString();
     }
 
@@ -251,10 +256,11 @@ public class DBAdapterStub implements InterfaceDB {
                     editora = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getEditora();
                     formato = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFormato();
                     filesize = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFileSize();
-                    s.append("{\"").append(key).append("\":\n\t{\n\t\t'Titulo': '").append(titulo).append("',\n\t\t'Autor': '").append(autor).append("',").append("\n\t\t'Editora': '").append(editora).append("',").append("\n\t\t'Formato': '").append(formato).append("',").append("\n\t\t'FileSize': '").append(filesize).append("',").append("\n\t\t'Autor': '").append(autor).append("\n\t}\n},\n");
+                    s.append("{\"").append(key).append("\":\n\t{\n\t\t'Titulo': '").append(titulo).append("',\n\t\t'Autor': '").append(autor).append("',").append("\n\t\t'Editora': '").append(editora).append("',").append("\n\t\t'Formato': '").append(formato).append("',").append("\n\t\t'FileSize': '").append(filesize).append("',").append("\n\t}\n},\n");
                 }
             }
         }
+
         return s.toString();
     }
 

@@ -13,7 +13,7 @@ public class DetecaoFraude {
     private Funcionario func;
 
     public DetecaoFraude(int id_detecao, Utilizador utilizador, Funcionario func) throws InvalidDetecaoFraudeException, InvalidUserException {
-        if (id_detecao <= 0 || id_detecao > 30000 )
+        if (id_detecao <= 0 || id_detecao >= 30001 )
             throw new InvalidDetecaoFraudeException("Detecao Erro ID");
 
         if (utilizador == null)

@@ -1,6 +1,7 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
+import org.json.JSONObject;
 
 public class Database {
 
