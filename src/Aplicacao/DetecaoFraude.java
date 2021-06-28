@@ -8,29 +8,29 @@ import java.time.LocalDate;
 public class DetecaoFraude {
 
     private int id_detecao;
-    private Utilizador utilizador;
+    private Emprestimo emp;
     private LocalDate dateDetecao;
     private Funcionario func;
 
-    public DetecaoFraude(int id_detecao, Utilizador utilizador, Funcionario func) throws InvalidDetecaoFraudeException, InvalidUserException {
+    public DetecaoFraude(int id_detecao, Emprestimo emp, Funcionario func) throws InvalidDetecaoFraudeException, InvalidUserException {
         if (id_detecao <= 0 || id_detecao >= 30001 )
             throw new InvalidDetecaoFraudeException("Detecao Erro ID");
 
-        if (utilizador == null)
+        if (emp == null)
             throw new InvalidDetecaoFraudeException("Detecao Erro User");
 
         if (func == null)
             throw new InvalidDetecaoFraudeException("Detecao Erro Func");
 
-        if (utilizador.getEstado_utilizador().equals("desativado"))
+        if (emp.getUtilizador().getEstado_utilizador().equals("desativado"))
             throw new InvalidDetecaoFraudeException("Detecao Erro User desativado");
 
         this.id_detecao = id_detecao;
-        this.utilizador = utilizador;
+        this.emp = emp;
         this.dateDetecao = LocalDate.now();
         this.func = func;
 
-        this.utilizador.setEstado_utilizador("desativado");
+        this.emp.getUtilizador().setEstado_utilizador("desativado");
     }
 
     public int getId_detecao() {
@@ -41,12 +41,12 @@ public class DetecaoFraude {
         this.id_detecao = id_detecao;
     }
 
-    public Utilizador getUtilizador() {
-        return utilizador;
+    public Emprestimo getEmprestimo() {
+        return emp;
     }
 
-    public void setUtilizador(Utilizador utilizador) {
-        this.utilizador = utilizador;
+    public void setEmprestimo(Emprestimo emp) {
+        this.emp = emp;
     }
 
     public LocalDate getDateDetecao() {

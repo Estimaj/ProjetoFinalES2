@@ -14,7 +14,7 @@ public class TestIntegracao_DetecaoFraude {
     private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
     private Emprestimo emp = new Emprestimo(1, dataHoraEmp, FimdataHoraEmp, user, eBook, 1);
     private Funcionario func = new Funcionario(1, "Joao", "Joao@exemplo.com", "Abc1abcABC!");
-    private DetecaoFraude detecaoFraude = new DetecaoFraude(1, user, func);
+    private DetecaoFraude detecaoFraude = new DetecaoFraude(1, emp, func);
 
     public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException {
     }
@@ -38,41 +38,41 @@ public class TestIntegracao_DetecaoFraude {
     @Test
     void createDetecaoFraudeIdEquals0() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude(0, user, func);
+            detecaoFraude = new DetecaoFraude(0, emp, func);
         });
     }
 
     @Test
     void createDetecaoFraudeIdLess0() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude(-1, user, func);
+            detecaoFraude = new DetecaoFraude(-1, emp, func);
         });
     }
 
     @Test
     void createDetecaoFraudeIdGreatMax() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude(30002, user, func);
+            detecaoFraude = new DetecaoFraude(30002, emp, func);
         });
     }
 
     @Test
     void createDetecaoFraudeIdEqualsMax() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude(30001, user, func);
+            detecaoFraude = new DetecaoFraude(30001, emp, func);
         });
     }
 
     @Test
     void createDetecaoFraudeIdLessMax() throws InvalidDetecaoFraudeException, InvalidUserException {
         user.setEstado_utilizador("ativo");
-        detecaoFraude = new DetecaoFraude(30000, user, func);
+        detecaoFraude = new DetecaoFraude(30000, emp, func);
         assertEquals(30000, detecaoFraude.getId_detecao());
 
     }
 
     @Test
-    void createDetecaoFraudeWithNullUser() {
+    void createDetecaoFraudeWithNullEmp() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
             detecaoFraude = new DetecaoFraude(1, null, func);
         });
@@ -81,15 +81,15 @@ public class TestIntegracao_DetecaoFraude {
     @Test
     void createDetecaoFraudeWithNullFunc() {
         assertThrows(InvalidDetecaoFraudeException.class, () -> {
-            detecaoFraude = new DetecaoFraude(1, user, null);
+            detecaoFraude = new DetecaoFraude(1, emp, null);
         });
     }
 
     @Test
     void createDetecaoFraudeGetEstadoUser() throws InvalidDetecaoFraudeException, InvalidUserException {
-        user.setEstado_utilizador("ativo");
-        detecaoFraude = new DetecaoFraude(1, user, func);
-        assertEquals("desativado", user.getEstado_utilizador());
+        emp.getUtilizador().setEstado_utilizador("ativo");
+        detecaoFraude = new DetecaoFraude(1, emp, func);
+        assertEquals("desativado", emp.getUtilizador().getEstado_utilizador());
     }
 
 
