@@ -1,0 +1,35 @@
+s.append("{\"").append(key).append("\":\n\t{\n\t\t'Titulo': '").append(titulo).append("',\n\t\t'Autor': '").append(autor).append("',").append("\n\t\t'Editora': '").append(editora).append("',").append("\n\t\t'Formato': '").append(formato).append("',").append("\n\t\t'FileSize': '").append(filesize).append("',").append("\n\t}\n},\n");
+
+    public String listaOfUsers() {
+        String message;
+        JSONObject json = new JSONObject();
+
+
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+        item.put("information", "test");
+        item.put("name", "course1");
+        array.put(item);
+        json.put("01", array);
+
+
+        message = json.toString();
+
+        System.out.println(message);
+
+        int key = 0;
+        String nome = null, email = null, morada = null, contacto = null, estado = null;
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < utilizadorArrayList.size(); i++) {
+            key = utilizadorArrayList.get(i).getId_utilizador();
+            email = utilizadorArrayList.get(i).getEmail_utilizador();
+            morada = utilizadorArrayList.get(i).getMorada_utilizador();
+            contacto = utilizadorArrayList.get(i).getTelefone_utilizador();
+            estado = utilizadorArrayList.get(i).getEstado_utilizador();
+            s.append("{\"").append(key).append("\":\n\t{\n\t\t'Email': '").append(email).append("',").append("\n\t\t'Morada': '").append(morada).append("',").append("\n\t\t'Contacto': '").append(contacto).append("',").append("\n\t\t'Estado': '").append(estado).append("'\n\t}\n},\n");
+        }
+        System.out.println(s);
+
+        return s.toString();
+    }
+

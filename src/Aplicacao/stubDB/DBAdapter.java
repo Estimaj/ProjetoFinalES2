@@ -28,7 +28,7 @@ public class DBAdapter implements InterfaceDB {
     }
 
     @Override
-    public String listaOfUsers() {
+    public JSONObject listaOfUsers() {
         return null;
     }
 
@@ -118,7 +118,7 @@ public class DBAdapter implements InterfaceDB {
     }
 
     @Override
-    public String getCopiaFromReplicas(int id_replica) {
+    public JSONObject getCopiaFromReplicas(int id_replica) {
         return null;
     }
 }

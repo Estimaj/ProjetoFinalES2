@@ -90,11 +90,11 @@ public class TestDatabaseStub {
         db.addUser(u);
         u = new Utilizador(2,"ines","ines@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
         db.addUser(u);
-        String jsonObject = db.ListaOfUsers();
+        JSONObject jsonObject = db.ListaOfUsers();
         //System.out.println(jsonObject);
 
-        assertTrue(jsonObject.contains("1"));
-        assertTrue(jsonObject.contains("2"));
+        assertTrue(jsonObject.has("1"));
+        assertTrue(jsonObject.has("2"));
     }
 
     //----------------------------------
@@ -318,11 +318,10 @@ public class TestDatabaseStub {
         rp.addCopiaEBook(copiaEBook_lusiadas);
         db.addReplicaServidor(rp);
 
-        String jsonObject = db.getCopiaFromReplica(1);
-        System.out.println(jsonObject);
+        JSONObject jsonObject = db.getCopiaFromReplica(1);
 
-        assertTrue(jsonObject.contains("1"));
-        assertTrue(jsonObject.contains("2"));
+        assertTrue(jsonObject.has("1"));
+        assertTrue(jsonObject.has("2"));
 
     }
 

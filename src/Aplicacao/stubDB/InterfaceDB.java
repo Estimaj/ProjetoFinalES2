@@ -9,7 +9,7 @@ public interface InterfaceDB {
     int removeUser(int id_user);
     Utilizador getUser(int id_user);
     Utilizador Login(String email, String pwd);
-    String listaOfUsers();
+    JSONObject listaOfUsers();
 
     int saveEBook(EBook eBook);
     EBook getEBook(int idEBook);
@@ -34,5 +34,5 @@ public interface InterfaceDB {
     int saveReplica(ReplicaServidor rp);
     int removeReplica(int id_replica);
     ReplicaServidor getReplica(int id_replica);
-    String getCopiaFromReplicas(int id_replica);
+    JSONObject getCopiaFromReplicas(int id_replica);
 }

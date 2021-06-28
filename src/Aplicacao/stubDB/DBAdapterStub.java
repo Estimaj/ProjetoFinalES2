@@ -2,7 +2,6 @@ package Aplicacao.stubDB;
 
 import Aplicacao.*;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -58,21 +57,33 @@ public class DBAdapterStub implements InterfaceDB {
     }
 
     @Override
-    public String listaOfUsers() {
+    public JSONObject listaOfUsers() {
+        String message;
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
         int key = 0;
         String nome = null, email = null, morada = null, contacto = null, estado = null;
-        StringBuilder s = new StringBuilder();
         for (int i = 0; i < utilizadorArrayList.size(); i++) {
             key = utilizadorArrayList.get(i).getId_utilizador();
+            nome = utilizadorArrayList.get(i).getNome_utilizador();
             email = utilizadorArrayList.get(i).getEmail_utilizador();
             morada = utilizadorArrayList.get(i).getMorada_utilizador();
             contacto = utilizadorArrayList.get(i).getTelefone_utilizador();
             estado = utilizadorArrayList.get(i).getEstado_utilizador();
-            s.append("{\"").append(key).append("\":\n\t{\n\t\t'Email': '").append(email).append("',").append("\n\t\t'Morada': '").append(morada).append("',").append("\n\t\t'Contacto': '").append(contacto).append("',").append("\n\t\t'Estado': '").append(estado).append("'\n\t}\n},\n");
+            item.put("Nome",nome);
+            item.put("Email",email);
+            item.put("Morada",morada);
+            item.put("Contacto",contacto);
+            item.put("Estado",estado);
+            array.put(item);
+            json.put(String.valueOf(key), array);
+            array = new JSONArray();
         }
-        System.out.println(s);
+        message = json.toString();
+        System.out.println(message);
 
-        return s.toString();
+        return json;
     }
 
     @Override
@@ -248,7 +259,11 @@ public class DBAdapterStub implements InterfaceDB {
     }
 
     @Override
-    public String getCopiaFromReplicas(int id_replica) {
+    public JSONObject getCopiaFromReplicas(int id_replica) {
+        String message;
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
         int key = 0;
         String titulo = null, autor = null, editora = null, formato = null;
         float filesize;
@@ -262,12 +277,20 @@ public class DBAdapterStub implements InterfaceDB {
                     editora = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getEditora();
                     formato = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFormato();
                     filesize = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFileSize();
-                    s.append("{\"").append(key).append("\":\n\t{\n\t\t'Titulo': '").append(titulo).append("',\n\t\t'Autor': '").append(autor).append("',").append("\n\t\t'Editora': '").append(editora).append("',").append("\n\t\t'Formato': '").append(formato).append("',").append("\n\t\t'FileSize': '").append(filesize).append("',").append("\n\t}\n},\n");
+                    item.put("Titulo",titulo);
+                    item.put("Autor",autor);
+                    item.put("Editora",editora);
+                    item.put("Formato",formato);
+                    item.put("FileSize",filesize);
+                    array.put(item);
+                    json.put(String.valueOf(key), array);
+                    array = new JSONArray();
                 }
             }
         }
-
-        return s.toString();
+        message = json.toString();
+        System.out.println(message);
+        return json;
     }
 
 
