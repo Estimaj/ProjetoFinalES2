@@ -59,21 +59,29 @@ public class TestDatabaseStub {
     }
 
     @Test
-    void LoginFalseEmailandPwdNull() {
+    void LoginFalseEmailandPwdEmpty() {
         db.addUser(u);
         assertNull(db.Login("", ""));
     }
 
     @Test
-    void LoginFalseEmailNullPwdOK() {
+    void LoginFalseEmailEmptyPwdOK() {
         db.addUser(u);
         assertNull(db.Login("", "Abc1abcABC"));
     }
 
     @Test
-    void LoginFalseEmailOKPwdNull() {
+    void LoginFalseEmailOKPwdEmpty() {
         db.addUser(u);
         assertNull(db.Login("maria@exemplo.com", ""));
+    }
+
+    @Test
+    void LoginEmailPwdCheckNullParams() {
+        db.addUser(u);
+        assertNull(db.Login("maria@exemplo.com", null));
+        assertNull(db.Login(null, "Abc1abcABC"));
+        assertNull(db.Login(null, null));
     }
 
     @Test
@@ -245,23 +253,30 @@ public class TestDatabaseStub {
     }
 
     @Test
-    void LoginFuncFalse00() {
+    void LoginFuncFalseEmailandPwdEmpty() {
         db.addFuncionario(func);
         assertNull(db.LoginFuncionario("", ""));
     }
 
     @Test
-    void LoginFuncFalse01() {
+    void LoginFuncFalseEmailNullPwdOK() {
         db.addFuncionario(func);
-        assertNull(db.LoginFuncionario("", "Abc1abcABC"));
+        assertNull(db.LoginFuncionario("", "Abc1abcABC!"));
     }
 
     @Test
-    void LoginFuncFalse10() {
+    void LoginFuncFalseEmailOKPwdEmpty() {
         db.addFuncionario(func);
         assertNull(db.LoginFuncionario("Joao@exemplo.com", ""));
     }
 
+    @Test
+    void LoginFuncEmailPwdCheckNullParams() {
+        db.addFuncionario(func);
+        assertNull(db.LoginFuncionario("Joao@exemplo.com", null));
+        assertNull(db.LoginFuncionario(null, "Abc1abcABC!"));
+        assertNull(db.LoginFuncionario(null, null));
+    }
     //----------------------------------
     @Test
     void saveReplicaInStubOK() {

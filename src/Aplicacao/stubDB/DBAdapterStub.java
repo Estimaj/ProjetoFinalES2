@@ -47,6 +47,9 @@ public class DBAdapterStub implements InterfaceDB {
 
     @Override
     public Utilizador Login(String email, String pwd) {
+        if (email == null || pwd == null)
+            return null;
+
         for (int i = 0; i < utilizadorArrayList.size(); i++) {
             if (utilizadorArrayList.get(i).getEmail_utilizador().equals(email) && utilizadorArrayList.get(i).getPwd_utilizador().equals(pwd))
                 return utilizadorArrayList.get(i);
@@ -204,6 +207,9 @@ public class DBAdapterStub implements InterfaceDB {
 
     @Override
     public Funcionario LoginFuncionario(String email, String pwd) {
+        if (email == null || pwd == null)
+            return null;
+
         for (int i = 0; i < funcionarioArrayList.size(); i++) {
             if (funcionarioArrayList.get(i).getEmail_func().equals(email) && funcionarioArrayList.get(i).getPwd_func().equals(pwd))
                 return funcionarioArrayList.get(i);
