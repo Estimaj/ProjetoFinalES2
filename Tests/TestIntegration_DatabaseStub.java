@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestDatabaseStub {
+public class TestIntegration_DatabaseStub {
 
     private final Database db = new Database();
     private Utilizador u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
@@ -17,7 +17,7 @@ public class TestDatabaseStub {
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
     private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
 
-    public TestDatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException {
+    public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException {
     }
 
     @Test

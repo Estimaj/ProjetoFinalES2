@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestFuncionario {
+public class TestUnidade_Funcionario {
 
     private Funcionario func = null;
     private Integer id_func = 1;

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestIntegracao_DetecaoFraude {
+public class TestUnidade_DetecaoFraude {
 
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
@@ -16,7 +16,7 @@ public class TestIntegracao_DetecaoFraude {
     private Funcionario func = new Funcionario(1, "Joao", "Joao@exemplo.com", "Abc1abcABC!");
     private DetecaoFraude detecaoFraude = new DetecaoFraude(1, emp, func);
 
-    public TestIntegracao_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException {
+    public TestUnidade_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException {
     }
 
     @Test
