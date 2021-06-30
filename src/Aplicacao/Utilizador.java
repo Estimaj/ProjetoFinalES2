@@ -42,7 +42,7 @@ public class Utilizador {
         if (!Objects.equals(estado_utilizador, "ativo") && !Objects.equals(estado_utilizador,"desativado") || estado_utilizador.matches(NUMBER_VERIFICATION) || estado_utilizador == null)
             throw new InvalidUserException("Utilizador invalido estado");
 
-        if (morada_utilizador.matches(NUMBER_VERIFICATION) || morada_utilizador.length() > 10)
+        if (morada_utilizador == null || morada_utilizador.equals("") ||morada_utilizador.matches(NUMBER_VERIFICATION) || morada_utilizador.length() > 10)
             throw new InvalidUserException("Utilizador Invalido Morada");
 
         this.id_utilizador = id_utilizador;

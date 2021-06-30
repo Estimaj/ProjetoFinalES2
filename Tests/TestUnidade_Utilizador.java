@@ -224,6 +224,22 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
+    void createUserWithInvalidAddressNull() {
+        morada_user = null;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidAddressEmpty() {
+        morada_user = "";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
     void createUserWithNullTelefone() {
         telefone_user = null;
         assertThrows(InvalidUserException.class, () -> {
