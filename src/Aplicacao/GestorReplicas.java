@@ -83,7 +83,6 @@ public class GestorReplicas {
         for (int i = 0; i < replicasArrayList.size(); i++) {
             for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
                 paisReplica = replicasArrayList.get(i).getLocalizacaoReplica();
-                System.out.println(paisReplica);
                 // se tiver o ebook
                 if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())) {
                     // se a replica for da mesma cidade e pais e tiver a replica
@@ -94,8 +93,29 @@ public class GestorReplicas {
             }
         }
 
+        return getReplicaServidorWhenAddressDoesntExist(emp);
+    }
 
-        return replicasArrayList.get(replicasArrayList.size() - 1);
+    private ReplicaServidor getReplicaServidorWhenAddressDoesntExist(Emprestimo emp) {
+        //Devolve sempre a primeira replica que encontrar
+        ReplicaServidor rp = null;
+        boolean loopBreaker = false;
+        for (ReplicaServidor replicaServidor : replicasArrayList) {
+
+            if (loopBreaker)
+                break;
+
+            for (int j = 0; j < replicaServidor.getcopiasEBookArrayList().size(); j++) {
+
+                if (replicaServidor.getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())) {
+                    rp = replicaServidor;
+                    loopBreaker = true;
+                    break;
+
+                }
+            }
+        }
+        return rp;
     }
 
 }

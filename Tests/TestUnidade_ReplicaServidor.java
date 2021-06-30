@@ -256,23 +256,24 @@ public class TestUnidade_ReplicaServidor {
 
     @Test
     void getReplicaClosetoUserWithReplicasAvaliablebutisntsameCountryasUser() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
-        replicaServidor_portugal.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
         replicaServidor_Espanha.addCopiaEBook(copiaEBook);
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
 
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        gestorReplicas.addReplica(replicaServidor_franca);
-        gestorReplicas.addReplica(replicaServidor_Espanha);
-
+        gestorReplicas.addReplica(replicaServidor_franca); //1ª -> vai devolver esta replica
+        gestorReplicas.addReplica(replicaServidor_Espanha); //2ª
+        gestorReplicas.addReplica(replicaServidor_portugal); //3ª
 
         u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Inglaterra", "121-231-123", "ativo");
         emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, eBook, 1);
 
+        System.out.println("-> " + gestorReplicas.get_Replica_Proxima_Cliente(emp).getLocalizacaoReplica());
+
         //devolve a primeira que encontrar, caso nao exista nenhuma replica na cidade do USER
-        assertEquals(replicaServidor_Espanha, gestorReplicas.get_Replica_Proxima_Cliente(emp));
+        assertEquals(replicaServidor_franca, gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
 
