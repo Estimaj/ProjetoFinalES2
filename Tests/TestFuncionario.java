@@ -88,6 +88,7 @@ public class TestFuncionario {
         func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         assertEquals(nome_func,func.getNome_func());
     }
+
     @Test
     void createfuncWithNullName() {
         nome_func = null;
@@ -95,6 +96,7 @@ public class TestFuncionario {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
     }
+
     @Test
     void createfuncWithEmptyName() {
         nome_func = "";
@@ -110,6 +112,7 @@ public class TestFuncionario {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
     }
+
     @Test
     void createfuncWithInvalidNameNumber() {
         nome_func = "1";
@@ -117,6 +120,7 @@ public class TestFuncionario {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
     }
+
     @Test
     void createfuncWithValidEmail() throws InvalidFuncException {
         func = new Funcionario(id_func,nome_func,email_func,pwd_func);
