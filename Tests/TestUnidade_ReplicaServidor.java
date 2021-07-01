@@ -208,7 +208,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaClosetoUserWithReplicasAvaliableWhenUserisNull() throws EmprestimoException, InvalidReplicaException {
+    void getReplicaWhenUserisNull() throws EmprestimoException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
@@ -255,7 +255,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaClosetoUserWithReplicasAvaliablebutisntsameCountryasUser() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+    void Get_replica_with_different_City_as_the_User() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
