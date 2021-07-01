@@ -42,6 +42,8 @@ public class Database {
         return interfaceDB.getEBook(idEBook);
     }
 
+    public synchronized JSONObject ListarEBooks(){return interfaceDB.ListarEBooks();}
+
     public synchronized int removeEBook(int idEBook) {
         return interfaceDB.removeEBook(idEBook);
     }
@@ -75,6 +77,8 @@ public class Database {
     public synchronized int removeEmprestimo(int id_emp) {
         return interfaceDB.removeEmprestimo(id_emp);
     }
+
+    public synchronized JSONObject ListarEmprestimoByUser(int id_user) { return interfaceDB.ListarEmprestimoByUser(id_user); }
 
 
     //-----Funcionario

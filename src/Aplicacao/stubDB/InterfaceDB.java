@@ -15,6 +15,7 @@ public interface InterfaceDB {
 
     int saveEBook(EBook eBook);
     EBook getEBook(int idEBook);
+    JSONObject ListarEBooks();
     int removeEBook(int idEBook);
 
 
@@ -25,6 +26,7 @@ public interface InterfaceDB {
     ReplicaServidor getReplicaFromEmprestimo(int id_emp);
     int getAssinaturaTR(int id_emp);
     int removeEmprestimo(int id_emp);
+    JSONObject ListarEmprestimoByUser(int id_user);
 
 
 

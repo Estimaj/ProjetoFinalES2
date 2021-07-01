@@ -16,8 +16,9 @@ public class TestIntegration_DatabaseStub {
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
     private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
+    private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
 
-    public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException {
+    public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException {
     }
 
     @Test
@@ -127,6 +128,12 @@ public class TestIntegration_DatabaseStub {
         assertTrue(jsonObject.has("2"));
     }
 
+    @Test
+    void ListaOfUsersEmpty() {
+        JSONObject jsonObject = db.ListaOfUsers();
+        assertEquals(0,jsonObject.length());
+    }
+
     //----------------------------------
     @Test
     void saveEBookInStubOK() {
@@ -147,6 +154,25 @@ public class TestIntegration_DatabaseStub {
     @Test
     void getEBookFalse() {
         assertNull(db.getEBook(-1));
+    }
+
+    @Test
+    void ListaOfEBooks() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig");
+        db.addEBook(eBook);
+        eBook = new EBook(2,"akjshdahq123123","Lauren","The Haunting","Ray Lovejoy","pdf",0.f,"Lauren king sig");
+        db.addEBook(eBook);
+        JSONObject jsonObject = db.ListarEBooks();
+        //System.out.println(jsonObject);
+
+        assertTrue(jsonObject.has("1"));
+        assertTrue(jsonObject.has("2"));
+    }
+
+    @Test
+    void ListaOfEBooksEmpty() {
+        JSONObject jsonObject = db.ListarEBooks();
+        assertEquals(0,jsonObject.length());
     }
 
     @Test
@@ -192,6 +218,33 @@ public class TestIntegration_DatabaseStub {
     void getEBookFromEmprestimoWhenEmprestimoDoesntExist() {
         db.addEmprestimo(emp);
         assertNull(db.getEBookFromEmprestimo(-20));
+    }
+
+    @Test
+    void ListarEmprestimoByUser() throws InvalidUserException, EmprestimoException {
+        u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
+        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);
+        emp.setCopiaEBook(copiaEBook);
+        db.addEmprestimo(emp);
+        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);
+        emp.setCopiaEBook(copiaEBook);
+        db.addEmprestimo(emp);
+        JSONObject jsonObject = db.ListarEmprestimoByUser(1);
+
+        assertTrue(jsonObject.has("1"));
+        assertTrue(jsonObject.has("2"));
+    }
+
+    @Test
+    void ListarEmprestimoByUserWhenIdDoesntExist() throws InvalidUserException, EmprestimoException {
+        u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
+        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook,1);
+        db.addEmprestimo(emp);
+        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook,1);
+        db.addEmprestimo(emp);
+        JSONObject jsonObject = db.ListarEmprestimoByUser(0);
+
+        assertEquals(0,jsonObject.length());
     }
 
     @Test

@@ -1,7 +1,6 @@
 package Aplicacao.stubDB;
 
 import Aplicacao.*;
-import Aplicacao.Exceptions.InvalidUserException;
 import org.json.JSONObject;
 
 public class DBAdapter implements InterfaceDB {
@@ -49,6 +48,11 @@ public class DBAdapter implements InterfaceDB {
     }
 
     @Override
+    public JSONObject ListarEBooks() {
+        return null;
+    }
+
+    @Override
     public int removeEBook(int idEBook) {
         return 0;
     }
@@ -86,6 +90,11 @@ public class DBAdapter implements InterfaceDB {
     @Override
     public int removeEmprestimo(int id_emp) {
         return 0;
+    }
+
+    @Override
+    public JSONObject ListarEmprestimoByUser(int id_user) {
+        return null;
     }
 
     @Override

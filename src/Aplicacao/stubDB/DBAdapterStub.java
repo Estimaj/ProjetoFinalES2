@@ -122,6 +122,39 @@ public class DBAdapterStub implements InterfaceDB {
     }
 
     @Override
+    public JSONObject ListarEBooks() {
+        String message;
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+        int key = 0;
+        String isbn = null, autor = null, titulo = null, editora = null, formato = null, hash = null;
+        for (int i = 0; i < ebookArrayList.size(); i++) {
+            key = ebookArrayList.get(i).getIdEbook();
+            isbn = ebookArrayList.get(i).getISBN();
+            autor = ebookArrayList.get(i).getAutor();
+            titulo = ebookArrayList.get(i).getTitulo();
+            editora = ebookArrayList.get(i).getEditora();
+            formato = ebookArrayList.get(i).getFormato();
+            hash = ebookArrayList.get(i).getHash();
+
+            item.put("ISBN",isbn);
+            item.put("Autor",autor);
+            item.put("Titulo",titulo);
+            item.put("Editora",editora);
+            item.put("Formato",formato);
+            item.put("Hash",hash);
+            array.put(item);
+            json.put(String.valueOf(key), array);
+            array = new JSONArray();
+        }
+        message = json.toString();
+        System.out.println(message);
+
+        return json;
+    }
+
+    @Override
     public int removeEBook(int idEBook) {
         for (int i = 0; i < ebookArrayList.size(); i++) {
             if (ebookArrayList.get(i).getIdEbook() == idEBook) {
@@ -200,6 +233,36 @@ public class DBAdapterStub implements InterfaceDB {
             }
         }
         return 0;
+    }
+
+    @Override
+    public JSONObject ListarEmprestimoByUser(int id_user) {
+        String message;
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+        int key = 0;
+        String isbn = null, data_inicio = null, data_fim = null, ebook = null, assinatura = null;
+        for (int i = 0; i < emprestimoArrayList.size(); i++) {
+            if (emprestimoArrayList.get(i).getUtilizador().getId_utilizador() == id_user){
+                key = emprestimoArrayList.get(i).getId_emp();
+                data_inicio = String.valueOf(emprestimoArrayList.get(i).getDataHoraEmp());
+                data_fim = String.valueOf(emprestimoArrayList.get(i).getFimdataHoraEmp());
+                ebook = emprestimoArrayList.get(i).getCopiaEBook().getEBook().getTitulo();
+                assinatura = String.valueOf(emprestimoArrayList.get(i).getAssinaturaTR());
+                item.put("data_inicio",data_inicio);
+                item.put("data_fim",data_fim);
+                item.put("ebook",ebook);
+                item.put("assinatura",assinatura);
+                array.put(item);
+                json.put(String.valueOf(key), array);
+                array = new JSONArray();
+            }
+        }
+        message = json.toString();
+        System.out.println(message);
+
+        return json;
     }
 
     @Override
