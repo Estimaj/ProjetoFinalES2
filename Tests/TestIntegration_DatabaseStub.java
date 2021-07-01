@@ -163,7 +163,7 @@ public class TestIntegration_DatabaseStub {
         eBook = new EBook(2,"akjshdahq123123","Lauren","The Haunting","Ray Lovejoy","pdf",0.f,"Lauren king sig");
         db.addEBook(eBook);
         JSONObject jsonObject = db.ListarEBooks();
-        //System.out.println(jsonObject);
+
 
         assertTrue(jsonObject.has("1"));
         assertTrue(jsonObject.has("2"));
