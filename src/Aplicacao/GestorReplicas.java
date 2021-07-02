@@ -84,7 +84,7 @@ public class GestorReplicas {
             for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
                 paisReplica = replicasArrayList.get(i).getLocalizacaoReplica();
                 // se tiver o ebook
-                if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())) {
+                if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).equals(emp.getCopiaEBook())) {
                     // se a replica for da mesma cidade e pais e tiver a replica
                     if (paisReplica.equals(paisUser)) {
                         return replicasArrayList.get(i);
@@ -107,7 +107,7 @@ public class GestorReplicas {
 
             for (int j = 0; j < replicaServidor.getcopiasEBookArrayList().size(); j++) {
 
-                if (replicaServidor.getcopiasEBookArrayList().get(j).getEBook().equals(emp.getEBook())) {
+                if (replicaServidor.getcopiasEBookArrayList().get(j).equals(emp.getCopiaEBook())) {
                     rp = replicaServidor;
                     loopBreaker = true;
                     break;

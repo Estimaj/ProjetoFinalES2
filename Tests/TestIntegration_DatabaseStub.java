@@ -13,10 +13,10 @@ public class TestIntegration_DatabaseStub {
     private final Database db = new Database();
     private Utilizador u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
     private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig");
-    private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);;
+    private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
+    private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
     private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
-    private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
 
     public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException {
     }
@@ -223,11 +223,9 @@ public class TestIntegration_DatabaseStub {
     @Test
     void ListarEmprestimoByUser() throws InvalidUserException, EmprestimoException {
         u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);
-        emp.setCopiaEBook(copiaEBook);
+        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);
         db.addEmprestimo(emp);
-        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook ,1);
-        emp.setCopiaEBook(copiaEBook);
+        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);
         db.addEmprestimo(emp);
         JSONObject jsonObject = db.ListarEmprestimoByUser(1);
 
@@ -238,9 +236,9 @@ public class TestIntegration_DatabaseStub {
     @Test
     void ListarEmprestimoByUserWhenIdDoesntExist() throws InvalidUserException, EmprestimoException {
         u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook,1);
+        Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook,1);
         db.addEmprestimo(emp);
-        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, eBook,1);
+        emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook,1);
         db.addEmprestimo(emp);
         JSONObject jsonObject = db.ListarEmprestimoByUser(0);
 

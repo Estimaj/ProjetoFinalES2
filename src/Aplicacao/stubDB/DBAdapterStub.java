@@ -188,7 +188,7 @@ public class DBAdapterStub implements InterfaceDB {
     public EBook getEBookFromEmprestimo(int id_emp) {
         for (int i = 0; i < emprestimoArrayList.size(); i++) {
             if (emprestimoArrayList.get(i).getId_emp() == id_emp) {
-                return emprestimoArrayList.get(i).getEBook();
+                return emprestimoArrayList.get(i).getCopiaEBook().getEBook();
             }
         }
         return null;

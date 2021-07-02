@@ -26,7 +26,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarOK() throws EmprestimoException, InvalidUserException, NotAllowedToReadException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
         //VV -> as duas condições entram no if
@@ -38,7 +38,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarWhenDateisRightInvalidUser() throws EmprestimoException, InvalidUserException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
 
@@ -54,7 +54,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarWhenDateisBeforeFimEmprestimo() throws EmprestimoException, InvalidUserException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
         assertThrows(NotAllowedToReadException.class, () -> {
@@ -67,7 +67,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarWhenDateisBeforeFimEmprestimoInvalidUser() throws EmprestimoException, InvalidUserException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
         assertThrows(NotAllowedToReadException.class, () -> {
@@ -81,7 +81,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarWhenDateisAfterFimEmprestimoValidUser() throws EmprestimoException, InvalidUserException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
         //FV -> A condição data superior a limite é ativada
@@ -97,7 +97,7 @@ public class TestUnidade_Visualizar {
     @Test
     void VisualizarWhenDateisAfterFimEmprestimoInvalidUser() throws EmprestimoException, InvalidUserException {
         Utilizador userAtivo = new Utilizador(1,"Clark","Clark@exemplo.pt","Abc1abcABC","Portugal","121-231-123","ativo");
-        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, eBook,1);
+        Emprestimo empAtivo = new Emprestimo(id_emp,dataHoraEmp,FimdataHoraEmp, userAtivo, copiaEBook,1);
         Visualizar visualizar = new Visualizar();
 
         //FF

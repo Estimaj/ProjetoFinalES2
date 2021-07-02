@@ -17,7 +17,7 @@ public class TestUnidade_ReplicaServidor {
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_portugal = null;
-    private Emprestimo emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, eBook, 1);
+    private Emprestimo emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, 1);
     ;
 
     public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
@@ -220,7 +220,7 @@ public class TestUnidade_ReplicaServidor {
         gestorReplicas.addReplica(replicaServidor_franca);
         gestorReplicas.addReplica(replicaServidor_Espanha);
 
-        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, eBook, 1);
+        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
         emp.setReplicaServidor(replicaServidor_franca);
 
 
@@ -247,7 +247,7 @@ public class TestUnidade_ReplicaServidor {
         gestorReplicas.addReplica(replicaServidor_Espanha);
 
         u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Franca", "121-231-123", "ativo");
-        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, eBook, 1);
+        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
         emp.setReplicaServidor(replicaServidor_franca);
         //devolve a replica existente na cidade do USER
         assertEquals(emp.getReplicaServidor(), gestorReplicas.get_Replica_Proxima_Cliente(emp));
@@ -268,7 +268,7 @@ public class TestUnidade_ReplicaServidor {
         gestorReplicas.addReplica(replicaServidor_portugal); //3ª
 
         u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Inglaterra", "121-231-123", "ativo");
-        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, eBook, 1);
+        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
 
         System.out.println("-> " + gestorReplicas.get_Replica_Proxima_Cliente(emp).getLocalizacaoReplica());
 

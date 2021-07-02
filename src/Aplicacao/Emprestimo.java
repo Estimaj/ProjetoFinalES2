@@ -15,13 +15,12 @@ public class Emprestimo {
     private int extensaoMaximaEmprestimo = 2;
     private int extensaoMinimaEmprestimo = 0;
     private Utilizador utilizador;
-    private EBook eBook;
     private ReplicaServidor replicaServidor;
     private int assinaturaTR = 0;
     private CopiaEBook copiaEBook;
 
 
-    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, EBook eBook, int assinaturaTR) throws EmprestimoException {
+    public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, int assinaturaTR) throws EmprestimoException {
 
         if (id_emp <= 0 || id_emp > 30000)
             throw new EmprestimoException("Emprestimo invalido Id");
@@ -40,14 +39,14 @@ public class Emprestimo {
                     "Datas de inicio nao pode ser inferior a data final !!!\n" +
                     "Datas de Fim nao pode ser inferior a data atual !!!\n");
 
-        if (eBook == null)
+        if (copiaEBook == null)
             throw new EmprestimoException("EBook é null !!!");
 
         this.id_emp = id_emp;
         this.dataHoraEmp = dataHoraEmp;
         this.fimdataHoraEmp = fimdataHoraEmp;
         this.utilizador = utilizador;
-        this.eBook = eBook;
+        this.copiaEBook = copiaEBook;
         this.assinaturaTR = assinaturaTR;
     }
 
@@ -89,16 +88,6 @@ public class Emprestimo {
         this.utilizador = utilizador;
     }
 
-    public EBook getEBook() {
-        return eBook;
-    }
-
-    public void setEBook(EBook eBook) throws EmprestimoException {
-        if (eBook == null)
-            throw new EmprestimoException("EBook é null !!!");
-
-        this.eBook = eBook;
-    }
 
     public ReplicaServidor getReplicaServidor() {
         return replicaServidor;

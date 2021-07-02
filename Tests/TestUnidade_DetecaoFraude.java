@@ -12,11 +12,12 @@ public class TestUnidade_DetecaoFraude {
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
     private Utilizador user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
     private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
-    private Emprestimo emp = new Emprestimo(1, dataHoraEmp, FimdataHoraEmp, user, eBook, 1);
+    private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
+    private Emprestimo emp = new Emprestimo(1, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
     private Funcionario func = new Funcionario(1, "Joao", "Joao@exemplo.com", "Abc1abcABC!");
     private DetecaoFraude detecaoFraude = new DetecaoFraude(1, emp, func);
 
-    public TestUnidade_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException {
+    public TestUnidade_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException, InvalidCopiaEBookException {
     }
 
     @Test
