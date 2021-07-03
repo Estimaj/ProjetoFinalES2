@@ -18,7 +18,7 @@ public class TestUnidade_ReplicaServidor {
     private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_portugal = null;
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, 1);
-    ;
+
 
     public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
     }

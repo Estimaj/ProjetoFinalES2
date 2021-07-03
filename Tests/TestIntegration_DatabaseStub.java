@@ -1,10 +1,12 @@
 import Aplicacao.*;
 import Aplicacao.Exceptions.*;
 import Aplicacao.stubDB.Database;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +19,8 @@ public class TestIntegration_DatabaseStub {
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
     private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
+    private JSONArray jsonArray;
+    private JSONObject jsonObject;
 
     public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException {
     }
@@ -121,11 +125,20 @@ public class TestIntegration_DatabaseStub {
         db.addUser(u);
         u = new Utilizador(2,"ines","ines@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
         db.addUser(u);
-        JSONObject jsonObject = db.ListaOfUsers();
-        //System.out.println(jsonObject);
+        JSONArray jsonArray;
+        jsonObject = db.ListaOfUsers();
 
+
+        jsonArray = jsonObject.getJSONArray("1");
         assertTrue(jsonObject.has("1"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("1"));
+
+
+        jsonArray = jsonObject.getJSONArray("2");
         assertTrue(jsonObject.has("2"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("2"));
+
+
     }
 
     @Test
@@ -162,11 +175,17 @@ public class TestIntegration_DatabaseStub {
         db.addEBook(eBook);
         eBook = new EBook(2,"akjshdahq123123","Lauren","The Haunting","Ray Lovejoy","pdf",0.f,"Lauren king sig");
         db.addEBook(eBook);
-        JSONObject jsonObject = db.ListarEBooks();
 
+        jsonObject = db.ListarEBooks();
 
+        jsonArray = jsonObject.getJSONArray("1");
         assertTrue(jsonObject.has("1"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("1"));
+
+
+        jsonArray = jsonObject.getJSONArray("2");
         assertTrue(jsonObject.has("2"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("2"));
     }
 
     @Test
@@ -227,10 +246,16 @@ public class TestIntegration_DatabaseStub {
         db.addEmprestimo(emp);
         emp = new Emprestimo(2, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);
         db.addEmprestimo(emp);
-        JSONObject jsonObject = db.ListarEmprestimoByUser(1);
+        jsonObject = db.ListarEmprestimoByUser(1);
 
+        jsonArray = jsonObject.getJSONArray("1");
         assertTrue(jsonObject.has("1"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("1"));
+
+
+        jsonArray = jsonObject.getJSONArray("2");
         assertTrue(jsonObject.has("2"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("2"));
     }
 
     @Test
@@ -399,10 +424,16 @@ public class TestIntegration_DatabaseStub {
         rp.addCopiaEBook(copiaEBook_lusiadas);
         db.addReplicaServidor(rp);
 
-        JSONObject jsonObject = db.getCopiaFromReplica(1);
+        jsonObject = db.getCopiaFromReplica(1);
 
+        jsonArray = jsonObject.getJSONArray("1");
         assertTrue(jsonObject.has("1"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("1"));
+
+
+        jsonArray = jsonObject.getJSONArray("2");
         assertTrue(jsonObject.has("2"));
+        assertEquals(jsonArray,jsonObject.getJSONArray("2"));
 
     }
 

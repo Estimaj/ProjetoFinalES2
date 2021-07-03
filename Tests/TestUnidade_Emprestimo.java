@@ -111,29 +111,16 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void CreateEmprestimoWithEBook() throws EmprestimoException {
+    void CreateEmprestimoWithCopiaEBook() throws EmprestimoException {
         emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
+        assertEquals(1, emp.getCopiaEBook().getId());
         assertEquals("The Shinning", emp.getCopiaEBook().getEBook().getTitulo());
     }
 
     @Test
-    void CreateEmprestimoWithEBookNull() {
+    void CreateEmprestimoWithCopiaEBookNull() {
         assertThrows(EmprestimoException.class, () -> {
             emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, null, 1);
-        });
-    }
-
-    @Test
-    void CreateEmprestimoWithCopiaEBook() throws EmprestimoException {
-        emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
-        assertEquals(1, emp.getCopiaEBook().getId());
-    }
-
-    @Test
-    void CreateEmprestimoWithCopiaEBookNull() throws EmprestimoException {
-        emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
-        assertThrows(EmprestimoException.class, () -> {
-            emp.setCopiaEBook(null);
         });
     }
 
