@@ -242,14 +242,16 @@ public class DBAdapterStub implements InterfaceDB {
         JSONArray array = new JSONArray();
         JSONObject item = new JSONObject();
         int key = 0;
-        String isbn = null, data_inicio = null, data_fim = null, ebook = null, assinatura = null;
+        String nome_user = null, data_inicio = null, data_fim = null, ebook = null, assinatura = null;
         for (int i = 0; i < emprestimoArrayList.size(); i++) {
             if (emprestimoArrayList.get(i).getUtilizador().getId_utilizador() == id_user){
                 key = emprestimoArrayList.get(i).getId_emp();
+                nome_user = emprestimoArrayList.get(i).getUtilizador().getNome_utilizador();
                 data_inicio = String.valueOf(emprestimoArrayList.get(i).getDataHoraEmp());
                 data_fim = String.valueOf(emprestimoArrayList.get(i).getFimdataHoraEmp());
                 ebook = emprestimoArrayList.get(i).getCopiaEBook().getEBook().getTitulo();
                 assinatura = String.valueOf(emprestimoArrayList.get(i).getAssinaturaTR());
+                item.put("Utilizador",nome_user);
                 item.put("data_inicio",data_inicio);
                 item.put("data_fim",data_fim);
                 item.put("ebook",ebook);

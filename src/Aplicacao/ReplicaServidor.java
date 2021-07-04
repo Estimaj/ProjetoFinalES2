@@ -10,10 +10,8 @@ public class ReplicaServidor {
     private ArrayList<CopiaEBook> copiasEBookArrayList = new ArrayList<>();
 
     public ReplicaServidor(int id_replica, String localizacao_Pais_ReplicaServidor) throws InvalidReplicaException {
-
         if (id_replica <= 0 || id_replica >= 30001)
             throw new InvalidReplicaException("Invalid Server Exception");
-
 
         if (localizacao_Pais_ReplicaServidor == null || localizacao_Pais_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Pais_ReplicaServidor.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception");
@@ -26,19 +24,25 @@ public class ReplicaServidor {
         return id_replica;
     }
 
-    public void setId_replica(int id_replica) {
+    public void setId_replica(int id_replica) throws InvalidReplicaException {
+        if (id_replica <= 0 || id_replica >= 30001)
+            throw new InvalidReplicaException("Invalid Server Exception");
+
         this.id_replica = id_replica;
     }
 
-    public int getSize(){
-        return copiasEBookArrayList.size();
+    public int getCopiasEBookArraySize(){
+        return this.copiasEBookArrayList.size();
     }
 
     public String getLocalizacao_Pais_ReplicaServidor() {
         return localizacao_Pais_ReplicaServidor;
     }
 
-    public void setLocalizacao_Pais_ReplicaServidor(String localizacao_Pais_ReplicaServidor) {
+    public void setLocalizacao_Pais_ReplicaServidor(String localizacao_Pais_ReplicaServidor) throws InvalidReplicaException {
+        if (localizacao_Pais_ReplicaServidor == null || localizacao_Pais_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Pais_ReplicaServidor.equals(""))
+            throw new InvalidReplicaException("Invalid Server Exception");
+
         this.localizacao_Pais_ReplicaServidor = localizacao_Pais_ReplicaServidor;
     }
 
@@ -58,7 +62,4 @@ public class ReplicaServidor {
         return copiasEBookArrayList;
     }
 
-    public void setCopiasEBookArrayList(ArrayList<CopiaEBook> copiasEBookArrayList) {
-        this.copiasEBookArrayList = copiasEBookArrayList;
-    }
 }

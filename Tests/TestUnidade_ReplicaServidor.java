@@ -90,6 +90,31 @@ public class TestUnidade_ReplicaServidor {
         });
     }
 
+    @Test
+    void Test_Sets_of_Replica() throws InvalidReplicaException {
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+
+        replicaServidor_portugal.setLocalizacao_Pais_ReplicaServidor("Portugal");
+        assertEquals("Portugal",replicaServidor_portugal.getLocalizacao_Pais_ReplicaServidor());
+
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setLocalizacao_Pais_ReplicaServidor(null));
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setLocalizacao_Pais_ReplicaServidor("1"));
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setLocalizacao_Pais_ReplicaServidor(""));
+
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(-1));
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(0));
+        replicaServidor_portugal.setId_replica(1);
+        assertEquals(1,replicaServidor_portugal.getId_replica());
+
+        replicaServidor_portugal.setId_replica(30000);
+        assertEquals(30000,replicaServidor_portugal.getId_replica());
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(30001));
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(30002));
+
+
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+        assertEquals("Portugal",replicaServidor_portugal.getLocalizacao_Pais_ReplicaServidor());
+    }
 
     @Test
     void test_Server_sem_replicas_null() {
@@ -98,19 +123,34 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaThatDoesNotExist() throws InvalidReplicaException {
+    void getReplicabyElementThatExist() throws InvalidReplicaException {
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+        gestorReplicas.addReplica(replicaServidor_portugal);
+        assertEquals(replicaServidor_portugal,gestorReplicas.getReplicabyElement(replicaServidor_portugal));
+    }
+
+    @Test
+    void getReplicabyElementThatDoesNotExist() throws InvalidReplicaException {
         ReplicaServidor replica_q_nao_existe = new ReplicaServidor(1, "Monaco");
         assertNull(gestorReplicas.getReplicabyElement(replica_q_nao_existe));
     }
 
-
     @Test
-    void getCopiaEBookofSpecificReplicaOK() throws InvalidReplicaException {
+    void Remove_CopiaEBook_in_Replica() throws InvalidReplicaException, InvalidCopiaEBookException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        assertNotNull(gestorReplicas.getReplicabyElement(replicaServidor_portugal));
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
+        eBook = new EBook(1, "akjshdahq1na123", "Lauren", "Neighbours", "Josh", "pdf", 150.f, "Lauren sig");
+        CopiaEBook copiaEBookNiehgbours = new CopiaEBook(1, eBook);
+        replicaServidor_portugal.addCopiaEBook(copiaEBookNiehgbours);
+        replicaServidor_portugal.removeCopiaEBook(copiaEBookNiehgbours);
+        assertEquals(1,replicaServidor_portugal.getCopiasEBookArraySize());
     }
 
+    /**
+     *
+     *  Teste ao Gestor Replicas
+     *
+     */
 
     @Test
     void Check_Content_of_CopiaEBook_in_Replica() throws InvalidReplicaException {
@@ -127,14 +167,6 @@ public class TestUnidade_ReplicaServidor {
         assertEquals("Bd5m2KhLtmXkK90GcrQIov5mYKAj5mL7u8rxB+zYHvQ=", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getHash());
     }
 
-    @Test
-    void getNullCopiaEBookofReplica() throws InvalidCopiaEBookException {
-        CopiaEBook copiaEBook_q_nao_existe = new CopiaEBook(999, eBook);
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        assertThrows(NullPointerException.class, () -> {
-            assertNull(gestorReplicas.getCopia_of_Replica(copiaEBook_q_nao_existe));
-        });
-    }
 
     @Test
     void getSpecificReplicabyId() throws InvalidReplicaException {
@@ -180,20 +212,36 @@ public class TestUnidade_ReplicaServidor {
     }
 
 
+
+    /**
+     * Verificar o resultado expectavel quando nao existe replicas
+     *
+     *  if (replicasArrayList.size() == 0) return null;
+     *
+     * @throws InvalidReplicaException
+     * @throws EmprestimoException
+     * @return null
+     */
     @Test
-    void CheckContentofReplicasCopiaEBook() throws InvalidReplicaException {
+    void get_Replica_With_No_Replicas_Avaliable() throws InvalidReplicaException, EmprestimoException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        String to_Compare = "Portugal,The Shinning";
-        assertEquals(to_Compare, gestorReplicas.show_info_replicas());
+
+        //devolve null
+        assertNull(gestorReplicas.get_Replica_Proxima_Cliente(emp));
+
     }
 
-    @Test
-    void CheckNullContentofReplicasCopiaEBook() {
-        assertNull(gestorReplicas.show_info_replicas());
-    }
 
+    /**
+     * Verificar o resultado expectavel quando nao existe replicas
+     *
+     *   if (replicasArrayList.size() == 1) return replicasArrayList.get(0);
+     *
+     * @throws InvalidReplicaException
+     * @throws EmprestimoException
+     * @return replicaServidor_portugal
+     */
     @Test
     void get_Replica_With_Only_One_Replica_Avaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
@@ -205,17 +253,6 @@ public class TestUnidade_ReplicaServidor {
         assertEquals(replicaServidor_portugal, gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
-
-    @Test
-    void get_Replica_With_No_Replicas_Avaliable() throws InvalidReplicaException, EmprestimoException {
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
-        replicaServidor_portugal.addCopiaEBook(copiaEBook);
-
-        //devolve null
-        assertNull(gestorReplicas.get_Replica_Proxima_Cliente(emp));
-
-    }
-
 
     /**
      * Verifica quando as Replicas tem a copia que o emprestimo possui
@@ -321,6 +358,25 @@ public class TestUnidade_ReplicaServidor {
         assertEquals(1, gestorReplicas.get_replicas_ArrayList_Size());
     }
 
+
+    @Test
+    void Remove_From_Gestor() throws InvalidReplicaException {
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+
+        gestorReplicas.addReplica(replicaServidor_portugal); //1ª
+        gestorReplicas.addReplica(replicaServidor_franca); //2ª
+        gestorReplicas.addReplica(replicaServidor_Espanha); //3ª
+
+
+        gestorReplicas.removeReplica(replicaServidor_franca);
+        assertEquals(2,gestorReplicas.get_replicas_ArrayList_Size());
+
+        gestorReplicas.removeReplica(replicaServidor_portugal);
+        assertEquals(1,gestorReplicas.get_replicas_ArrayList_Size());
+
+    }
 
     @BeforeEach
     void setUp() {

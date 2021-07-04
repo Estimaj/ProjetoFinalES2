@@ -10,12 +10,12 @@ public class GestorReplicas {
     public GestorReplicas() {
     }
 
-    public void addReplica(ReplicaServidor replicasArrayListervidor) {
-        replicasArrayList.add(replicasArrayListervidor);
+    public void addReplica(ReplicaServidor replicaServidor) {
+        replicasArrayList.add(replicaServidor);
     }
 
-    public void removeReplica(ReplicaServidor replicasArrayListervidor) {
-        replicasArrayList.add(replicasArrayListervidor);
+    public void removeReplica(ReplicaServidor replicaServidor) {
+        replicasArrayList.remove(replicaServidor);
     }
 
 
@@ -42,24 +42,8 @@ public class GestorReplicas {
         return this.replicasArrayList.get(index);
     }
 
-
-    public String show_info_replicas() {
-        String to_return = null;
-        for (ReplicaServidor replicaServidor : replicasArrayList) {
-            for (int j = 0; j < replicaServidor.getcopiasEBookArrayList().size(); j++) {
-                to_return = replicaServidor.getLocalizacaoReplica() + "," + replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getTitulo();
-            }
-        }
-        return to_return;
-    }
-
-
     public ArrayList<ReplicaServidor> getreplicasArrayList() {
         return replicasArrayList;
-    }
-
-    public void setreplicasArrayList(ArrayList<ReplicaServidor> replicasArrayList) {
-        this.replicasArrayList = replicasArrayList;
     }
 
     public int get_replicas_ArrayList_Size() {
