@@ -237,6 +237,7 @@ public class DBAdapterStub implements InterfaceDB {
 
     @Override
     public JSONObject ListarEmprestimoByUser(int id_user) {
+
         String message;
         JSONObject json = new JSONObject();
         JSONArray array = new JSONArray();
