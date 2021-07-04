@@ -159,7 +159,7 @@ public class TestUnidade_EBook {
      *  return InvalidEBookFormatException
      */
     @Test
-    void test_formato_EBook() {
+    void test_different_formato_from_accepted_EBook() {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";

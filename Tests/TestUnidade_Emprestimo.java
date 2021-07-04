@@ -280,7 +280,7 @@ public class TestUnidade_Emprestimo {
     }
 
     @Test
-    void UpdateEmprestimoSetEBookNull() throws EmprestimoException {
+    void UpdateEmprestimoSetCopiaEBookNull() throws EmprestimoException {
         Emprestimo empAtivo = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
 
         assertThrows(EmprestimoException.class, () -> {
