@@ -138,7 +138,6 @@ public class TestIntegration_DatabaseStub {
         assertTrue(jsonObject.has("2"));
         assertEquals(jsonArray,jsonObject.getJSONArray("2"));
 
-
     }
 
     @Test

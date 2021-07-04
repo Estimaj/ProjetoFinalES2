@@ -212,7 +212,6 @@ public class TestUnidade_ReplicaServidor {
     }
 
 
-
     /**
      * Verificar o resultado expectavel quando nao existe replicas
      *
@@ -231,7 +230,6 @@ public class TestUnidade_ReplicaServidor {
         assertNull(gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
-
 
     /**
      * Verificar o resultado expectavel quando nao existe replicas

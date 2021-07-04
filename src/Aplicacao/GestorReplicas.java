@@ -5,6 +5,7 @@ import Aplicacao.Exceptions.EmprestimoException;
 import java.util.ArrayList;
 
 public class GestorReplicas {
+
     private ArrayList<ReplicaServidor> replicasArrayList = new ArrayList<>();
 
     public GestorReplicas() {
@@ -17,7 +18,6 @@ public class GestorReplicas {
     public void removeReplica(ReplicaServidor replicaServidor) {
         replicasArrayList.remove(replicaServidor);
     }
-
 
     public CopiaEBook getCopia_of_Replica(CopiaEBook copiaEBook) {
         for (int i = 0; i < replicasArrayList.size(); i++) {

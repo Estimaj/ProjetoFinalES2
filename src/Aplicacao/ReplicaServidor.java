@@ -5,6 +5,7 @@ import Aplicacao.Exceptions.InvalidReplicaException;
 import java.util.ArrayList;
 
 public class ReplicaServidor {
+
     private int id_replica;
     private String localizacao_Pais_ReplicaServidor;
     private ArrayList<CopiaEBook> copiasEBookArrayList = new ArrayList<>();
