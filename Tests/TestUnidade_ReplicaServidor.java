@@ -136,6 +136,11 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
+    void getReplicabyElementNull() {
+        assertNull(gestorReplicas.getReplicabyElement(null));
+    }
+
+    @Test
     void Remove_CopiaEBook_in_Replica() throws InvalidReplicaException, InvalidCopiaEBookException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
