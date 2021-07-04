@@ -93,6 +93,19 @@ public class TestUnidade_DetecaoFraude {
         assertEquals("desativado", emp.getUtilizador().getEstado_utilizador());
     }
 
+    @Test
+    void CreateEmprestimoWithCanceledAccount() throws InvalidUserException {
+        //so apanha quando o user esta cancelado
+        Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
+        System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
+
+        assertThrows(EmprestimoException.class, () -> {
+            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+        });
+
+        assertEquals("desativado", user_desativo.getEstado_utilizador());
+    }
+
 
     @BeforeAll
     static void set() {

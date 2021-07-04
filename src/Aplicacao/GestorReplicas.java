@@ -72,7 +72,7 @@ public class GestorReplicas {
 
         String paisUser = emp.getUtilizador().getMorada_utilizador();
         String paisReplica;
-
+        ReplicaServidor rp;
 
         if (replicasArrayList.size() == 0)
             return null;
@@ -83,9 +83,8 @@ public class GestorReplicas {
         for (int i = 0; i < replicasArrayList.size(); i++) {
             for (int j = 0; j < replicasArrayList.get(i).getcopiasEBookArrayList().size(); j++) {
                 paisReplica = replicasArrayList.get(i).getLocalizacaoReplica();
-                // se tiver o ebook
                 if (replicasArrayList.get(i).getcopiasEBookArrayList().get(j).equals(emp.getCopiaEBook())) {
-                    // se a replica for da mesma cidade e pais e tiver a replica
+                    // se a replica for do mesmo pais e tiver a copia
                     if (paisReplica.equals(paisUser)) {
                         return replicasArrayList.get(i);
                     }
@@ -93,7 +92,9 @@ public class GestorReplicas {
             }
         }
 
-        return getReplicaServidorWhenAddressDoesntExist(emp);
+        rp = getReplicaServidorWhenAddressDoesntExist(emp);
+
+        return rp;
     }
 
     private ReplicaServidor getReplicaServidorWhenAddressDoesntExist(Emprestimo emp) {

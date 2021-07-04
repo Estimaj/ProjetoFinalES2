@@ -111,17 +111,9 @@ public class TestUnidade_ReplicaServidor {
         assertNotNull(gestorReplicas.getReplicabyElement(replicaServidor_portugal));
     }
 
-    @Test
-    void getReplicaThatExisttoCheckMethodsofCopiaEBook() throws InvalidReplicaException {
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
-        replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        assertEquals(1, gestorReplicas.getCopia_of_Replica(copiaEBook).getId());
-        assertEquals(eBook, gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook());
-    }
 
     @Test
-    void getReplicaThatExisttoCheckMethodsofCopiaEBook_in_EBook() throws InvalidReplicaException {
+    void Check_Content_of_CopiaEBook_in_Replica() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
         gestorReplicas.addReplica(replicaServidor_portugal);
@@ -151,6 +143,14 @@ public class TestUnidade_ReplicaServidor {
         assertEquals(replicaServidor_portugal, gestorReplicas.get_ReplicaServidor_by_id(0));
     }
 
+
+    /**
+     * get replica por id
+     *  fixme ==> quando o id é superior ao tamanho do Array de Replicas
+     *
+     * @throws InvalidReplicaException
+     * @return "IndexOutOfBoundsException"
+     */
     @Test
     void getReplicaThatExceedsArrayIndexBounds() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
@@ -161,6 +161,14 @@ public class TestUnidade_ReplicaServidor {
         assertEquals(IndexOutOfBoundsException.class, exception.getClass());
     }
 
+
+    /**
+     * get replica por id
+     *  fixme ==> quando o id é inferior ao tamanho do Array de Replicas
+     *
+     * @throws InvalidReplicaException
+     * @return "IndexOutOfBoundsException"
+     */
     @Test
     void getReplicaThatisLessofArrayIndexBounds() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
@@ -170,6 +178,7 @@ public class TestUnidade_ReplicaServidor {
         });
         assertEquals(IndexOutOfBoundsException.class, exception.getClass());
     }
+
 
     @Test
     void CheckContentofReplicasCopiaEBook() throws InvalidReplicaException {
@@ -186,7 +195,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaWithOnlyOneReplicaAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+    void get_Replica_With_Only_One_Replica_Avaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
         gestorReplicas.addReplica(replicaServidor_portugal);
@@ -198,7 +207,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaWithNoReplicasAvaliable() throws InvalidReplicaException, EmprestimoException {
+    void get_Replica_With_No_Replicas_Avaliable() throws InvalidReplicaException, EmprestimoException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
 
@@ -208,7 +217,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     @Test
-    void getReplicaWhenUserisNull() throws EmprestimoException, InvalidReplicaException {
+    void get_Replica_When_User_is_Null() throws EmprestimoException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
@@ -233,8 +242,20 @@ public class TestUnidade_ReplicaServidor {
 
     }
 
+
+
+    /**
+     * Verifica quando as Replicas tem a copia que o emprestimo possui
+     * E o Utilizador tem a mesma cidade que uma das Replicas
+     *
+     *
+     * @throws EmprestimoException
+     * @throws InvalidUserException
+     * @throws InvalidReplicaException
+     * @return "replicaServidor_portugal"
+     */
     @Test
-    void getReplicaClosetoUserWithReplicasAvaliable() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+    void Get_replica_with_Same_City_as_the_User() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
@@ -246,14 +267,24 @@ public class TestUnidade_ReplicaServidor {
         gestorReplicas.addReplica(replicaServidor_franca);
         gestorReplicas.addReplica(replicaServidor_Espanha);
 
-        u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Franca", "121-231-123", "ativo");
+        u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
         emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
-        emp.setReplicaServidor(replicaServidor_franca);
+
         //devolve a replica existente na cidade do USER
-        assertEquals(emp.getReplicaServidor(), gestorReplicas.get_Replica_Proxima_Cliente(emp));
+        assertEquals(replicaServidor_portugal, gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
 
+    /**
+     * Verifica quando as Replicas tem a copia que o emprestimo possui
+     * E o Utilizador tem uma cidade diferente de todas as Replicas
+     *
+     *
+     * @throws EmprestimoException
+     * @throws InvalidUserException
+     * @throws InvalidReplicaException
+     * @return "replicaServidor_franca"
+     */
     @Test
     void Get_replica_with_different_City_as_the_User() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
@@ -274,6 +305,34 @@ public class TestUnidade_ReplicaServidor {
 
         //devolve a primeira que encontrar, caso nao exista nenhuma replica na cidade do USER
         assertEquals(replicaServidor_franca, gestorReplicas.get_Replica_Proxima_Cliente(emp));
+
+    }
+
+    /**
+     * Verifica quando as Replicas nao tem a copia que o emprestimo possui
+     *
+     *
+     * @throws EmprestimoException
+     * @throws InvalidUserException
+     * @throws InvalidReplicaException
+     * @return null
+     */
+    @Test
+    void Get_Replica_When_Doesnt_Have_CopiaEBook_that_Emprestimo_Needs() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+
+        gestorReplicas.addReplica(replicaServidor_franca); //1ª -> vai devolver esta replica
+        gestorReplicas.addReplica(replicaServidor_Espanha); //2ª
+        gestorReplicas.addReplica(replicaServidor_portugal); //3ª
+
+        u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Inglaterra", "121-231-123", "ativo");
+        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
+
+
+        //devolve a primeira que encontrar, caso nao exista nenhuma replica na cidade do USER
+        assertNull(gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
 

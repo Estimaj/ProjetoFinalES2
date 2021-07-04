@@ -288,18 +288,7 @@ public class TestUnidade_Emprestimo {
         });
     }
 
-    @Test
-    void CreateEmprestimoWithCanceledAccount() {
-        //so apanha quando o user esta cancelado
-        System.out.println("test_Emprestimo_Conta_Cancelada ==> " + user_desativo.getEstado_utilizador());
-        replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
-        });
 
-        assertEquals("desativado", user_desativo.getEstado_utilizador());
-    }
 
     @BeforeAll
     static void set() {
