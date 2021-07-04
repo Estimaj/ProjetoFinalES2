@@ -216,33 +216,6 @@ public class TestUnidade_ReplicaServidor {
 
     }
 
-    @Test
-    void get_Replica_When_User_is_Null() throws EmprestimoException, InvalidReplicaException {
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
-        replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
-        replicaServidor_franca.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
-        replicaServidor_Espanha.addCopiaEBook(copiaEBook);
-
-        gestorReplicas.addReplica(replicaServidor_portugal);
-        gestorReplicas.addReplica(replicaServidor_franca);
-        gestorReplicas.addReplica(replicaServidor_Espanha);
-
-        emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(2), u, copiaEBook, 1);
-        emp.setReplicaServidor(replicaServidor_franca);
-
-
-        //devolve a replica existente na cidade do USER
-        assertThrows(NullPointerException.class, () -> {
-            emp.setUtilizador(null);
-        });
-
-        assertEquals(replicaServidor_portugal, gestorReplicas.get_Replica_Proxima_Cliente(emp));
-
-    }
-
-
 
     /**
      * Verifica quando as Replicas tem a copia que o emprestimo possui
