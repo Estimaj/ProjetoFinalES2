@@ -106,7 +106,7 @@ public class TestUnidade_ReplicaServidor {
     @Test
     void createReplicaIP_false_as_String() {
         assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_portugal = new ReplicaServidor(1, "Portugal","I.Am.not.an.ip");
+            replicaServidor_portugal = new ReplicaServidor(1, "Portugal","I.aint.a.ip");
         });
     }
 
