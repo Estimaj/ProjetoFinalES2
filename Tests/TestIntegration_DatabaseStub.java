@@ -398,6 +398,7 @@ public class TestIntegration_DatabaseStub {
         db.addReplicaServidor(rp);
         assertEquals(rp,db.getReplicaServidor(1));
     }
+
     @Test
     void getReplicaFalse() {
         assertNull(db.getReplicaServidor(-10));
