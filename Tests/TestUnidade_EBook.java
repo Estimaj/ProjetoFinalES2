@@ -122,31 +122,6 @@ public class TestUnidade_EBook {
         });
     }
 
-    @Test
-    void test_setTitulo() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(titulo,eBook.getTitulo());
-    }
-
-    @Test
-    void test_setEditora() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(editora,eBook.getEditora());
-    }
-
-    @Test
-    void test_setformato() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(formato,eBook.getFormato());
-    }
-
-
-    @Test
-    void test_setFileSize() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
-        eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
-        assertEquals(fileSize,eBook.getFileSize());
-    }
-
 
     @Test
     void createEBookHashOK() throws InvalidEBookException, NoSuchAlgorithmException, InvalidEBookSizeException, InvalidEBookFormatException {

@@ -195,32 +195,6 @@ public class TestUnidade_Emprestimo {
     }
 
 
-    @Test
-    void test_setextensaoEmprestimo() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
-        emp.extenderEmprestimo();
-        assertEquals(1, emp.getExtensaoEmprestimo());
-        LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(1);
-        assertEquals(extensaoEmprestimo, emp.getFimdataHoraEmp());
-    }
-
-    @Test
-    void test_setextensaoEmprestimo_2_vezes() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
-        emp.extenderEmprestimo();
-        emp.extenderEmprestimo();
-        assertEquals(2, emp.getExtensaoEmprestimo());
-        LocalDate extensaoEmprestimo = this.FimdataHoraEmp.plusMonths(2);
-        assertEquals(extensaoEmprestimo, emp.getFimdataHoraEmp());
-    }
-
-    @Test
-    void test_setextensaoEmprestimo_Exception() throws ExtensaoEmprestimoException, EmprestimoException {
-        emp = new Emprestimo(id_emp, dataHoraEmp, FimdataHoraEmp, user, copiaEBook, 1);
-        emp.extenderEmprestimo();
-        assertEquals(1, emp.getExtensaoEmprestimo());
-    }
-
 
     @Test
     void Extensao_de_Emprestimo_1_Vez() throws ExtensaoEmprestimoException, EmprestimoException {

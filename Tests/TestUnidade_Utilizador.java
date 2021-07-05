@@ -322,31 +322,6 @@ public class TestUnidade_Utilizador {
         assertEquals(estado_user,user.getEstado_utilizador());
     }
 
-    @Test
-    void LoginOK() throws InvalidUserException {
-        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
-        assertTrue(user.autenticacao(email_user,pwd_user));
-    }
-    @Test
-    void LoginPwdWRONG() throws InvalidUserException {
-        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
-        pwd_user = "1";
-        assertFalse(user.autenticacao(email_user,pwd_user));
-    }
-    @Test
-    void LoginEmWRONG() throws InvalidUserException {
-        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
-        email_user = "email@exemplo.com";
-        assertFalse(user.autenticacao(email_user,pwd_user));
-    }
-    @Test
-    void LoginEmPwdWRONG() throws InvalidUserException {
-        user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
-        email_user = "email@exemplo.com";
-        pwd_user = "1";
-        assertFalse(user.autenticacao(email_user,pwd_user));
-    }
-
 
 
     @BeforeEach

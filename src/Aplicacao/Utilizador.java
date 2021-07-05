@@ -126,7 +126,4 @@ public class Utilizador {
         this.estado_utilizador = estado_utilizador;
     }
 
-    public boolean autenticacao(String em, String pw){
-        return this.getEmail_utilizador().equals(em) && this.getPwd_utilizador().equals(pw);
-    }
 }
