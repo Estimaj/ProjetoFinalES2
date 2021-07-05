@@ -22,7 +22,7 @@ public class EBook {
 
     public EBook(int idEbook, String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
 
-        if (idEbook <= 0 || idEbook > 30000)
+        if (idEbook <= 0 || idEbook >= 30001)
             throw new InvalidEBookException("EBook invalido Id");
 
         if (autor == null || autor.matches(NUMBER_VERIFICATION) || autor.equals(""))

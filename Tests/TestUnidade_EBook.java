@@ -57,12 +57,30 @@ public class TestUnidade_EBook {
     }
 
     @Test
+    void CreateEBookIdEBookGreat0() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        eBook = new EBook(2,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(2,eBook.getIdEbook());
+    }
+
+    @Test
     void CreateEBookIdEBookGreatMax() {
         assertThrows(InvalidEBookException.class, () -> {
-            eBook = new EBook(40000,ISBN,autor,titulo,editora,formato,fileSize,hash);
+            eBook = new EBook(30002,ISBN,autor,titulo,editora,formato,fileSize,hash);
         });
     }
 
+    @Test
+    void CreateEBookIdEBookEqualsMax() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(30001,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        });
+    }
+
+    @Test
+    void CreateEBookIdEBookLessMax() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
+        eBook = new EBook(30000,ISBN,autor,titulo,editora,formato,fileSize,hash);
+        assertEquals(30000,eBook.getIdEbook());
+    }
     @Test
     void CreateEBookWithNullParams() {
         assertThrows(InvalidEBookException.class, () -> {
