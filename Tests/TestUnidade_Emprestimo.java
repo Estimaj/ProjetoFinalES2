@@ -133,14 +133,14 @@ public class TestUnidade_Emprestimo {
     @Test
     void CreateEmprestimoCheckIdBelow0() {
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(-1, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+            emp = new Emprestimo(-1, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         });
     }
 
     @Test
     void CreateEmprestimoCheckIdEqual0() {
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(0, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+            emp = new Emprestimo(0, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         });
 
     }
@@ -148,20 +148,20 @@ public class TestUnidade_Emprestimo {
     @Test
     void CreateEmprestimoCheckIdAboveMax() {
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(30002, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+            emp = new Emprestimo(30002, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         });
     }
 
     @Test
     void CreateEmprestimoCheckIdEqualsMax() {
         assertThrows(EmprestimoException.class, () -> {
-            emp = new Emprestimo(30001, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+            emp = new Emprestimo(30001, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         });
     }
 
     @Test
     void CreateEmprestimoCheckIdLessMax() throws EmprestimoException {
-        emp = new Emprestimo(30000, LocalDate.now(), LocalDate.now().plusMonths(1), user_desativo, copiaEBook, 1);
+        emp = new Emprestimo(30000, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         assertEquals(30000, emp.getId_emp());
     }
 
