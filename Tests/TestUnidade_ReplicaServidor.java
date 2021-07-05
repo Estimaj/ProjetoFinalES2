@@ -52,7 +52,7 @@ public class TestUnidade_ReplicaServidor {
     @Test
     void createReplicaIdExcedsMaximum() {
         assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_portugal = new ReplicaServidor(40000, "Portugal","000.12.12.034");
+            replicaServidor_portugal = new ReplicaServidor(30002, "Portugal","000.12.12.034");
         });
     }
 
@@ -114,6 +114,20 @@ public class TestUnidade_ReplicaServidor {
     void createReplicaIP_false_Empty() {
         assertThrows(InvalidReplicaException.class, () -> {
             replicaServidor_portugal = new ReplicaServidor(1, "Portugal","");
+        });
+    }
+
+    @Test
+    void createReplicaIP_false_exceeds_max_of_regex() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.234.23.23.000.12.234.23.23.000.12.234.23.23.000.12.234.23.23");
+        });
+    }
+
+    @Test
+    void createReplicaIP_false_doesnt_comply_with_regex() {
+        assertThrows(InvalidReplicaException.class, () -> {
+            replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000:12:234:23:23");
         });
     }
 

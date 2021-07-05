@@ -22,7 +22,7 @@ public class Emprestimo {
 
     public Emprestimo(int id_emp, LocalDate dataHoraEmp, LocalDate fimdataHoraEmp, Utilizador utilizador, CopiaEBook copiaEBook, int assinaturaTR) throws EmprestimoException {
 
-        if (id_emp <= 0 || id_emp > 30000)
+        if (id_emp <= 0 || id_emp >= 30001)
             throw new EmprestimoException("Emprestimo invalido Id");
 
         if (utilizador.getEstado_utilizador().equals("desativado") || utilizador == null)
