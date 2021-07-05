@@ -18,7 +18,7 @@ public class TestIntegration_DatabaseStub {
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
-    private ReplicaServidor rp = new ReplicaServidor(1,"Portugal");
+    private ReplicaServidor rp = new ReplicaServidor(1,"Portugal","000.12.12.034");
     private JSONArray jsonArray;
     private JSONObject jsonObject;
 

@@ -16,7 +16,7 @@ public class TestUnidade_Emprestimo {
     private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
-    private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal");
+    private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal","000.12.12.034");
     private Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
 
     public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
@@ -154,11 +154,11 @@ public class TestUnidade_Emprestimo {
 
     @Test
     void CreateEmprestimoWithReplica() throws EmprestimoException, InvalidReplicaException, InvalidUserException {
-        replicaServidor_portugal = new ReplicaServidor(1,"Portugal");
+        replicaServidor_portugal = new ReplicaServidor(1,"Portugal","000.12.12.034");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
         replicaServidor_Espanha.addCopiaEBook(copiaEBook);
 
         gestorReplicas.addReplica(replicaServidor_portugal);
