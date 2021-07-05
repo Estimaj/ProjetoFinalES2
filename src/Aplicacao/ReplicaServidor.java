@@ -20,7 +20,7 @@ public class ReplicaServidor {
         if (localizacao_Pais_ReplicaServidor == null || localizacao_Pais_ReplicaServidor.chars().allMatch(Character::isDigit) || localizacao_Pais_ReplicaServidor.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception");
 
-        if (!ipReplica.matches(IP_VERIFICATION) || ipReplica == null || ipReplica.equals(""))
+        if (!ipReplica.matches(IP_VERIFICATION) || ipReplica.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception IP");
 
         this.id_replica = id_replica;
@@ -44,7 +44,7 @@ public class ReplicaServidor {
     }
 
     public void setIpReplica(String ipReplica) throws InvalidReplicaException {
-        if (!ipReplica.matches(IP_VERIFICATION))
+        if (!ipReplica.matches(IP_VERIFICATION) || ipReplica.equals(""))
             throw new InvalidReplicaException("Invalid Server Exception IP");
 
         this.ipReplica = ipReplica;

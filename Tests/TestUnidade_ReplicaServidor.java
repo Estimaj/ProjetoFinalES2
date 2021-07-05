@@ -116,12 +116,7 @@ public class TestUnidade_ReplicaServidor {
             replicaServidor_portugal = new ReplicaServidor(1, "Portugal","");
         });
     }
-    @Test
-    void createReplicaIP_false_Null() {
-        assertThrows(InvalidReplicaException.class, () -> {
-            replicaServidor_portugal = new ReplicaServidor(1, "Portugal",null);
-        });
-    }
+
     @Test
     void Test_Sets_of_Replica() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
@@ -143,6 +138,8 @@ public class TestUnidade_ReplicaServidor {
         assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(30001));
         assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setId_replica(30002));
 
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setIpReplica(""));
+        assertThrows(InvalidReplicaException.class, () -> replicaServidor_portugal.setIpReplica("nao sou um ip"));
 
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
         assertEquals("Portugal",replicaServidor_portugal.getLocalizacao_Pais_ReplicaServidor());
@@ -303,9 +300,9 @@ public class TestUnidade_ReplicaServidor {
     void Get_replica_with_Same_City_as_the_User() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.035");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.036");
         replicaServidor_Espanha.addCopiaEBook(copiaEBook);
 
         gestorReplicas.addReplica(replicaServidor_portugal);
@@ -334,9 +331,9 @@ public class TestUnidade_ReplicaServidor {
     void Get_replica_with_different_City_as_the_User() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.035");
         replicaServidor_Espanha.addCopiaEBook(copiaEBook);
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.036");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
 
         gestorReplicas.addReplica(replicaServidor_franca); //1ª -> vai devolver esta replica
@@ -365,8 +362,8 @@ public class TestUnidade_ReplicaServidor {
     @Test
     void Get_Replica_When_Doesnt_Have_CopiaEBook_that_Emprestimo_Needs() throws EmprestimoException, InvalidUserException, InvalidReplicaException {
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.035");
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.036");
 
         gestorReplicas.addReplica(replicaServidor_franca); //1ª -> vai devolver esta replica
         gestorReplicas.addReplica(replicaServidor_Espanha); //2ª
@@ -392,9 +389,9 @@ public class TestUnidade_ReplicaServidor {
     void Get_Replica_Emprestimo_is_Null() throws InvalidReplicaException {
         ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
         replicaServidor_franca.addCopiaEBook(copiaEBook);
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.035");
         replicaServidor_Espanha.addCopiaEBook(copiaEBook);
-        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.036");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
 
         gestorReplicas.addReplica(replicaServidor_franca); //1ª
@@ -420,8 +417,8 @@ public class TestUnidade_ReplicaServidor {
     @Test
     void Remove_From_Gestor() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
-        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.034");
-        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.034");
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca","000.12.12.035");
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha","000.12.12.036");
 
         gestorReplicas.addReplica(replicaServidor_portugal); //1ª
         gestorReplicas.addReplica(replicaServidor_franca); //2ª
