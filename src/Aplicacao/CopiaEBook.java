@@ -8,7 +8,7 @@ public class CopiaEBook {
     private EBook eBook;
 
     public CopiaEBook(int id, EBook eBook) throws InvalidCopiaEBookException {
-        if (id <= 0 || id > 30000)
+        if (id <= 0 || id >= 30001)
             throw new InvalidCopiaEBookException("Invalid Copia ID EBook Exception");
         if (eBook == null)
             throw new InvalidCopiaEBookException("Invalid Copia EBook Exception");

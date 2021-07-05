@@ -48,8 +48,21 @@ public class TestUnidade_CopiaEBook {
     @Test
     void createCopiaEBookIdGreatMax() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
+            copiaEBook = new CopiaEBook(30002, eBook);
+        });
+    }
+
+    @Test
+    void createCopiaEBookIdEqualsMax() {
+        assertThrows(InvalidCopiaEBookException.class, () -> {
             copiaEBook = new CopiaEBook(30001, eBook);
         });
+    }
+
+    @Test
+    void createCopiaEBookIdLessMax() throws InvalidCopiaEBookException {
+        copiaEBook = new CopiaEBook(30000, eBook);
+        assertEquals(30000,copiaEBook.getId());
     }
 
     @Test
