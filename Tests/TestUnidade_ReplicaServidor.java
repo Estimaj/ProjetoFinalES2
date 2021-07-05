@@ -322,7 +322,7 @@ public class TestUnidade_ReplicaServidor {
     }
 
     /**
-     * Verifica quando as Replicas nao tem a copia que o emprestimo possui
+     * Verifica quando nenhuma Replica tem a copia que o emprestimo possui
      *
      *
      * @throws EmprestimoException
@@ -348,7 +348,30 @@ public class TestUnidade_ReplicaServidor {
         assertNull(gestorReplicas.get_Replica_Proxima_Cliente(emp));
 
     }
+    /**
+     * Verifica o retorno quando o Emprestimo é NULL
+     *
+     *
+     * @throws InvalidReplicaException
+     * @return null
+     */
 
+    @Test
+    void Get_Replica_Emprestimo_is_Null() throws InvalidReplicaException {
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        replicaServidor_franca.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+        replicaServidor_Espanha.addCopiaEBook(copiaEBook);
+        replicaServidor_portugal = new ReplicaServidor(1, "Portugal");
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
+
+        gestorReplicas.addReplica(replicaServidor_franca); //1ª
+        gestorReplicas.addReplica(replicaServidor_Espanha); //2ª
+        gestorReplicas.addReplica(replicaServidor_portugal); //3ª
+
+        assertThrows(EmprestimoException.class, () -> gestorReplicas.get_Replica_Proxima_Cliente(null));
+
+    }
     @Test
     void getReplicasSizeWith0replicas() {
         assertEquals(0, gestorReplicas.get_replicas_ArrayList_Size());

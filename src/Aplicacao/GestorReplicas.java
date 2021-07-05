@@ -51,6 +51,7 @@ public class GestorReplicas {
     }
 
     public ReplicaServidor get_Replica_Proxima_Cliente(Emprestimo emp) throws EmprestimoException {
+        if (emp == null) throw new EmprestimoException("Emprestimo é Null no get_Replica_Proxima_Cliente");
 
         String paisUser = emp.getUtilizador().getMorada_utilizador();
         String paisReplica;
