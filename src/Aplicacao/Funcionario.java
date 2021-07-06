@@ -1,8 +1,6 @@
 package Aplicacao;
 
 import Aplicacao.Exceptions.InvalidFuncException;
-import Aplicacao.Exceptions.InvalidUserException;
-
 
 public class Funcionario {
 
