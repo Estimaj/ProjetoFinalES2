@@ -12,15 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_ReplicaServidor {
 
+    private  Editora editora = new Editora(1,"LEYA");
     private Utilizador u = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
-    private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
+    private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", editora, "pdf", 150.f, "Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_portugal = null;
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, 1);
 
 
-    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException {
+    public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
 
     @Test
@@ -187,7 +188,7 @@ public class TestUnidade_ReplicaServidor {
     void Remove_CopiaEBook_in_Replica() throws InvalidReplicaException, InvalidCopiaEBookException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
         replicaServidor_portugal.addCopiaEBook(copiaEBook);
-        eBook = new EBook(1, "akjshdahq1na123", "Lauren", "Neighbours", "Josh", "pdf", 150.f, "Lauren sig");
+        eBook = new EBook(1, "akjshdahq1na123", "Lauren", "Neighbours", editora, "pdf", 150.f, "Lauren sig");
         CopiaEBook copiaEBookNiehgbours = new CopiaEBook(1, eBook);
         replicaServidor_portugal.addCopiaEBook(copiaEBookNiehgbours);
         replicaServidor_portugal.removeCopiaEBook(copiaEBookNiehgbours);
@@ -209,7 +210,7 @@ public class TestUnidade_ReplicaServidor {
         assertEquals("akjshdahq123123", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getISBN());
         assertEquals("Stephen King", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getAutor());
         assertEquals("The Shinning", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getTitulo());
-        assertEquals("Ray Lovejoy", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getEditora());
+        assertEquals("LEYA", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getEditora().getNomeEditora());
         assertEquals("pdf", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getFormato());
         assertEquals(150.f, gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getFileSize());
         assertEquals("Bd5m2KhLtmXkK90GcrQIov5mYKAj5mL7u8rxB+zYHvQ=", gestorReplicas.getCopia_of_Replica(copiaEBook).getEBook().getHash());

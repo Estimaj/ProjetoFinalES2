@@ -6,15 +6,15 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestIntegration_DatabaseStub {
 
+    private Editora editora = new Editora(1,"LEYA");
     private final Database db = new Database();
     private Utilizador u = new Utilizador(1,"Maria","maria@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
-    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig");
+    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning",editora,"pdf",0.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(),LocalDate.now().plusMonths(1),u, copiaEBook ,1);;
     private Funcionario func = new Funcionario(1,"Joao","Joao@exemplo.com","Abc1abcABC!");
@@ -22,7 +22,7 @@ public class TestIntegration_DatabaseStub {
     private JSONArray jsonArray;
     private JSONObject jsonObject;
 
-    public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException {
+    public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException, InvalidEditoraException {
     }
 
     @Test
@@ -170,9 +170,9 @@ public class TestIntegration_DatabaseStub {
 
     @Test
     void ListaOfEBooks() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
-        eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",0.f,"Stephen king sig");
+        eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning",editora,"pdf",0.f,"Stephen king sig");
         db.addEBook(eBook);
-        eBook = new EBook(2,"akjshdahq123123","Lauren","The Haunting","Ray Lovejoy","pdf",0.f,"Lauren king sig");
+        eBook = new EBook(2,"akjshdahq123123","Lauren","The Haunting",editora,"pdf",0.f,"Lauren king sig");
         db.addEBook(eBook);
 
         jsonObject = db.ListarEBooks();
@@ -417,7 +417,7 @@ public class TestIntegration_DatabaseStub {
 
     @Test
     void getCopiasFromReplicasOK() throws InvalidCopiaEBookException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {
-        EBook eBook_Lusiadas = new EBook(1,"akjshdahq123123","Stephen King","The Haunting","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+        EBook eBook_Lusiadas = new EBook(1,"akjshdahq123123","Stephen King","The Haunting",editora,"pdf",150.f,"Stephen king sig");
         CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
         CopiaEBook copiaEBook_lusiadas = new CopiaEBook(2,eBook_Lusiadas);
         rp.addCopiaEBook(copiaEBook);
@@ -437,4 +437,17 @@ public class TestIntegration_DatabaseStub {
 
     }
 
+    @Test
+    void addEditora() throws InvalidEditoraException {
+        Editora editora = new Editora(1,"LEYA");
+        assertEquals(1,db.addEditora(editora));
+    }
+
+    @Test
+    void getEditorabyId() throws InvalidEditoraException {
+        Editora editora = new Editora(1,"LEYA");
+        db.addEditora(editora);
+        assertEquals(editora,db.getEditora(1));
+
+    }
 }

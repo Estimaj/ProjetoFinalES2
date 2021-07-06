@@ -14,6 +14,8 @@ public class DBAdapterStub implements InterfaceDB {
     private ArrayList<Utilizador> utilizadorArrayList = new ArrayList<>();
     private ArrayList<ReplicaServidor> replicaServidorArrayList = new ArrayList<>();
     private ArrayList<Funcionario> funcionarioArrayList = new ArrayList<>();
+    private ArrayList<Editora> editoraArrayList = new ArrayList<>();
+
 
     @Override
     public int saveUser(Utilizador u) {
@@ -134,7 +136,7 @@ public class DBAdapterStub implements InterfaceDB {
             isbn = ebookArrayList.get(i).getISBN();
             autor = ebookArrayList.get(i).getAutor();
             titulo = ebookArrayList.get(i).getTitulo();
-            editora = ebookArrayList.get(i).getEditora();
+            editora = ebookArrayList.get(i).getEditora().getNomeEditora();
             formato = ebookArrayList.get(i).getFormato();
             hash = ebookArrayList.get(i).getHash();
 
@@ -356,7 +358,7 @@ public class DBAdapterStub implements InterfaceDB {
                     key = replicaServidor.getcopiasEBookArrayList().get(j).getId();
                     titulo = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getTitulo();
                     autor = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getAutor();
-                    editora = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getEditora();
+                    editora = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getEditora().getNomeEditora();
                     formato = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFormato();
                     filesize = replicaServidor.getcopiasEBookArrayList().get(j).getEBook().getFileSize();
                     item.put("Titulo",titulo);
@@ -373,6 +375,21 @@ public class DBAdapterStub implements InterfaceDB {
         message = json.toString();
         System.out.println(message);
         return json;
+    }
+
+    @Override
+    public int addEditora(Editora editora) {
+        this.editoraArrayList.add(editora);
+        return 1;
+    }
+
+    @Override
+    public Editora getEditorabyId(int idEditora) {
+        for (int i = 0; i < editoraArrayList.size(); i++) {
+            if (editoraArrayList.get(i).getId_editora() == idEditora)
+                return editoraArrayList.get(i);
+        }
+        return null;
     }
 
 

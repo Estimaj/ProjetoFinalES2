@@ -1,7 +1,9 @@
 import Aplicacao.EBook;
+import Aplicacao.Editora;
 import Aplicacao.Exceptions.InvalidEBookException;
 import Aplicacao.Exceptions.InvalidEBookFormatException;
 import Aplicacao.Exceptions.InvalidEBookSizeException;
+import Aplicacao.Exceptions.InvalidEditoraException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,15 +18,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_EBook {
 
+    private Editora editora = new Editora(1,"LEYA");
     private int idEbook = 1;
     private EBook eBook = null;
     private String ISBN = "akjshdahq123123";
     private String autor = "Stephen King";
     private String titulo = "The Shinning";
-    private String editora = "Ray Lovejoy";
     private String formato = "pdf";
     private Float fileSize = 0.f;
     private String hash = "Stephen king sig";
+
+    public TestUnidade_EBook() throws InvalidEditoraException {
+    }
 
     @Test
     void createEBookOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
@@ -42,6 +47,7 @@ public class TestUnidade_EBook {
         eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(1,eBook.getIdEbook());
     }
+
     @Test
     void CreateEBookIdEBookLessThen0() {
         assertThrows(InvalidEBookException.class, () -> {
@@ -94,12 +100,19 @@ public class TestUnidade_EBook {
         assertEquals(ISBN,eBook.getISBN());
     }
 
+    @Test
+    void createEBookEditoraNull() {
+        assertThrows(InvalidEBookException.class, () -> {
+            eBook = new EBook(idEbook,ISBN,autor,titulo,null,formato,fileSize,hash);
+        });
+    }
 
     @Test
     void createEBookAutorOK() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
         eBook = new EBook(idEbook,ISBN,autor,titulo,editora,formato,fileSize,hash);
         assertEquals(autor,eBook.getAutor());
     }
+
 
     @Test
     void createEBookAutorNull() {
@@ -156,7 +169,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "html";
         fileSize = 150.0f;
         hash = "Stephen king sig";
@@ -175,7 +187,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= null;
         fileSize = 150.0f;
         hash = "Stephen king sig";
@@ -194,7 +205,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = 150.0f;
         hash = "Stephen king sig";
@@ -212,7 +222,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "epub";
         fileSize = 150.0f;
         hash = "Stephen king sig";
@@ -230,7 +239,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = 155.6f;
         hash = "Stephen king sig";
@@ -249,7 +257,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = -155.5f;
         hash = "Stephen king sig";
@@ -268,7 +275,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = 120f;
         hash = "Stephen king sig";
@@ -286,7 +292,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = 0f;
         hash = "Stephen king sig";
@@ -304,7 +309,6 @@ public class TestUnidade_EBook {
         ISBN = "akjshdahq123123";
         autor = "Stephen King";
         titulo = "The Shinning";
-        editora = "Ray Lovejoy";
         formato= "pdf";
         fileSize = 155.5f;
         hash = "Stephen king sig";

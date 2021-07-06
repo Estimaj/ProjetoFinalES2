@@ -116,4 +116,12 @@ public class Database {
         return interfaceDB.getCopiaFromReplicas(id_replica);
     }
 
+    public synchronized int addEditora(Editora editora){
+        return interfaceDB.addEditora(editora);
+    }
+
+    public synchronized Editora getEditora(int idEditora){
+        return interfaceDB.getEditorabyId(idEditora);
+    }
+
 }

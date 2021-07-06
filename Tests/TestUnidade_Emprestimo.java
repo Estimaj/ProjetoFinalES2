@@ -8,18 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_Emprestimo {
 
+    private Editora editora = new Editora(1,"LEYA");
     private Emprestimo emp = null;
     private Integer id_emp = 1;
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
     private Utilizador user = new Utilizador(1, "Clark", "clark@exemplo.com", "Abc1abcABC", "Portugal", "121-231-123", "ativo");
-    private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", "Ray Lovejoy", "pdf", 150.f, "Stephen king sig");
+    private EBook eBook = new EBook(1, "akjshdahq123123", "Stephen King", "The Shinning", editora, "pdf", 150.f, "Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal","000.12.12.034");
     private Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
 
-    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
+    public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
 
     @Test

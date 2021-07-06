@@ -9,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestUnidade_Visualizar {
 
-
+    private Editora editora = new Editora(1,"LEYA");
     private Integer id_emp = 1;
     private LocalDate dataHoraEmp = LocalDate.now();
     private LocalDate FimdataHoraEmp = LocalDate.now().plusMonths(1);
     private Utilizador user = new Utilizador(1,"Clark","clark@exemplo.com","Abc1abcABC","Portugal","121-231-123","ativo");
-    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning","Ray Lovejoy","pdf",150.f,"Stephen king sig");
+    private EBook eBook = new EBook(1,"akjshdahq123123","Stephen King","The Shinning",editora,"pdf",150.f,"Stephen king sig");
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
 
 
 
-    public TestUnidade_Visualizar() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, InvalidCopiaEBookException {
+    public TestUnidade_Visualizar() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, InvalidCopiaEBookException, InvalidEditoraException {
     }
 
 

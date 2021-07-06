@@ -136,4 +136,14 @@ public class DBAdapter implements InterfaceDB {
     public JSONObject getCopiaFromReplicas(int id_replica) {
         return null;
     }
+
+    @Override
+    public int addEditora(Editora editora) {
+        return 1;
+    }
+
+    @Override
+    public Editora getEditorabyId(int idEditora) {
+        return null;
+    }
 }

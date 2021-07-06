@@ -14,19 +14,22 @@ public class EBook {
     private String ISBN;
     private String autor;
     private String titulo;
-    private String editora;
+    private Editora editora;
     private String formato;
     private float fileSize;
     private String hash;
     private static final String NUMBER_VERIFICATION = ".*\\d.*";
 
-    public EBook(int idEbook, String ISBN, String autor, String titulo, String editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
+    public EBook(int idEbook, String ISBN, String autor, String titulo, Editora editora, String formato, float fileSize, String hash) throws InvalidEBookException, InvalidEBookFormatException, InvalidEBookSizeException {
 
         if (idEbook <= 0 || idEbook >= 30001)
             throw new InvalidEBookException("EBook invalido Id");
 
         if (autor == null || autor.matches(NUMBER_VERIFICATION) || autor.equals(""))
             throw new InvalidEBookException("Invalid EBook Exception");
+
+        if (editora == null)
+            throw new InvalidEBookException("Editora Null");
 
         if (hash == null || hash.equals(""))
             throw new InvalidEBookException("Ficheiro com signature incorreta.");
@@ -80,11 +83,11 @@ public class EBook {
         this.titulo = titulo;
     }
 
-    public String getEditora() {
+    public Editora getEditora() {
         return editora;
     }
 
-    public void setEditora(String editora) {
+    public void setEditora(Editora editora) {
         this.editora = editora;
     }
 

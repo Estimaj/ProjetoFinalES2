@@ -39,4 +39,7 @@ public interface InterfaceDB {
     int removeReplica(int id_replica);
     ReplicaServidor getReplica(int id_replica);
     JSONObject getCopiaFromReplicas(int id_replica);
+
+    int addEditora(Editora editora);
+    Editora getEditorabyId(int idEditora);
 }

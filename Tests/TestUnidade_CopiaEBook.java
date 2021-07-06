@@ -1,9 +1,7 @@
 import Aplicacao.CopiaEBook;
 import Aplicacao.EBook;
-import Aplicacao.Exceptions.InvalidCopiaEBookException;
-import Aplicacao.Exceptions.InvalidEBookException;
-import Aplicacao.Exceptions.InvalidEBookFormatException;
-import Aplicacao.Exceptions.InvalidEBookSizeException;
+import Aplicacao.Editora;
+import Aplicacao.Exceptions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUnidade_CopiaEBook {
 
+    private Editora editora = new Editora(1,"LEYA");
     private String ISBN = "akjshdahq123123";
     private String autor = "Stephen King";
     private String titulo = "The Shinning";
-    private String editora = "Ray Lovejoy";
     private String formato = "pdf";
     private float fileSize = 150.f;
     private String signature = "Stephen king sig";
@@ -24,7 +22,7 @@ public class TestUnidade_CopiaEBook {
     private int idCopia = 1;
     private CopiaEBook copiaEBook = null;
 
-    public TestUnidade_CopiaEBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
+    public TestUnidade_CopiaEBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
 
 
