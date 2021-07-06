@@ -26,8 +26,8 @@ public class Utilizador {
         if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals("") || nome_utilizador.length() > 15)
             throw new InvalidUserException("Utilizador invalido nome");
 
-        if (email_utilizador == null || !email_utilizador.matches(EMAIL_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido em");
+        if (email_utilizador == null || email_utilizador.length() > 25 || email_utilizador.length() == 0 ||!email_utilizador.matches(EMAIL_VERIFICATION))
+            throw new InvalidUserException("Utilizador invalido Email");
 
         if (pwd_utilizador == null || !pwd_utilizador.matches(PWD_VERIFICATION) || pwd_utilizador.equals(""))
             throw new InvalidUserException("Utilizador invalido pwd");

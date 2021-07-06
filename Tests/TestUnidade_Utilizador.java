@@ -140,6 +140,30 @@ public class TestUnidade_Utilizador {
     }
 
     @Test
+    void createUserWithInvalidEmail_Exceeds_Max_Email_Lenght() {
+        email_user = "maria.exemplomaria.exemplomaria.exemplomaria.exemplomaria.exemplo@pt";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidEmail_Equals_Minimum_Email_Lenght() {
+        email_user = "maria.exemplomaria.exemplomaria.exemplomaria.exemplomaria.exemplo@pt";
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
+    void createUserWithInvalidEmail_Null() {
+        email_user = null;
+        assertThrows(InvalidUserException.class, () -> {
+            user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
+        });
+    }
+
+    @Test
     void createUserWithValidPwd() throws InvalidUserException {
         user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         assertEquals(pwd_user,user.getPwd_utilizador());
