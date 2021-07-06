@@ -149,7 +149,7 @@ public class TestUnidade_Utilizador {
 
     @Test
     void createUserWithInvalidEmail_Equals_Minimum_Email_Lenght() {
-        email_user = "maria.exemplomaria.exemplomaria.exemplomaria.exemplomaria.exemplo@pt";
+        email_user = "";
         assertThrows(InvalidUserException.class, () -> {
             user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);
         });

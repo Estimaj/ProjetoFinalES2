@@ -23,7 +23,7 @@ public class Funcionario {
         if (nome_func == null || nome_func.matches(NUMBER_VERIFICATION) || nome_func.equals("") || nome_func.length() > 15)
             throw new InvalidFuncException("Func invalido nome");
 
-        if (email_func == null || !email_func.matches(EMAIL_VERIFICATION) || email_func.equals(""))
+        if (email_func == null || email_func.length() > 25 || email_func.length() == 0 || !email_func.matches(EMAIL_VERIFICATION) || email_func.equals(""))
             throw new InvalidFuncException("Func invalido em");
 
         if (pwd_func == null || !pwd_func.matches(PWD_VERIFICATION) || pwd_func.equals(""))

@@ -1,5 +1,7 @@
 import Aplicacao.Exceptions.InvalidFuncException;
+import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
+import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -130,6 +132,30 @@ public class TestUnidade_Funcionario {
     @Test
     void createfuncWithInvalidEmail() {
         email_func = "ines.exemplo.pt";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createFuncWithInvalidEmail_Exceeds_Max_Email_Lenght() {
+        email_func = "ines.exemploines.exemploines.exemploines.exemploines.exemplo@pt";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createFuncWithInvalidEmail_Equals_Minimum_Email_Lenght() {
+        email_func = "";
+        assertThrows(InvalidFuncException.class, () -> {
+            func = new Funcionario(id_func,nome_func,email_func,pwd_func);
+        });
+    }
+
+    @Test
+    void createFuncWithInvalidEmail_Null() {
+        email_func = null;
         assertThrows(InvalidFuncException.class, () -> {
             func = new Funcionario(id_func,nome_func,email_func,pwd_func);
         });
