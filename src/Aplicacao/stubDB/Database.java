@@ -98,7 +98,6 @@ public class Database {
         return interfaceDB.LoginFuncionario(email, pwd);
     }
 
-
     //-----Replica
     public synchronized int addReplicaServidor(ReplicaServidor rp) {
         return interfaceDB.saveReplica(rp);
