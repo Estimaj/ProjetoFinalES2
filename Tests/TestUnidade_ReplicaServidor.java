@@ -303,7 +303,7 @@ public class TestUnidade_ReplicaServidor {
 
     /**
      * Verifica quando as Replicas tem a copia que o emprestimo possui
-     * E o Utilizador tem a mesma cidade que uma das Replicas
+     * E o Utilizador tem o mesmo pais que uma das Replicas
      *
      *
      * @throws EmprestimoException
