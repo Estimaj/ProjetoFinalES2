@@ -94,7 +94,15 @@ public class Utilizador {
 
     public void setPwd_utilizador(String pwd_utilizador) throws InvalidUserException {
         if (pwd_utilizador == null || !pwd_utilizador.matches(PWD_VERIFICATION))
-            throw new InvalidUserException("Utilizado invalido pwd");
+            throw new InvalidUserException("Utilizado invalido => pwd");
+
+        if (pwd_utilizador.length() <= 7 || pwd_utilizador.length() >= 21)
+            throw new InvalidUserException("""
+                                            Utilizador invalido -> pwd
+                                            Numero de caracteres não cumpre os Requisitos
+                                            Mais de 7 e menos de 21 caracteres
+                                            """);
+
         this.pwd_utilizador = pwd_utilizador;
     }
 
@@ -104,7 +112,7 @@ public class Utilizador {
 
     public void setMorada_utilizador(String morada_utilizador) throws InvalidUserException {
         if (!morada_utilizador.contains(","))
-            throw new InvalidUserException("Utilizador Invalido Morada");
+            throw new InvalidUserException("Utilizador Invalido => Morada");
         this.morada_utilizador = morada_utilizador;
     }
 
@@ -114,7 +122,7 @@ public class Utilizador {
 
     public void setTelefone_utilizador(String telefone_utilizador) throws InvalidUserException {
         if (telefone_utilizador == null || !telefone_utilizador.matches(PHONE_VERIFICATION))
-            throw new InvalidUserException("Utilizado invalido telefone");
+            throw new InvalidUserException("Utilizado invalido => telefone");
         this.telefone_utilizador = telefone_utilizador;
     }
 
