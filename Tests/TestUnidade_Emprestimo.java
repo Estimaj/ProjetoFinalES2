@@ -20,6 +20,31 @@ public class TestUnidade_Emprestimo {
     private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal","000.12.12.034");
     private Utilizador user_desativo = new Utilizador(1, "Clark", "Clark@exemplo.pt", "Abc1abcABC", "Portugal", "121-231-123", "desativado");
 
+
+    /**
+     *  Testes ao Emprestimo
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id
+     *
+     *      Unidade
+     *          Testes á Assinatura dos Termos de Responsabilidade
+     *              -> Quando a assinatura é .:
+     *                      -> 1 => ok
+     *                      -> diferente de 1 (nao interessa qual)
+
+     *          Testes sobre datas de Emprestimo
+     *              -> Data de fim de emprestimo antes da data atual de emprestimo
+     *              -> Data de fim de emprestimo depois da data atual de emprestimo
+     *              -> Data atual do emprestimo ser antes da data do sistema
+     *              -> Data atual do emprestimo ser igual à Data de Fim de Emprestimo
+     *
+     *          Testes sobre quando o Utilizador está cancelado
+     *
+     */
+
+
     public TestUnidade_Emprestimo() throws InvalidUserException, InvalidCopiaEBookException, InvalidReplicaException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
 

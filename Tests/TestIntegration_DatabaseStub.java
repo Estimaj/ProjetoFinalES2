@@ -22,6 +22,24 @@ public class TestIntegration_DatabaseStub {
     private JSONArray jsonArray;
     private JSONObject jsonObject;
 
+
+    /**
+     * Testes ao Stub da Base de Dados
+     *
+     *      Em alguns metodos são retornados JSONObject
+     *      porque numa base de dados não se consegue retornar ArrayList,
+     *      por isso usou-se um JSONObject e JSONArray
+     *
+     *      Testes WhiteBox
+     *              CondicoesMultiplas
+     *                  -> Login
+     *                      -> Porque temos 2 condicoes de verificacao, o email e a pwd usando o simbolo &&
+     *
+     *      O resto de testes são testes de unidade
+     *
+     */
+
+
     public TestIntegration_DatabaseStub() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, EmprestimoException, InvalidFuncException, InvalidReplicaException, InvalidCopiaEBookException, InvalidEditoraException {
     }
 

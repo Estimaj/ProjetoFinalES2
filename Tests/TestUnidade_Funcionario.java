@@ -1,7 +1,5 @@
 import Aplicacao.Exceptions.InvalidFuncException;
-import Aplicacao.Exceptions.InvalidUserException;
 import Aplicacao.Funcionario;
-import Aplicacao.Utilizador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +11,23 @@ public class TestUnidade_Funcionario {
     private String nome_func = "Ines";
     private String email_func= "ines@exemplo.com";
     private String pwd_func = "Abc1abcABC";
+
+
+    /**
+     *  Testes ao Funcionario
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *          Particionamento
+     *              --> Verificacao de lenght de Strings
+     *
+     *      Unidade
+     *          Testes sobre objetos
+     *          Testes sobre o regex utilizado
+     *
+     */
 
 
     @Test

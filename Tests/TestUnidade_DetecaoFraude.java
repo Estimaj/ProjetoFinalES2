@@ -18,6 +18,20 @@ public class TestUnidade_DetecaoFraude {
     private Funcionario func = new Funcionario(1, "Joao", "Joao@exemplo.com", "Abc1abcABC!");
     private DetecaoFraude detecaoFraude = new DetecaoFraude(1, emp, func);
 
+
+    /**
+     *  Testes à Deteção de Fraude
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *      Unidade
+     *          Testes quando é criado um emprestimo com um Utilizador desativado
+     *
+     */
+
+
     public TestUnidade_DetecaoFraude() throws InvalidUserException, InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, EmprestimoException, InvalidDetecaoFraudeException, InvalidFuncException, InvalidCopiaEBookException, InvalidEditoraException {
     }
 

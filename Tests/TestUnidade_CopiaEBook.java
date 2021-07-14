@@ -22,9 +22,21 @@ public class TestUnidade_CopiaEBook {
     private int idCopia = 1;
     private CopiaEBook copiaEBook = null;
 
+    /**
+     *  Testes à CopiaEBook
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *      Unidade
+     *          Testes sobre objetos
+     *
+     */
+
+
     public TestUnidade_CopiaEBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
-
 
     @Test
     void createCopiaEBookNull() {

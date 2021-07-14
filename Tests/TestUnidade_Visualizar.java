@@ -18,6 +18,15 @@ public class TestUnidade_Visualizar {
     private CopiaEBook copiaEBook = new CopiaEBook(1,eBook);
 
 
+    /**
+     *  Testes à Visualizacao
+     *
+     *      Unidade
+     *          Testes sobre quando a conta do Utilizador está desativada
+     *          Testes a data de visualizacao tendo em conta a data de fim de emprestimo
+     *
+     */
+
 
     public TestUnidade_Visualizar() throws InvalidUserException, InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException, InvalidCopiaEBookException, InvalidEditoraException {
     }

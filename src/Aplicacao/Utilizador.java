@@ -21,29 +21,32 @@ public class Utilizador {
     public Utilizador(Integer id_utilizador, String nome_utilizador, String email_utilizador, String pwd_utilizador,String morada_utilizador, String telefone_utilizador, String estado_utilizador) throws InvalidUserException {
 
         if (id_utilizador <= 0 || id_utilizador >= 30001)
-            throw new InvalidUserException("Utilizador invalido Id");
+            throw new InvalidUserException("Utilizador invalido -> Id");
 
         if (nome_utilizador == null || nome_utilizador.matches(NUMBER_VERIFICATION) || nome_utilizador.equals("") || nome_utilizador.length() > 15)
-            throw new InvalidUserException("Utilizador invalido nome");
+            throw new InvalidUserException("Utilizador invalido -> nome");
 
         if (email_utilizador == null || email_utilizador.length() > 25 || email_utilizador.length() == 0 ||!email_utilizador.matches(EMAIL_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido Email");
+            throw new InvalidUserException("Utilizador invalido -> Email");
 
         if (pwd_utilizador == null || !pwd_utilizador.matches(PWD_VERIFICATION) || pwd_utilizador.equals(""))
-            throw new InvalidUserException("Utilizador invalido pwd");
+            throw new InvalidUserException("Utilizador invalido -> pwd");
 
         if (pwd_utilizador.length() <= 7 || pwd_utilizador.length() >= 21)
-            throw new InvalidUserException("Utilizador invalido pwd" +
-                    "\nNumero de caracteres errados");
+            throw new InvalidUserException("""
+                                            Utilizador invalido -> pwd
+                                            Numero de caracteres não cumpre os Requisitos
+                                            Mais de 7 e menos de 21 caracteres
+                                            """);
 
         if (telefone_utilizador == null || !telefone_utilizador.matches(PHONE_VERIFICATION))
-            throw new InvalidUserException("Utilizador invalido telefone");
+            throw new InvalidUserException("Utilizador invalido -> telefone");
 
         if (!Objects.equals(estado_utilizador, "ativo") && !Objects.equals(estado_utilizador,"desativado") || estado_utilizador.matches(NUMBER_VERIFICATION) || estado_utilizador == null)
-            throw new InvalidUserException("Utilizador invalido estado");
+            throw new InvalidUserException("Utilizador invalido -> estado");
 
         if (morada_utilizador == null || morada_utilizador.equals("") ||morada_utilizador.matches(NUMBER_VERIFICATION) || morada_utilizador.length() > 10)
-            throw new InvalidUserException("Utilizador Invalido Morada");
+            throw new InvalidUserException("Utilizador Invalido -> Morada");
 
         this.id_utilizador = id_utilizador;
         this.nome_utilizador = nome_utilizador;

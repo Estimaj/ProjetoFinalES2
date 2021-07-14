@@ -21,6 +21,29 @@ public class TestUnidade_ReplicaServidor {
     private Emprestimo emp = new Emprestimo(1, LocalDate.now(), LocalDate.now().plusMonths(1), u, copiaEBook, 1);
 
 
+    /**
+     *  Testes à Replica
+     *      Contem testes sobre a replica e Gestor de Replica
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id
+     *
+     *          Particionamento
+     *              --> lenght das strings
+     *
+     *      WhiteBox
+     *          CondicoesMultiplas
+     *              --> Atribuicao de Replica de acordo com o pais do Utilizador
+     *                  -> Replica get_Replica_Proxima_Cliente(Emprestimo emp)...
+     *
+     *      Unidade
+     *          Testes sobre regex
+     *          Testes sobre objetos
+     *
+     */
+
+
     public TestUnidade_ReplicaServidor() throws InvalidCopiaEBookException, InvalidEBookException, InvalidUserException, EmprestimoException, InvalidEBookSizeException, InvalidEBookFormatException, InvalidEditoraException {
     }
 

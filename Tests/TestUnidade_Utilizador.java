@@ -19,6 +19,23 @@ public class TestUnidade_Utilizador {
     private String estado_user = "ativo";
 
 
+    /**
+     *  Testes ao Utilizador
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *          Particionamento
+     *              --> Verificacao de lenght de Strings
+     *
+     *      Unidade
+     *          Testes sobre objetos
+     *          Testes sobre o regex utilizado
+     *
+     */
+
+
     @Test
     void createUserOk() throws InvalidUserException {
         user = new Utilizador(id_user,nome_user,email_user,pwd_user,morada_user,telefone_user,estado_user);

@@ -28,6 +28,32 @@ public class TestUnidade_EBook {
     private Float fileSize = 0.f;
     private String hash = "Stephen king sig";
 
+
+    /**
+     *  Testes ao EBook
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *          Particionamento
+     *              --> fileSize do EBook
+     *
+     *      Unidade
+     *          Testes ao formato
+     *              -> Quando o formato é .:
+     *                      -> pdf
+     *                      -> epub
+     *                      -> diferente de pdf e epub (nao interessa qual)
+     *                      -> null
+     *
+     *
+     *          Testes sobre objetos
+     *          Testes sobre o regex utilizado
+     *
+     */
+
+
     public TestUnidade_EBook() throws InvalidEditoraException {
     }
 
@@ -198,7 +224,7 @@ public class TestUnidade_EBook {
     /**
      *  Formato correto com o formato pdf
      *
-     *  return InvalidEBookFormatException
+     *  return pdf
      */
     @Test
     void test_formato_correto_Pdf_EBook() throws InvalidEBookException, InvalidEBookSizeException, InvalidEBookFormatException {
@@ -215,7 +241,7 @@ public class TestUnidade_EBook {
     /**
      *  Formato correto com o formato epub
      *
-     *  return InvalidEBookFormatException
+     *  return epub
      */
     @Test
     void test_formato_correto_EPub_EBook() throws InvalidEBookFormatException, InvalidEBookSizeException, InvalidEBookException {

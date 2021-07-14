@@ -10,6 +10,24 @@ public class TestUnidade_Editora {
     private String nomeEditora = "LEYA";
     private Editora editora;
 
+
+    /**
+     *  Testes à Editora
+     *
+     *      BlackBox
+     *          Analise de Valores Limite
+     *              --> id's
+     *
+     *          Particionamento
+     *              --> lenght do atributo "autor"
+     *
+     *      Unidade
+     *          Testes sobre objetos
+     *          Testes sobre o regex utilizado
+     *
+     */
+
+
     @Test
     void createEditoraOK() throws InvalidEditoraException {
         editora = new Editora(idEditora,nomeEditora);
