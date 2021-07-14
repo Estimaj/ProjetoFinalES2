@@ -132,6 +132,11 @@ public class TestUnidade_ReplicaServidor {
         });
     }
 
+
+    /**
+     * Tests aos sets da replicas, são utilizados os mesmos parametros que quando é usado o construtor
+     * @throws "depende do set"
+     */
     @Test
     void Test_Sets_of_Replica() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
@@ -198,9 +203,8 @@ public class TestUnidade_ReplicaServidor {
     /**
      *
      *  Teste ao Gestor Replicas
-     *
+     *  Verfica o conteudo da replicas
      */
-
     @Test
     void Check_Content_of_CopiaEBook_in_Replica() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
@@ -217,6 +221,11 @@ public class TestUnidade_ReplicaServidor {
     }
 
 
+    /**
+     * get replica por id
+     * quando id existe
+     * @throws "replicaServidor_portugal"
+     */
     @Test
     void getSpecificReplicabyId() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
@@ -397,7 +406,7 @@ public class TestUnidade_ReplicaServidor {
      *
      *
      * @throws InvalidReplicaException
-     * @return null
+     * @return EmprestimoException
      */
 
     @Test
@@ -429,6 +438,10 @@ public class TestUnidade_ReplicaServidor {
     }
 
 
+    /**
+     *
+     * Verifica o tamanho do Array quando se remove replicas
+     */
     @Test
     void Remove_From_Gestor() throws InvalidReplicaException {
         replicaServidor_portugal = new ReplicaServidor(1, "Portugal","000.12.12.034");
